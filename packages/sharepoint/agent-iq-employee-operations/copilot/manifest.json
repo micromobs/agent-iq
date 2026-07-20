@@ -1,0 +1,35 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.29/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.29",
+  "version": "1.0.1",
+  "id": "3dc8aaef-2f28-49d9-9dcc-fdcf71040bc1",
+  "developer": {
+    "name": "Agent IQ Community Preview",
+    "websiteUrl": "",
+    "privacyUrl": "",
+    "termsOfUseUrl": ""
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "name": {
+    "short": "Agent IQ Employee Ops",
+    "full": "Agent IQ Employee Operations"
+  },
+  "description": {
+    "short": "Disconnected synthetic employee operations preview",
+    "full": "Explore 30 packaged Agent IQ Employee Operations scenarios without accessing or changing enterprise data."
+  },
+  "accentColor": "#FFFFFF",
+  "copilotAgents": {
+    "declarativeAgents": [
+      {
+        "id": "employeeOperationsAgent",
+        "file": "declarativeAgent.json"
+      }
+    ]
+  },
+  "permissions": ["identity"],
+  "validDomains": []
+}

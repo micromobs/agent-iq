@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "agent-iq-employee-operations-client-side-solution",
+    "id": "561b07fe-480f-471a-838d-297c64d30b8a",
+    "version": "1.0.1.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "Agent IQ Community Preview",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": ""
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "Agent IQ Employee Operations disconnected synthetic preview"
+      },
+      "longDescription": {
+        "default": "A synthetic-only Microsoft 365 Copilot component with 30 packaged employee operations scenarios. It does not access or change enterprise data."
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "Agent IQ Employee Operations",
+        "description": "Activates the disconnected synthetic Agent IQ Employee Operations preview.",
+        "id": "a03c878f-3bbd-44b7-9a6e-268389ea4970",
+        "version": "1.0.1.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/agent-iq-employee-operations.sppkg"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "whichFolder": "subdir",
+    "solutionName": "agent-iq-employee-operations",
+    "environment": "spo",
+    "packageManager": "npm",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "useGulp": false,
+    "componentType": "copilotComponent",
+    "template": "react",
+    "componentName": "EmployeeOperations",
+    "componentDescription": "Disconnected synthetic Agent IQ employee operations preview",
+    "plusBeta": true,
+    "isCreatingSolution": true,
+    "nodeVersion": "22.23.1",
+    "sdksVersions": {},
+    "version": "1.24.0-beta.2",
+    "libraryName": "agent-iq-employee-operations",
+    "libraryId": "561b07fe-480f-471a-838d-297c64d30b8a",
+    "solutionShortDescription": "Agent IQ Employee Operations disconnected synthetic preview"
+  }
+}

@@ -1,6 +1,6 @@
 # Agent IQ Repository Guide
 
-This generated index covers all **434** files in the release tree. Regenerate it with:
+This generated index covers all **467** files in the release tree. Regenerate it with:
 
 ```powershell
 uv run python .\scripts\generate_repository_guide.py
@@ -18,7 +18,7 @@ For task-oriented setup, start with the [README](../README.md), [Azure deploymen
 | `deployments` | 9 |
 | `docs` | 34 |
 | `evals` | 6 |
-| `packages` | 25 |
+| `packages` | 58 |
 | `schemas` | 37 |
 | `scripts` | 52 |
 | `src` | 142 |
@@ -163,6 +163,39 @@ For task-oriented setup, start with the [README](../README.md), [Azure deploymen
 | `packages/cowork/skills/single-agent-analysis/SKILL.md` | Documentation: Focused single-agent Foundry analysis. |
 | `packages/cowork/skills/supply-readiness/SKILL.md` | Documentation: Supply readiness. |
 | `packages/cowork/skills/vacation-balance/SKILL.md` | Documentation: Vacation balance. |
+| `packages/sharepoint/agent-iq-employee-operations/.gitignore` | Repository asset for gitignore. |
+| `packages/sharepoint/agent-iq-employee-operations/.npmignore` | Repository asset for npmignore. |
+| `packages/sharepoint/agent-iq-employee-operations/.vscode/launch.json` | JSON data with top-level fields: configurations, version. |
+| `packages/sharepoint/agent-iq-employee-operations/.vscode/settings.json` | JSON data or configuration. |
+| `packages/sharepoint/agent-iq-employee-operations/.yo-rc.json` | JSON data with top-level fields: @microsoft/generator-sharepoint. |
+| `packages/sharepoint/agent-iq-employee-operations/config/config.json` | JSON data with top-level fields: $schema, bundles, externals, localizedResources. |
+| `packages/sharepoint/agent-iq-employee-operations/config/copilot-agent.json` | JSON data with top-level fields: $schema, agents. |
+| `packages/sharepoint/agent-iq-employee-operations/config/deploy-azure-storage.json` | JSON data with top-level fields: $schema, accessKey, account, container. |
+| `packages/sharepoint/agent-iq-employee-operations/config/package-solution.json` | JSON data with top-level fields: $schema, paths, solution. |
+| `packages/sharepoint/agent-iq-employee-operations/config/rig.json` | JSON data or configuration. |
+| `packages/sharepoint/agent-iq-employee-operations/config/sass.json` | JSON data with top-level fields: $schema, extends. |
+| `packages/sharepoint/agent-iq-employee-operations/config/serve.json` | JSON data with top-level fields: $schema, https, initialPage, port. |
+| `packages/sharepoint/agent-iq-employee-operations/config/typescript.json` | JSON data with top-level fields: extends, staticAssetsToCopy. |
+| `packages/sharepoint/agent-iq-employee-operations/config/write-manifests.json` | JSON data with top-level fields: $schema, cdnBasePath. |
+| `packages/sharepoint/agent-iq-employee-operations/copilot/ai-plugin.json` | JSON data with top-level fields: $schema, description_for_human, description_for_model, name_for_human. |
+| `packages/sharepoint/agent-iq-employee-operations/copilot/color.png` | PNG image asset (192x192). |
+| `packages/sharepoint/agent-iq-employee-operations/copilot/declarativeAgent.json` | JSON contract or configuration: Agent IQ Employee Operations. |
+| `packages/sharepoint/agent-iq-employee-operations/copilot/instruction.txt` | Text asset for instruction. |
+| `packages/sharepoint/agent-iq-employee-operations/copilot/manifest.json` | JSON data with top-level fields: $schema, accentColor, copilotAgents, description. |
+| `packages/sharepoint/agent-iq-employee-operations/copilot/outline.png` | PNG image asset (32x32). |
+| `packages/sharepoint/agent-iq-employee-operations/eslint.config.js` | Javascript module for eslint config. |
+| `packages/sharepoint/agent-iq-employee-operations/package.json` | JSON contract or configuration: agent-iq-employee-operations. |
+| `packages/sharepoint/agent-iq-employee-operations/README.md` | Documentation: Agent IQ Employee Operations — SharePoint (SPFx) surface. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/components/EmployeeOperations.tsx` | React typescript module for EmployeeOperations. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/components/IEmployeeOperationsProps.ts` | Typescript module for IEmployeeOperationsProps. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/components/types.ts` | Typescript module for types. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/data/employeeDemoData.ts` | Typescript module for employeeDemoData. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/EmployeeOperationsCopilotComponent.manifest.json` | JSON data with top-level fields: $schema, alias, capabilities, componentType. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/EmployeeOperationsCopilotComponent.tsx` | React typescript module for EmployeeOperationsCopilotComponent. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/EmployeeOperationsCopilotComponentProperties.ts` | Typescript module for EmployeeOperationsCopilotComponentProperties. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/loc/en-us.js` | Javascript module for en us. |
+| `packages/sharepoint/agent-iq-employee-operations/src/copilotComponents/employeeOperations/loc/mystrings.d.ts` | Typescript module for mystrings d. |
+| `packages/sharepoint/agent-iq-employee-operations/tsconfig.json` | JSON data or configuration. |
 
 ## Root files
 

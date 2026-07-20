@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/plugin/v2.4/schema.json",
+  "schema_version": "v2.4",
+  "namespace": "employeeOperations",
+  "name_for_human": "Agent IQ Employee Operations",
+  "description_for_human": "Disconnected synthetic preview of 30 employee operations scenarios",
+  "description_for_model": "Render packaged synthetic employee operations scenarios without accessing or changing enterprise data"
+}

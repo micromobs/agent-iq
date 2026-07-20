@@ -1,0 +1,25 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx/client-side-component-manifest.schema.json",
+  "id": "ac3a7e62-7422-4ec9-ba93-b9c76dc45bf2",
+  "alias": "EmployeeOperationsCopilotComponent",
+  "componentType": "CopilotComponent",
+  "copilotType": "Ux",
+  "version": "*",
+  "manifestVersion": 2,
+
+  "capabilities": {
+    "availableDisplayModes": ["inline", "fullscreen"]
+  },
+
+  "tools": [
+    {
+      "name": "EmployeeOperationsExperienceTool",
+      "description": {
+        "default": "Render one of 30 packaged, disconnected Agent IQ Employee Operations scenarios without accessing enterprise data."
+      },
+      "propertiesSchema": {
+        "id": "$../../../lib/copilotComponents/employeeOperations/EmployeeOperationsCopilotComponentProperties.js:default;"
+      }
+    }
+  ]
+}

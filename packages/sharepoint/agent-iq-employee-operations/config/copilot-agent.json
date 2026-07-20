@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/@microsoft/spfx-heft-plugins/lib-commonjs/plugins/copilotAgentPlugin/copilot-agent.schema.json",
+  "agents": [
+    {
+      "name": {
+        "default": "Agent IQ Employee Operations"
+      },
+      "description": {
+        "default": "Disconnected synthetic-only preview of 30 employee operations scenarios. Uses the EmployeeOperationsExperienceTool packaged catalog and does not access or change enterprise data."
+      },
+      "components": [
+        "ac3a7e62-7422-4ec9-ba93-b9c76dc45bf2"
+      ]
+    }
+  ]
+}

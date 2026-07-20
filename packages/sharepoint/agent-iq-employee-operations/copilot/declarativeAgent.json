@@ -1,0 +1,63 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/copilot/declarative-agent/v1.7/schema.json",
+  "version": "v1.7",
+  "name": "Agent IQ Employee Operations",
+  "description": "Disconnected synthetic-only preview of 30 packaged employee operations scenarios",
+  "instructions": "$[file('instruction.txt')]",
+  "conversation_starters": [
+    {
+      "title": "Plan my day",
+      "text": "Open the packaged my-day, personalized-news, or org-explorer synthetic scenario."
+    },
+    {
+      "title": "Joiners and leavers",
+      "text": "Preview new-hire-launchpad, contractor-onboarding, or offboarding-command-center."
+    },
+    {
+      "title": "Pay and benefits",
+      "text": "Preview benefits-open-enrollment, paycheck-discrepancy, or payslip-explainer."
+    },
+    {
+      "title": "Leave and growth",
+      "text": "Preview parental-leave-planner, time-off-coverage, or learning-career-path."
+    },
+    {
+      "title": "Expenses and travel",
+      "text": "Preview client-dinner-policy, expense-smart-submit, or travel-disruption."
+    },
+    {
+      "title": "Device and support",
+      "text": "Preview laptop-refresh, lost-device-response, or vpn-meeting-rescue."
+    },
+    {
+      "title": "Access and sites",
+      "text": "Preview software-access-governance, site-provisioning, or site-health-governance."
+    },
+    {
+      "title": "Workplace wellbeing",
+      "text": "Preview cafeteria-wellness, room-desk-reservation, or pulse-survey-action."
+    },
+    {
+      "title": "Recognition and progression",
+      "text": "Preview praise-colleague or promotion-comp-change."
+    },
+    {
+      "title": "Finance and purchasing",
+      "text": "Preview month-end-close or purchase-vendor-compare."
+    },
+    {
+      "title": "Customer overview",
+      "text": "Preview the sales-customer-360 packaged synthetic scenario."
+    },
+    {
+      "title": "Policy review",
+      "text": "Preview the visual-policy-qa packaged synthetic scenario."
+    }
+  ],
+  "actions": [
+    {
+      "id": "employeeOperationsAction",
+      "file": "ai-plugin.json"
+    }
+  ]
+}
