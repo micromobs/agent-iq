@@ -1,6 +1,6 @@
 # Agent IQ Repository Guide
 
-This generated index covers all **433** files in the release tree. Regenerate it with:
+This generated index covers all **434** files in the release tree. Regenerate it with:
 
 ```powershell
 uv run python .\scripts\generate_repository_guide.py
@@ -12,7 +12,7 @@ For task-oriented setup, start with the [README](../README.md), [Azure deploymen
 
 | Area | Files |
 | --- | ---: |
-| `(root)` | 15 |
+| `(root)` | 16 |
 | `.github` | 15 |
 | `apps` | 21 |
 | `deployments` | 9 |
@@ -173,6 +173,7 @@ For task-oriented setup, start with the [README](../README.md), [Azure deploymen
 | `.env.example` | Repository asset for env. |
 | `.gitattributes` | Repository asset for gitattributes. |
 | `.gitignore` | Repository asset for gitignore. |
+| `.gitleaks.toml` | Toml configuration for gitleaks. |
 | `.python-version` | Repository asset for python version. |
 | `.secrets.baseline` | Repository asset for secrets. |
 | `AGENTS.md` | Documentation: Agent IQ contributor guide. |
