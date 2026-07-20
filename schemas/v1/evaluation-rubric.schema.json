@@ -1,0 +1,145 @@
+{
+  "$defs": {
+    "RubricCriterion": {
+      "additionalProperties": false,
+      "properties": {
+        "criterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Criterionid",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "dimension": {
+          "$ref": "#/$defs/RubricDimension"
+        },
+        "evaluator": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Evaluator",
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/$defs/RubricCriterionMode"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "threshold": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Threshold",
+          "type": "number"
+        },
+        "weight": {
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "criterionId",
+        "dimension",
+        "mode",
+        "evaluator",
+        "description",
+        "weight",
+        "threshold"
+      ],
+      "title": "RubricCriterion",
+      "type": "object"
+    },
+    "RubricCriterionMode": {
+      "enum": [
+        "deterministic",
+        "model_judge"
+      ],
+      "title": "RubricCriterionMode",
+      "type": "string"
+    },
+    "RubricDimension": {
+      "enum": [
+        "routing",
+        "orchestration",
+        "groundedness",
+        "evidence_coverage",
+        "honest_decline",
+        "conflict_handling",
+        "completeness",
+        "task_success"
+      ],
+      "title": "RubricDimension",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/evaluation-rubric.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "criteria": {
+      "items": {
+        "$ref": "#/$defs/RubricCriterion"
+      },
+      "minItems": 1,
+      "title": "Criteria",
+      "type": "array"
+    },
+    "description": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "passThreshold": {
+      "exclusiveMinimum": 0,
+      "maximum": 1,
+      "title": "Passthreshold",
+      "type": "number"
+    },
+    "rubricId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Rubricid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "version": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "rubricId",
+    "version",
+    "title",
+    "description",
+    "passThreshold",
+    "criteria"
+  ],
+  "title": "RubricDefinition",
+  "type": "object"
+}

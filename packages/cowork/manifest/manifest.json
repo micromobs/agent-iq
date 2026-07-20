@@ -1,0 +1,88 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.28/MicrosoftTeams.schema.json",
+  "manifestVersion": "devPreview",
+  "version": "1.5.1",
+  "id": "c921507e-3747-59f1-8f06-7dab5d1853ff",
+  "developer": {
+    "name": "Agent IQ",
+    "websiteUrl": "https://github.com/micromobs/agent-iq",
+    "privacyUrl": "https://github.com/micromobs/agent-iq/blob/main/SECURITY.md",
+    "termsOfUseUrl": "https://github.com/micromobs/agent-iq/blob/main/LICENSE"
+  },
+  "name": {
+    "short": "Agent IQ",
+    "full": "Agent IQ"
+  },
+  "description": {
+    "short": "Discover and invoke the right agent for each request.",
+    "full": "Agent IQ understands the request, clarifies material ambiguity, discovers the right eligible agent or team, invokes it, and returns a grounded response. Included workflows cover formulation, brand comparison, supply, regulatory review, launch readiness, vacation, HR, IT, payroll, finance, expense, corporate services, and governance."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png",
+    "color32x32": "color32.png"
+  },
+  "accentColor": "#0F6CBD",
+  "agentSkills": [
+    {
+      "folder": "./skills/single-agent-analysis"
+    },
+    {
+      "folder": "./skills/formulation-brief"
+    },
+    {
+      "folder": "./skills/brand-comparison"
+    },
+    {
+      "folder": "./skills/supply-readiness"
+    },
+    {
+      "folder": "./skills/regulatory-claim-review"
+    },
+    {
+      "folder": "./skills/launch-readiness"
+    },
+    {
+      "folder": "./skills/vacation-balance"
+    },
+    {
+      "folder": "./skills/employee-command-center"
+    },
+    {
+      "folder": "./skills/ask-hr"
+    },
+    {
+      "folder": "./skills/ask-it"
+    },
+    {
+      "folder": "./skills/ask-payroll"
+    },
+    {
+      "folder": "./skills/ask-finance"
+    },
+    {
+      "folder": "./skills/ask-expense"
+    },
+    {
+      "folder": "./skills/corporate-services"
+    },
+    {
+      "folder": "./skills/management-governance"
+    }
+  ],
+  "agentConnectors": [
+    {
+      "id": "agent-iq-orchestrator-mcp",
+      "displayName": "Agent IQ Orchestrator",
+      "description": "Discovers and invokes eligible agents for formulation, brand, supply, regulatory, launch, vacation, and employee-service requests. Personal vacation balances use one compact ring; plain VPN recovery uses one compact read-only guidance flow.",
+      "toolSource": {
+        "remoteMcpServer": {
+          "mcpServerUrl": "https://agent-iq-orchestrator-canary.template-00000000.swedencentral.azurecontainerapps.io/mcp",
+          "authorization": {
+            "type": "None"
+          }
+        }
+      }
+    }
+  ]
+}

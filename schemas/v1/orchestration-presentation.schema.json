@@ -1,0 +1,504 @@
+{
+  "$defs": {
+    "CitationPresentation": {
+      "additionalProperties": false,
+      "properties": {
+        "excerpt": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Excerpt"
+        },
+        "number": {
+          "minimum": 1,
+          "title": "Number",
+          "type": "integer"
+        },
+        "sourceId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Sourceid",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "number",
+        "title",
+        "sourceId"
+      ],
+      "title": "CitationPresentation",
+      "type": "object"
+    },
+    "ExecutionIssuePresentation": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/SynthesisIssueStatus"
+        }
+      },
+      "required": [
+        "agentId",
+        "status",
+        "message"
+      ],
+      "title": "ExecutionIssuePresentation",
+      "type": "object"
+    },
+    "ExecutionStatus": {
+      "enum": [
+        "completed",
+        "partial",
+        "declined",
+        "failed",
+        "cancelled"
+      ],
+      "title": "ExecutionStatus",
+      "type": "string"
+    },
+    "SelectedAgentPresentation": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "displayName": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Displayname",
+          "type": "string"
+        },
+        "matchedSkills": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Matchedskills",
+          "type": "array"
+        },
+        "matchedTags": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedtags",
+          "type": "array"
+        },
+        "reason": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agentId",
+        "displayName",
+        "reason"
+      ],
+      "title": "SelectedAgentPresentation",
+      "type": "object"
+    },
+    "SynthesisIssueStatus": {
+      "enum": [
+        "declined",
+        "failed",
+        "timed_out",
+        "cancelled",
+        "omitted_ungrounded"
+      ],
+      "title": "SynthesisIssueStatus",
+      "type": "string"
+    },
+    "VpnRecoveryOutcomeKind": {
+      "description": "The governed recovery outcomes displayed on the compact VPN flow.",
+      "enum": [
+        "reconnect",
+        "restart",
+        "network_reset",
+        "help_desk"
+      ],
+      "title": "VpnRecoveryOutcomeKind",
+      "type": "string"
+    },
+    "VpnRecoveryOutcomePresentation": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "minimum": 0,
+          "title": "Count",
+          "type": "integer"
+        },
+        "label": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "outcomeId": {
+          "$ref": "#/$defs/VpnRecoveryOutcomeKind"
+        },
+        "recommended": {
+          "default": false,
+          "title": "Recommended",
+          "type": "boolean"
+        },
+        "share": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Share",
+          "type": "number"
+        }
+      },
+      "required": [
+        "outcomeId",
+        "label",
+        "count",
+        "share"
+      ],
+      "title": "VpnRecoveryOutcomePresentation",
+      "type": "object"
+    },
+    "VpnRecoveryPresentation": {
+      "additionalProperties": false,
+      "description": "Compact public projection for aggregate VPN recovery guidance.",
+      "properties": {
+        "escalationBoundary": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Escalationboundary"
+        },
+        "freshnessLabel": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Freshnesslabel"
+        },
+        "guidanceNote": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Guidancenote"
+        },
+        "outcomes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/VpnRecoveryOutcomePresentation"
+          },
+          "maxItems": 4,
+          "title": "Outcomes",
+          "type": "array"
+        },
+        "periodLabel": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Periodlabel"
+        },
+        "population": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Population"
+        },
+        "readOnlyLabel": {
+          "default": "Read-only guidance only; no action was taken.",
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Readonlylabel",
+          "type": "string"
+        },
+        "recommendedFirstAction": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recommendedfirstaction"
+        },
+        "scopeLabel": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scopelabel"
+        },
+        "selectedAgent": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/SelectedAgentPresentation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "source": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/CitationPresentation"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unavailable"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "summaryLines": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "maxItems": 2,
+          "minItems": 1,
+          "title": "Summarylines",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "title",
+        "summaryLines"
+      ],
+      "title": "VpnRecoveryPresentation",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/orchestration-presentation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Concise completed result; full execution remains available through the ledger.",
+  "properties": {
+    "answer": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Answer",
+      "type": "string"
+    },
+    "citations": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CitationPresentation"
+      },
+      "title": "Citations",
+      "type": "array"
+    },
+    "detailsAvailableVia": {
+      "const": "get_execution",
+      "default": "get_execution",
+      "title": "Detailsavailablevia",
+      "type": "string"
+    },
+    "durationMs": {
+      "minimum": 0,
+      "title": "Durationms",
+      "type": "integer"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "issues": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ExecutionIssuePresentation"
+      },
+      "title": "Issues",
+      "type": "array"
+    },
+    "nextAction": {
+      "anyOf": [
+        {
+          "maxLength": 16384,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Nextaction"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Requestid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "selectedAgents": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/SelectedAgentPresentation"
+      },
+      "title": "Selectedagents",
+      "type": "array"
+    },
+    "sourcesMarkdown": {
+      "anyOf": [
+        {
+          "maxLength": 16384,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sourcesmarkdown"
+    },
+    "status": {
+      "$ref": "#/$defs/ExecutionStatus"
+    },
+    "vpnRecovery": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/VpnRecoveryPresentation"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "executionId",
+    "requestId",
+    "status",
+    "durationMs",
+    "answer"
+  ],
+  "title": "OrchestrationPresentation",
+  "type": "object"
+}

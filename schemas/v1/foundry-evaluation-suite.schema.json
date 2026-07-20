@@ -1,0 +1,384 @@
+{
+  "$defs": {
+    "FoundryCriterionCategory": {
+      "description": "Native evaluator families represented in a Foundry suite.",
+      "enum": [
+        "agent",
+        "rag",
+        "safety"
+      ],
+      "title": "FoundryCriterionCategory",
+      "type": "string"
+    },
+    "FoundryCriterionDefinition": {
+      "additionalProperties": false,
+      "description": "Versioned mapping and normalization for one Foundry built-in evaluator.",
+      "properties": {
+        "agentIqCriterionId": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agentiqcriterionid"
+        },
+        "category": {
+          "$ref": "#/$defs/FoundryCriterionCategory"
+        },
+        "criterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Criterionid",
+          "type": "string"
+        },
+        "dataMapping": {
+          "additionalProperties": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Datamapping",
+          "type": "object"
+        },
+        "evaluatorName": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Evaluatorname",
+          "type": "string"
+        },
+        "judgeParameter": {
+          "$ref": "#/$defs/FoundryJudgeParameter"
+        },
+        "lowerIsBetter": {
+          "default": false,
+          "title": "Lowerisbetter",
+          "type": "boolean"
+        },
+        "maxScoreDelta": {
+          "default": 0.25,
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Maxscoredelta",
+          "type": "number"
+        },
+        "normalizationDivisor": {
+          "exclusiveMinimum": 0,
+          "title": "Normalizationdivisor",
+          "type": "number"
+        }
+      },
+      "required": [
+        "criterionId",
+        "evaluatorName",
+        "category",
+        "judgeParameter",
+        "dataMapping",
+        "normalizationDivisor"
+      ],
+      "title": "FoundryCriterionDefinition",
+      "type": "object"
+    },
+    "FoundryEvaluationCase": {
+      "additionalProperties": false,
+      "description": "Versioned content used only as native evaluation input.",
+      "properties": {
+        "caseId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Caseid",
+          "type": "string"
+        },
+        "context": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Context"
+        },
+        "groundTruth": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Groundtruth"
+        },
+        "query": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Query",
+          "type": "string"
+        },
+        "toolDefinitions": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/FoundryEvaluationToolDefinition"
+          },
+          "title": "Tooldefinitions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "caseId",
+        "query"
+      ],
+      "title": "FoundryEvaluationCase",
+      "type": "object"
+    },
+    "FoundryEvaluationProtocol": {
+      "description": "Agent protocols relevant to Foundry evaluation capability selection.",
+      "enum": [
+        "responses",
+        "invocations",
+        "a2a",
+        "activity"
+      ],
+      "title": "FoundryEvaluationProtocol",
+      "type": "string"
+    },
+    "FoundryEvaluationTargetMode": {
+      "description": "Supported native Foundry evaluation data sources.",
+      "enum": [
+        "direct_target",
+        "trace_replay"
+      ],
+      "title": "FoundryEvaluationTargetMode",
+      "type": "string"
+    },
+    "FoundryEvaluationToolDefinition": {
+      "additionalProperties": false,
+      "description": "OpenAI-compatible tool definition made available to native evaluators.",
+      "properties": {
+        "description": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "parameters": {
+          "additionalProperties": true,
+          "title": "Parameters",
+          "type": "object"
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "parameters"
+      ],
+      "title": "FoundryEvaluationToolDefinition",
+      "type": "object"
+    },
+    "FoundryInteractionPattern": {
+      "description": "Execution patterns that determine direct-target eligibility.",
+      "enum": [
+        "synchronous_non_streaming",
+        "streaming",
+        "durable"
+      ],
+      "title": "FoundryInteractionPattern",
+      "type": "string"
+    },
+    "FoundryJudgeParameter": {
+      "description": "Initialization parameter expected by the selected built-in evaluator.",
+      "enum": [
+        "none",
+        "model",
+        "deployment_name"
+      ],
+      "title": "FoundryJudgeParameter",
+      "type": "string"
+    },
+    "FoundryModelPrice": {
+      "additionalProperties": false,
+      "description": "Public list pricing used for a bounded evaluation-cost estimate.",
+      "properties": {
+        "cachedInputUsdPerMillion": {
+          "minimum": 0,
+          "title": "Cachedinputusdpermillion",
+          "type": "number"
+        },
+        "inputUsdPerMillion": {
+          "minimum": 0,
+          "title": "Inputusdpermillion",
+          "type": "number"
+        },
+        "modelPrefix": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Modelprefix",
+          "type": "string"
+        },
+        "outputUsdPerMillion": {
+          "minimum": 0,
+          "title": "Outputusdpermillion",
+          "type": "number"
+        }
+      },
+      "required": [
+        "modelPrefix",
+        "inputUsdPerMillion",
+        "cachedInputUsdPerMillion",
+        "outputUsdPerMillion"
+      ],
+      "title": "FoundryModelPrice",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/foundry-evaluation-suite.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Versioned native Foundry evaluator suite and release budgets.",
+  "properties": {
+    "allowServiceManagedUnpricedUsage": {
+      "default": false,
+      "title": "Allowservicemanagedunpricedusage",
+      "type": "boolean"
+    },
+    "cases": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/FoundryEvaluationCase"
+      },
+      "title": "Cases",
+      "type": "array"
+    },
+    "criteria": {
+      "items": {
+        "$ref": "#/$defs/FoundryCriterionDefinition"
+      },
+      "title": "Criteria",
+      "type": "array"
+    },
+    "interactionPattern": {
+      "$ref": "#/$defs/FoundryInteractionPattern"
+    },
+    "judgeModel": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Judgemodel",
+      "type": "string"
+    },
+    "maxDurationMs": {
+      "exclusiveMinimum": 0,
+      "title": "Maxdurationms",
+      "type": "integer"
+    },
+    "maxEstimatedPricedModelCostUsd": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Maxestimatedpricedmodelcostusd"
+    },
+    "maxSamples": {
+      "exclusiveMinimum": 0,
+      "title": "Maxsamples",
+      "type": "integer"
+    },
+    "maxTotalTokens": {
+      "exclusiveMinimum": 0,
+      "title": "Maxtotaltokens",
+      "type": "integer"
+    },
+    "modelPrices": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/FoundryModelPrice"
+      },
+      "title": "Modelprices",
+      "type": "array"
+    },
+    "protocol": {
+      "$ref": "#/$defs/FoundryEvaluationProtocol"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "suiteId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Suiteid",
+      "type": "string"
+    },
+    "suiteVersion": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Suiteversion",
+      "type": "string"
+    },
+    "targetAgentName": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Targetagentname",
+      "type": "string"
+    },
+    "targetAgentVersion": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Targetagentversion",
+      "type": "string"
+    },
+    "targetMode": {
+      "$ref": "#/$defs/FoundryEvaluationTargetMode"
+    }
+  },
+  "required": [
+    "suiteId",
+    "suiteVersion",
+    "targetMode",
+    "protocol",
+    "interactionPattern",
+    "targetAgentName",
+    "targetAgentVersion",
+    "judgeModel",
+    "criteria",
+    "maxSamples",
+    "maxDurationMs",
+    "maxTotalTokens"
+  ],
+  "title": "FoundryEvaluationSuite",
+  "type": "object"
+}

@@ -1,0 +1,194 @@
+{
+  "$defs": {
+    "SapChangeOperation": {
+      "enum": [
+        "create",
+        "update",
+        "release",
+        "cancel"
+      ],
+      "title": "SapChangeOperation",
+      "type": "string"
+    },
+    "SapChangeRisk": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "SapChangeRisk",
+      "type": "string"
+    },
+    "SapFieldChange": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "After"
+        },
+        "before": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before"
+        },
+        "fieldPath": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Fieldpath",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fieldPath",
+        "after"
+      ],
+      "title": "SapFieldChange",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/sap-change-proposal.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approvalRequired": {
+      "const": true,
+      "default": true,
+      "title": "Approvalrequired",
+      "type": "boolean"
+    },
+    "artifactId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Artifactid",
+      "type": "string"
+    },
+    "changes": {
+      "items": {
+        "$ref": "#/$defs/SapFieldChange"
+      },
+      "minItems": 1,
+      "title": "Changes",
+      "type": "array"
+    },
+    "evidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidenceids",
+      "type": "array"
+    },
+    "kind": {
+      "const": "sap_change_proposal",
+      "default": "sap_change_proposal",
+      "title": "Kind",
+      "type": "string"
+    },
+    "objectId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Objectid",
+      "type": "string"
+    },
+    "objectType": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Objecttype",
+      "type": "string"
+    },
+    "operation": {
+      "$ref": "#/$defs/SapChangeOperation"
+    },
+    "proposedAt": {
+      "format": "date-time",
+      "title": "Proposedat",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "risk": {
+      "$ref": "#/$defs/SapChangeRisk"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "sourceSystem": {
+      "default": "SAP",
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourcesystem",
+      "type": "string"
+    },
+    "sourceUrl": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sourceurl"
+    }
+  },
+  "required": [
+    "artifactId",
+    "operation",
+    "objectType",
+    "objectId",
+    "changes",
+    "reason",
+    "risk",
+    "proposedAt",
+    "evidenceIds"
+  ],
+  "title": "SapChangeProposal",
+  "type": "object"
+}

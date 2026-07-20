@@ -1,0 +1,750 @@
+{
+  "$defs": {
+    "ArtifactProducerIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "agentVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Agentversion",
+          "type": "string"
+        },
+        "framework": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Framework"
+        },
+        "identityId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Identityid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agentId",
+        "agentVersion",
+        "identityId"
+      ],
+      "title": "ArtifactProducerIdentity",
+      "type": "object"
+    },
+    "DemandScenario": {
+      "additionalProperties": false,
+      "properties": {
+        "artifactId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Artifactid",
+          "type": "string"
+        },
+        "assumptions": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Assumptions",
+          "type": "array"
+        },
+        "baselineQuantity": {
+          "minimum": 0,
+          "title": "Baselinequantity",
+          "type": "number"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "title": "Createdat",
+          "type": "string"
+        },
+        "evidenceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "forecastQuantity": {
+          "minimum": 0,
+          "title": "Forecastquantity",
+          "type": "number"
+        },
+        "horizonEnd": {
+          "format": "date",
+          "title": "Horizonend",
+          "type": "string"
+        },
+        "horizonStart": {
+          "format": "date",
+          "title": "Horizonstart",
+          "type": "string"
+        },
+        "kind": {
+          "const": "demand_scenario",
+          "default": "demand_scenario",
+          "title": "Kind",
+          "type": "string"
+        },
+        "market": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Market",
+          "type": "string"
+        },
+        "productId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Productid",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifactId",
+        "productId",
+        "market",
+        "horizonStart",
+        "horizonEnd",
+        "unit",
+        "baselineQuantity",
+        "forecastQuantity",
+        "confidence",
+        "evidenceIds",
+        "createdAt"
+      ],
+      "title": "DemandScenario",
+      "type": "object"
+    },
+    "RegulatoryClaimDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "claim": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Claim",
+          "type": "string"
+        },
+        "claimId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Claimid",
+          "type": "string"
+        },
+        "evidenceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "rationale": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/RegulatoryClaimStatus"
+        }
+      },
+      "required": [
+        "claimId",
+        "claim",
+        "status",
+        "rationale",
+        "evidenceIds"
+      ],
+      "title": "RegulatoryClaimDecision",
+      "type": "object"
+    },
+    "RegulatoryClaimStatus": {
+      "enum": [
+        "approved",
+        "conditional",
+        "rejected",
+        "requires_evidence"
+      ],
+      "title": "RegulatoryClaimStatus",
+      "type": "string"
+    },
+    "RegulatoryDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "artifactId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Artifactid",
+          "type": "string"
+        },
+        "claims": {
+          "items": {
+            "$ref": "#/$defs/RegulatoryClaimDecision"
+          },
+          "minItems": 1,
+          "title": "Claims",
+          "type": "array"
+        },
+        "conditions": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Conditions",
+          "type": "array"
+        },
+        "decidedAt": {
+          "format": "date-time",
+          "title": "Decidedat",
+          "type": "string"
+        },
+        "disposition": {
+          "$ref": "#/$defs/RegulatoryDisposition"
+        },
+        "evidenceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "kind": {
+          "const": "regulatory_decision",
+          "default": "regulatory_decision",
+          "title": "Kind",
+          "type": "string"
+        },
+        "market": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Market",
+          "type": "string"
+        },
+        "productId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Productid",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifactId",
+        "productId",
+        "market",
+        "disposition",
+        "claims",
+        "rationale",
+        "evidenceIds",
+        "decidedAt"
+      ],
+      "title": "RegulatoryDecision",
+      "type": "object"
+    },
+    "RegulatoryDisposition": {
+      "enum": [
+        "approved",
+        "conditional",
+        "rejected",
+        "requires_review"
+      ],
+      "title": "RegulatoryDisposition",
+      "type": "string"
+    },
+    "SapChangeOperation": {
+      "enum": [
+        "create",
+        "update",
+        "release",
+        "cancel"
+      ],
+      "title": "SapChangeOperation",
+      "type": "string"
+    },
+    "SapChangeProposal": {
+      "additionalProperties": false,
+      "properties": {
+        "approvalRequired": {
+          "const": true,
+          "default": true,
+          "title": "Approvalrequired",
+          "type": "boolean"
+        },
+        "artifactId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Artifactid",
+          "type": "string"
+        },
+        "changes": {
+          "items": {
+            "$ref": "#/$defs/SapFieldChange"
+          },
+          "minItems": 1,
+          "title": "Changes",
+          "type": "array"
+        },
+        "evidenceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "kind": {
+          "const": "sap_change_proposal",
+          "default": "sap_change_proposal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "objectId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Objectid",
+          "type": "string"
+        },
+        "objectType": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Objecttype",
+          "type": "string"
+        },
+        "operation": {
+          "$ref": "#/$defs/SapChangeOperation"
+        },
+        "proposedAt": {
+          "format": "date-time",
+          "title": "Proposedat",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "risk": {
+          "$ref": "#/$defs/SapChangeRisk"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "sourceSystem": {
+          "default": "SAP",
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Sourcesystem",
+          "type": "string"
+        },
+        "sourceUrl": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourceurl"
+        }
+      },
+      "required": [
+        "artifactId",
+        "operation",
+        "objectType",
+        "objectId",
+        "changes",
+        "reason",
+        "risk",
+        "proposedAt",
+        "evidenceIds"
+      ],
+      "title": "SapChangeProposal",
+      "type": "object"
+    },
+    "SapChangeRisk": {
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "SapChangeRisk",
+      "type": "string"
+    },
+    "SapFieldChange": {
+      "additionalProperties": false,
+      "properties": {
+        "after": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "After"
+        },
+        "before": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "integer"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Before"
+        },
+        "fieldPath": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Fieldpath",
+          "type": "string"
+        }
+      },
+      "required": [
+        "fieldPath",
+        "after"
+      ],
+      "title": "SapFieldChange",
+      "type": "object"
+    },
+    "SupplyCommitment": {
+      "additionalProperties": false,
+      "properties": {
+        "artifactId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Artifactid",
+          "type": "string"
+        },
+        "asOf": {
+          "format": "date-time",
+          "title": "Asof",
+          "type": "string"
+        },
+        "availableFrom": {
+          "format": "date",
+          "title": "Availablefrom",
+          "type": "string"
+        },
+        "availableUntil": {
+          "anyOf": [
+            {
+              "format": "date",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Availableuntil"
+        },
+        "evidenceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "kind": {
+          "const": "supply_commitment",
+          "default": "supply_commitment",
+          "title": "Kind",
+          "type": "string"
+        },
+        "market": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Market",
+          "type": "string"
+        },
+        "materialId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Materialid",
+          "type": "string"
+        },
+        "plantId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Plantid",
+          "type": "string"
+        },
+        "quantity": {
+          "minimum": 0,
+          "title": "Quantity",
+          "type": "number"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "sourceObjectId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Sourceobjectid",
+          "type": "string"
+        },
+        "sourceSystem": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Sourcesystem",
+          "type": "string"
+        },
+        "sourceUrl": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourceurl"
+        },
+        "status": {
+          "$ref": "#/$defs/SupplyCommitmentStatus"
+        },
+        "unit": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifactId",
+        "materialId",
+        "plantId",
+        "market",
+        "quantity",
+        "unit",
+        "availableFrom",
+        "status",
+        "sourceSystem",
+        "sourceObjectId",
+        "asOf",
+        "evidenceIds"
+      ],
+      "title": "SupplyCommitment",
+      "type": "object"
+    },
+    "SupplyCommitmentStatus": {
+      "enum": [
+        "available",
+        "constrained",
+        "not_available",
+        "proposed"
+      ],
+      "title": "SupplyCommitmentStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/artifact-envelope.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact": {
+      "discriminator": {
+        "mapping": {
+          "demand_scenario": "#/$defs/DemandScenario",
+          "regulatory_decision": "#/$defs/RegulatoryDecision",
+          "sap_change_proposal": "#/$defs/SapChangeProposal",
+          "supply_commitment": "#/$defs/SupplyCommitment"
+        },
+        "propertyName": "kind"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/DemandScenario"
+        },
+        {
+          "$ref": "#/$defs/SupplyCommitment"
+        },
+        {
+          "$ref": "#/$defs/RegulatoryDecision"
+        },
+        {
+          "$ref": "#/$defs/SapChangeProposal"
+        }
+      ],
+      "title": "Artifact"
+    },
+    "artifactId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Artifactid",
+      "type": "string"
+    },
+    "callerSubjectId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Callersubjectid",
+      "type": "string"
+    },
+    "contentHash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Contenthash",
+      "type": "string"
+    },
+    "correlationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Correlationid",
+      "type": "string"
+    },
+    "expiresAt": {
+      "format": "date-time",
+      "title": "Expiresat",
+      "type": "string"
+    },
+    "invocationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Invocationid",
+      "type": "string"
+    },
+    "issuedAt": {
+      "format": "date-time",
+      "title": "Issuedat",
+      "type": "string"
+    },
+    "producer": {
+      "$ref": "#/$defs/ArtifactProducerIdentity"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Tenantid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "artifactId",
+    "invocationId",
+    "correlationId",
+    "tenantId",
+    "callerSubjectId",
+    "producer",
+    "artifact",
+    "contentHash",
+    "issuedAt",
+    "expiresAt"
+  ],
+  "title": "ArtifactEnvelope",
+  "type": "object"
+}

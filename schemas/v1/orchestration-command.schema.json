@@ -1,0 +1,341 @@
+{
+  "$defs": {
+    "CallerContext": {
+      "additionalProperties": false,
+      "properties": {
+        "dataClassifications": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Dataclassifications",
+          "type": "array"
+        },
+        "geographies": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Geographies",
+          "type": "array"
+        },
+        "locale": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Locale"
+        },
+        "permissions": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Permissions",
+          "type": "array"
+        },
+        "subjectId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Subjectid",
+          "type": "string"
+        },
+        "tenantId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Tenantid",
+          "type": "string"
+        },
+        "timeZone": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Timezone"
+        }
+      },
+      "required": [
+        "subjectId",
+        "tenantId"
+      ],
+      "title": "CallerContext",
+      "type": "object"
+    },
+    "ContextKind": {
+      "enum": [
+        "work_iq",
+        "foundry_iq",
+        "fabric_iq",
+        "web_iq",
+        "attachment",
+        "prior_step"
+      ],
+      "title": "ContextKind",
+      "type": "string"
+    },
+    "ContextReference": {
+      "additionalProperties": false,
+      "description": "Permission-bound reference; source content never crosses this API contract.",
+      "properties": {
+        "allowedAgentIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Allowedagentids",
+          "type": "array"
+        },
+        "approved": {
+          "default": false,
+          "title": "Approved",
+          "type": "boolean"
+        },
+        "contextId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Contextid",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/ContextKind"
+        },
+        "permissionScope": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Permissionscope",
+          "type": "string"
+        },
+        "priority": {
+          "default": 100,
+          "maximum": 10000,
+          "minimum": 0,
+          "title": "Priority",
+          "type": "integer"
+        },
+        "relevanceTerms": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Relevanceterms",
+          "type": "array"
+        },
+        "sensitivity": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sensitivity"
+        },
+        "sourceUri": {
+          "format": "uri",
+          "minLength": 1,
+          "title": "Sourceuri",
+          "type": "string"
+        },
+        "subjectId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Subjectid",
+          "type": "string"
+        },
+        "tenantId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Tenantid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "contextId",
+        "kind",
+        "sourceUri",
+        "subjectId",
+        "tenantId",
+        "permissionScope"
+      ],
+      "title": "ContextReference",
+      "type": "object"
+    },
+    "InteractionMode": {
+      "enum": [
+        "sync",
+        "async"
+      ],
+      "title": "InteractionMode",
+      "type": "string"
+    },
+    "MatchFilters": {
+      "additionalProperties": false,
+      "properties": {
+        "allowedAgentIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Allowedagentids",
+          "type": "array"
+        },
+        "excludedAgentIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Excludedagentids",
+          "type": "array"
+        },
+        "maxCandidates": {
+          "default": 20,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Maxcandidates",
+          "type": "integer"
+        },
+        "maxSelected": {
+          "default": 5,
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Maxselected",
+          "type": "integer"
+        },
+        "requiredInteractionModes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/InteractionMode"
+          },
+          "title": "Requiredinteractionmodes",
+          "type": "array"
+        },
+        "requiredProtocols": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/TransportProtocol"
+          },
+          "title": "Requiredprotocols",
+          "type": "array"
+        }
+      },
+      "title": "MatchFilters",
+      "type": "object"
+    },
+    "MatchRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "caller": {
+          "$ref": "#/$defs/CallerContext"
+        },
+        "filters": {
+          "$ref": "#/$defs/MatchFilters"
+        },
+        "intent": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Intent",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "requestedAt": {
+          "format": "date-time",
+          "title": "Requestedat",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestId",
+        "intent",
+        "caller",
+        "requestedAt"
+      ],
+      "title": "MatchRequest",
+      "type": "object"
+    },
+    "TransportProtocol": {
+      "enum": [
+        "a2a",
+        "work_iq",
+        "mcp"
+      ],
+      "title": "TransportProtocol",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/orchestration-command.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "The one host-independent command consumed by every northbound adapter.",
+  "properties": {
+    "contextReferences": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ContextReference"
+      },
+      "title": "Contextreferences",
+      "type": "array"
+    },
+    "request": {
+      "$ref": "#/$defs/MatchRequest"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request"
+  ],
+  "title": "OrchestrationCommand",
+  "type": "object"
+}

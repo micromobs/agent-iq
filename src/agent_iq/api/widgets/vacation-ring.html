@@ -1,0 +1,611 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agent IQ Vacation Balance</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --surface: rgba(255,255,255,.96);
+      --text: #172033;
+      --muted: #626b7c;
+      --line: rgba(23,32,51,.13);
+      --track: rgba(23,32,51,.09);
+      --remaining: #22a884;
+      --taken: #f05d75;
+      --booked: #f1a33b;
+      --brand: #0f6cbd;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --surface: rgba(23,29,42,.96);
+        --text: #f5f7fb;
+        --muted: #b7c0d1;
+        --line: rgba(255,255,255,.14);
+        --track: rgba(255,255,255,.10);
+        --remaining: #45d4ad;
+        --taken: #ff7f95;
+        --booked: #ffc15c;
+        --brand: #67b7ff;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      min-width: 280px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+    body { width: 100%; }
+    button { font: inherit; }
+    button:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--brand) 72%, white);
+      outline-offset: 2px;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    #app {
+      width: 100%;
+      margin: 0;
+      padding: 12px 14px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      overflow: hidden;
+    }
+    .loading {
+      min-height: 124px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .balance {
+      display: grid;
+      grid-template-columns: 116px minmax(0, 1fr);
+      align-items: center;
+      gap: 14px;
+    }
+    .rings {
+      position: relative;
+      width: 112px;
+      height: 112px;
+      display: grid;
+      place-items: center;
+    }
+    .rings svg {
+      width: 112px;
+      height: 112px;
+      display: block;
+      filter: drop-shadow(0 6px 12px color-mix(in srgb, var(--remaining) 18%, transparent));
+    }
+    .ring-track, .ring-progress {
+      fill: none;
+      transform-origin: 56px 56px;
+      transform: rotate(-90deg);
+    }
+    .ring-track { stroke: var(--track); }
+    .ring-progress {
+      stroke-linecap: round;
+      transition: stroke-dashoffset .45s ease;
+    }
+    .ring-progress.remaining { stroke: var(--remaining); }
+    .ring-progress.taken { stroke: var(--taken); }
+    .ring-progress.booked { stroke: var(--booked); }
+    .ring-center {
+      position: absolute;
+      inset: 30px;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--surface) 94%, transparent);
+    }
+    .ring-center strong {
+      font-size: 27px;
+      line-height: .92;
+      letter-spacing: -.04em;
+    }
+    .ring-center span {
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 650;
+    }
+    .copy { min-width: 0; }
+    .eyebrow {
+      color: var(--brand);
+      font-size: 10px;
+      font-weight: 760;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 3px 0 0;
+      font-size: clamp(19px, 4.8vw, 25px);
+      line-height: 1.06;
+      letter-spacing: -.025em;
+    }
+    .supporting {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 10px;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+    .dot.remaining { background: var(--remaining); }
+    .dot.taken { background: var(--taken); }
+    .dot.booked { background: var(--booked); }
+    .meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid var(--line);
+    }
+    .agent {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      align-items: center;
+      gap: 7px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .agent-glyph {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      color: white;
+      background: linear-gradient(135deg, #0f6cbd, #635bff);
+      font-size: 9px;
+      font-weight: 800;
+    }
+    .agent strong, .agent span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .agent strong { font-size: 11px; }
+    .agent span { color: var(--muted); font-size: 9px; }
+    .source {
+      max-width: 42%;
+      min-height: 28px;
+      padding: 5px 9px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--brand);
+      background: transparent;
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .source:disabled { cursor: default; color: var(--muted); }
+    .failure {
+      min-height: 96px;
+      display: grid;
+      align-content: center;
+      gap: 5px;
+    }
+    .failure strong { color: #c4314b; }
+    .failure span { color: var(--muted); font-size: 12px; }
+    @media (max-width: 390px) {
+      #app { padding: 10px 11px; }
+      .balance { grid-template-columns: 98px minmax(0, 1fr); gap: 10px; }
+      .rings, .rings svg { width: 96px; height: 96px; }
+      .ring-track, .ring-progress { transform-origin: 56px 56px; }
+      .ring-center { inset: 25px; }
+      .ring-center strong { font-size: 23px; }
+      .source { max-width: 38%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="app" aria-busy="true">
+    <div class="loading">Loading vacation balance...</div>
+  </main>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+  <script>
+  (() => {
+    "use strict";
+
+    const app = document.getElementById("app");
+    const announcer = document.getElementById("announcer");
+    const pending = new Map();
+    const state = {
+      requestId: 1,
+      bridgeReady: false,
+      hostCapabilities: {},
+      hostContext: {},
+      hasPayload: false,
+      restoredOutput: null
+    };
+    let sizeFrame = null;
+    let lastHeight = 0;
+    let restorePoll = null;
+    let restoreDeadline = null;
+
+    const value = (object, camel, snake) => object && (object[camel] ?? object[snake]);
+    const list = (object, camel, snake) => {
+      const candidate = value(object, camel, snake);
+      return Array.isArray(candidate) ? candidate : [];
+    };
+    const number = (candidate) => {
+      const parsed = Number(candidate);
+      return Number.isFinite(parsed) ? parsed : NaN;
+    };
+
+    function node(tag, className, content) {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      if (content !== undefined && content !== null) element.textContent = String(content);
+      return element;
+    }
+
+    function announce(message) {
+      announcer.textContent = "";
+      requestAnimationFrame(() => { announcer.textContent = message; });
+    }
+
+    function normalized(payload) {
+      if (!payload || typeof payload !== "object") return {};
+      const result = payload.result && typeof payload.result === "object" ? payload.result : payload;
+      return result.structuredContent || result.structured_content || result;
+    }
+
+    function stopRestoreMonitor() {
+      if (restorePoll !== null) window.clearInterval(restorePoll);
+      if (restoreDeadline !== null) window.clearTimeout(restoreDeadline);
+      restorePoll = null;
+      restoreDeadline = null;
+    }
+
+    function restoreOpenAiOutput() {
+      const output = window.openai && window.openai.toolOutput;
+      if (output === undefined || output === null || output === state.restoredOutput) return false;
+      state.restoredOutput = output;
+      renderBalance(output);
+      return true;
+    }
+
+    function startRestoreMonitor() {
+      if (restoreOpenAiOutput()) return;
+      restorePoll = window.setInterval(() => {
+        if (restoreOpenAiOutput()) stopRestoreMonitor();
+      }, 250);
+      restoreDeadline = window.setTimeout(() => {
+        stopRestoreMonitor();
+        if (!state.hasPayload && !state.bridgeReady) {
+          renderFailure(
+            "The saved vacation result could not be restored. Start a new conversation to run it again."
+          );
+        }
+      }, 15000);
+    }
+
+    function requestKey(id) { return String(id); }
+
+    function notify(method, params) {
+      const message = { jsonrpc: "2.0", method };
+      if (params !== undefined) message.params = params;
+      window.parent.postMessage(message, "*");
+    }
+
+    function rpc(method, params, timeout = 10000) {
+      const id = state.requestId++;
+      return new Promise((resolve, reject) => {
+        const timer = window.setTimeout(() => {
+          pending.delete(requestKey(id));
+          reject(new Error(`${method} timed out`));
+        }, timeout);
+        pending.set(requestKey(id), { resolve, reject, timer });
+        window.parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+      });
+    }
+
+    function scheduleSize() {
+      if (!state.bridgeReady || sizeFrame !== null) return;
+      sizeFrame = requestAnimationFrame(() => {
+        sizeFrame = null;
+        const height = Math.max(124, Math.ceil(app.getBoundingClientRect().height));
+        if (height !== lastHeight) {
+          lastHeight = height;
+          notify("ui/notifications/size-changed", { height });
+        }
+      });
+    }
+
+    function applyHostContext(context) {
+      state.hostContext = { ...state.hostContext, ...context };
+      const theme = state.hostContext.theme;
+      if (theme === "light" || theme === "dark") {
+        document.documentElement.style.colorScheme = theme;
+      }
+      const variables = state.hostContext.styles && state.hostContext.styles.variables;
+      if (variables && typeof variables === "object") {
+        Object.entries(variables).forEach(([name, cssValue]) => {
+          if (name.startsWith("--") && typeof cssValue === "string") {
+            document.documentElement.style.setProperty(name, cssValue);
+          }
+        });
+      }
+      scheduleSize();
+    }
+
+    function safeUrl(raw) {
+      if (typeof raw !== "string") return null;
+      try {
+        const parsed = new URL(raw);
+        return parsed.protocol === "https:" || parsed.protocol === "http:" ? parsed.href : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    async function openSource(raw) {
+      const url = safeUrl(raw);
+      if (!url) {
+        announce("This source has no safe link.");
+        return;
+      }
+      try {
+        if (state.bridgeReady && state.hostCapabilities.openLinks) {
+          await rpc("ui/open-link", { url });
+        } else if (window.openai && typeof window.openai.openExternal === "function") {
+          await window.openai.openExternal({ href: url });
+        } else {
+          announce("This host cannot open source links.");
+          return;
+        }
+        announce("Source opened.");
+      } catch (error) {
+        announce("The host did not open the source.");
+      }
+    }
+
+    function ringCircle(className, radius, width, progress) {
+      const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      const circumference = 2 * Math.PI * radius;
+      circle.setAttribute("class", className);
+      circle.setAttribute("cx", "56");
+      circle.setAttribute("cy", "56");
+      circle.setAttribute("r", String(radius));
+      circle.setAttribute("stroke-width", String(width));
+      if (progress !== null) {
+        circle.setAttribute("stroke-dasharray", String(circumference));
+        circle.setAttribute(
+          "stroke-dashoffset",
+          String(circumference * (1 - Math.max(0, Math.min(1, progress))))
+        );
+      }
+      return circle;
+    }
+
+    function renderRings(entitlement, taken, booked, remaining) {
+      const shell = node("div", "rings");
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 112 112");
+      svg.setAttribute("role", "img");
+      svg.setAttribute(
+        "aria-label",
+        `${remaining} vacation days remaining of ${entitlement}; ${taken} taken and ${booked} booked.`
+      );
+      svg.dataset.vacationRings = "true";
+      [
+        [46, 7, "remaining", remaining],
+        [36, 7, "taken", taken],
+        [26, 7, "booked", booked]
+      ].forEach(([radius, width, name, amount]) => {
+        svg.appendChild(ringCircle("ring-track", radius, width, null));
+        svg.appendChild(
+          ringCircle(`ring-progress ${name}`, radius, width, amount / entitlement)
+        );
+      });
+      const center = node("div", "ring-center");
+      center.append(node("strong", "", remaining), node("span", "", "days left"));
+      shell.append(svg, center);
+      return shell;
+    }
+
+    function renderFailure(message) {
+      app.replaceChildren();
+      const failure = node("section", "failure");
+      failure.setAttribute("role", "alert");
+      failure.append(
+        node("strong", "", "Vacation balance unavailable"),
+        node("span", "", message)
+      );
+      app.appendChild(failure);
+      app.setAttribute("aria-busy", "false");
+      scheduleSize();
+      announce(message);
+    }
+
+    function renderBalance(payload) {
+      state.hasPayload = true;
+      stopRestoreMonitor();
+      if (payload && payload.isError === true) {
+        renderFailure("The live tool returned an error; no balance is being claimed.");
+        return;
+      }
+      const data = normalized(payload);
+      const style = value(data, "presentationStyle", "presentation_style");
+      const entitlement = number(value(data, "entitlementDays", "entitlement_days"));
+      const taken = number(value(data, "takenDays", "taken_days"));
+      const booked = number(value(data, "bookedDays", "booked_days"));
+      const remaining = number(value(data, "remainingDays", "remaining_days"));
+      const agents = list(data, "selectedAgents", "selected_agents");
+      const sources = list(data, "sources", "sources");
+      const reconciles = entitlement === taken + booked + remaining;
+      if (
+        style !== "compact_ring"
+        || data.status !== "completed"
+        || !Number.isFinite(entitlement)
+        || entitlement <= 0
+        || !reconciles
+        || agents.length !== 1
+        || value(agents[0], "agentId", "agent_id") !== "employee-vacation-leave"
+        || sources.length !== 1
+      ) {
+        renderFailure("The validated compact-ring contract was incomplete.");
+        return;
+      }
+
+      app.replaceChildren();
+      const balance = node("section", "balance");
+      balance.appendChild(renderRings(entitlement, taken, booked, remaining));
+      const copy = node("div", "copy");
+      copy.append(
+        node("div", "eyebrow", `Vacation balance ${value(data, "balanceYear", "balance_year")}`),
+        node("h1", "", data.title),
+        node("p", "supporting", "",)
+      );
+      copy.lastChild.textContent = String(
+        value(data, "supportingLine", "supporting_line")
+      ).replaceAll(" | ", " \u00b7 ");
+      const legend = node("div", "legend");
+      [
+        ["remaining", `${remaining} left`],
+        ["taken", `${taken} taken`],
+        ["booked", `${booked} booked`]
+      ].forEach(([name, label]) => {
+        const item = node("span", "legend-item");
+        item.append(node("span", `dot ${name}`), document.createTextNode(label));
+        legend.appendChild(item);
+      });
+      copy.appendChild(legend);
+      balance.appendChild(copy);
+      app.appendChild(balance);
+
+      const agent = agents[0];
+      const source = sources[0];
+      const meta = node("section", "meta");
+      const agentCard = node("div", "agent");
+      agentCard.dataset.selectedAgent = "true";
+      agentCard.title = value(agent, "reason", "reason") || "Selected by Agent IQ";
+      agentCard.appendChild(node("div", "agent-glyph", agent.glyph || "VL"));
+      const agentCopy = node("div");
+      agentCopy.append(
+        node("strong", "", value(agent, "displayName", "display_name")),
+        node("span", "", "Selected by Agent IQ")
+      );
+      agentCard.appendChild(agentCopy);
+      const sourceUrl = safeUrl(source.url);
+      const sourceButton = node("button", "source", `[1] ${source.title}`);
+      sourceButton.type = "button";
+      sourceButton.title = source.summary || source.title;
+      sourceButton.disabled = !sourceUrl;
+      if (sourceUrl) sourceButton.addEventListener("click", () => openSource(sourceUrl));
+      meta.append(agentCard, sourceButton);
+      app.appendChild(meta);
+      app.setAttribute("aria-busy", "false");
+      scheduleSize();
+      announce(`${data.title}. One selected specialist and one authenticated source.`);
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.source !== window.parent || !event.data || typeof event.data !== "object") return;
+      const message = event.data;
+      const key = requestKey(message.id);
+      if (message.id !== undefined && pending.has(key)) {
+        const task = pending.get(key);
+        pending.delete(key);
+        window.clearTimeout(task.timer);
+        if (message.error) task.reject(new Error(message.error.message || "Host request failed"));
+        else task.resolve(message.result);
+        return;
+      }
+      if (message.method === "ui/resource-teardown" && message.id !== undefined) {
+        stopRestoreMonitor();
+        if (sizeFrame !== null) cancelAnimationFrame(sizeFrame);
+        pending.forEach((task) => window.clearTimeout(task.timer));
+        pending.clear();
+        window.parent.postMessage({ jsonrpc: "2.0", id: message.id, result: {} }, "*");
+        return;
+      }
+      if (
+        message.method === "ui/notifications/tool-input"
+        || message.method === "ui/notifications/tool-input-partial"
+      ) {
+        app.setAttribute("aria-busy", "true");
+      } else if (message.method === "ui/notifications/tool-result") {
+        renderBalance(message.params);
+      } else if (message.method === "ui/notifications/tool-cancelled") {
+        renderFailure("The host cancelled the live vacation request.");
+      } else if (message.method === "ui/notifications/host-context-changed") {
+        applyHostContext(message.params || {});
+      }
+    });
+
+    window.addEventListener("openai:set_globals", () => {
+      restoreOpenAiOutput();
+    });
+
+    async function initialize() {
+      try {
+        const result = await rpc("ui/initialize", {
+          protocolVersion: "2026-01-26",
+          appCapabilities: { availableDisplayModes: ["inline"] },
+          appInfo: { name: "agent-iq-vacation-ring", version: "1.1.0" }
+        }, 5000);
+        state.hostCapabilities = result && result.hostCapabilities || {};
+        state.bridgeReady = true;
+        applyHostContext(result && result.hostContext || {});
+        notify("ui/notifications/initialized");
+        scheduleSize();
+      } catch (error) {
+        state.bridgeReady = false;
+      }
+      restoreOpenAiOutput();
+    }
+
+    startRestoreMonitor();
+    initialize();
+  })();
+  </script>
+</body>
+</html>

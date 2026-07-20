@@ -1,0 +1,19 @@
+{
+  "name": "agent-iq",
+  "description": "CANARY: discover and orchestrate the minimum eligible AI agent squad with governed evidence and replay.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Agent IQ"
+  },
+  "keywords": [
+    "a2a",
+    "agent-catalog",
+    "agent-orchestration",
+    "evidence",
+    "multi-agent"
+  ],
+  "category": "productivity",
+  "agents": "agents/",
+  "skills": "skills/",
+  "mcpServers": ".mcp.json"
+}

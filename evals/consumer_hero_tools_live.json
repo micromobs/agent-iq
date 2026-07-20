@@ -1,0 +1,103 @@
+{
+  "schemaVersion": "1.0",
+  "suiteId": "consumer-hero-tools-live",
+  "cases": [
+    {
+      "caseId": "brand-comparison-foundry-iq",
+      "agentId": "consumer-brand-to-brand-compare",
+      "prompt": "Use retrieve_brand_profile for BrightWash Cold and ClearWave Cold Clean, then use retrieve_comparison_method for enzyme suite and surfactant comparison. Return a grounded side-by-side answer that includes pectate lyase and LAS and preserves [ref_id:n] citation markers.",
+      "expectedToolIds": [
+        "retrieve_brand_profile",
+        "retrieve_comparison_method"
+      ],
+      "expectedBackend": "foundry_iq",
+      "requiredAnswerTerms": [
+        "pectate lyase",
+        "LAS"
+      ],
+      "requiredSources": [
+        "BrightWash Cold active system",
+        "ClearWave Cold Clean active system"
+      ],
+      "requireSourceTitles": false,
+      "requireCitation": true
+    },
+    {
+      "caseId": "demand-history-sap-fixture",
+      "agentId": "consumer-demand-forecasting",
+      "prompt": "Use retrieve_demand_history to retrieve the read-only SAP demand record for product_id brightwash-cold in market Germany from 2026-10-01 through 2026-10-31. Report the source mode, preserve the object reference, and preserve the exact DETERMINISTIC FIXTURE - NOT LIVE SAP warning.",
+      "expectedToolIds": [
+        "retrieve_demand_history"
+      ],
+      "expectedBackend": "sap",
+      "expectedSourceMode": "fixture",
+      "requiredAnswerTerms": [
+        "DETERMINISTIC FIXTURE - NOT LIVE SAP",
+        "brightwash-cold",
+        "125000",
+        "fixture.sap.example.invalid"
+      ],
+      "requiredSources": [],
+      "requireSourceTitles": false,
+      "requireCitation": false
+    },
+    {
+      "caseId": "formulation-components-foundry-iq",
+      "agentId": "consumer-formulation-rd",
+      "prompt": "Use retrieve_formula_components for BrightWash and cold-water cleaning. Name the exact source title, include protease, amylase, mannanase, and lipase, and preserve its [ref_id:n] citation marker.",
+      "expectedToolIds": [
+        "retrieve_formula_components"
+      ],
+      "expectedBackend": "foundry_iq",
+      "requiredAnswerTerms": [
+        "protease",
+        "amylase",
+        "mannanase",
+        "lipase"
+      ],
+      "requiredSources": [
+        "BrightWash Cold active system"
+      ],
+      "requireSourceTitles": true,
+      "requireCitation": true
+    },
+    {
+      "caseId": "plant-capacity-sap-fixture",
+      "agentId": "consumer-manufacturing-operations",
+      "prompt": "Use retrieve_plant_capacity to retrieve the read-only SAP capacity record for plant_id DE-PLANT-FIXTURE-01 from 2026-10-01 through 2026-10-31. Report available and committed hours, preserve the object reference, and preserve the exact DETERMINISTIC FIXTURE - NOT LIVE SAP warning.",
+      "expectedToolIds": [
+        "retrieve_plant_capacity"
+      ],
+      "expectedBackend": "sap",
+      "expectedSourceMode": "fixture",
+      "requiredAnswerTerms": [
+        "DETERMINISTIC FIXTURE - NOT LIVE SAP",
+        "DE-PLANT-FIXTURE-01",
+        "1000",
+        "820",
+        "fixture.sap.example.invalid"
+      ],
+      "requiredSources": [],
+      "requireSourceTitles": false,
+      "requireCitation": false
+    },
+    {
+      "caseId": "regulatory-market-foundry-iq",
+      "agentId": "consumer-regulatory-affairs",
+      "prompt": "Use retrieve_market_requirements for cosmetics in the European Union. Explain the Responsible Person and CPNP requirements and preserve [ref_id:n] citation markers.",
+      "expectedToolIds": [
+        "retrieve_market_requirements"
+      ],
+      "expectedBackend": "foundry_iq",
+      "requiredAnswerTerms": [
+        "Responsible Person",
+        "CPNP"
+      ],
+      "requiredSources": [
+        "EU Cosmetics Regulation (EC) 1223/2009"
+      ],
+      "requireSourceTitles": false,
+      "requireCitation": true
+    }
+  ]
+}

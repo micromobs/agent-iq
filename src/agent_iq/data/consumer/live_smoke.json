@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "1.0",
+  "agents": [
+    {
+      "agentId": "consumer-brand-marketing",
+      "prompt": "What anchors a strong Fabrikam Consumer Products synthetic campaign, and how is brand equity measured? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "awareness",
+        "loyalty"
+      ],
+      "requiredSources": [
+        "Fabrikam campaign equity framework"
+      ]
+    },
+    {
+      "agentId": "consumer-brand-to-brand-compare",
+      "prompt": "Compare BrightWash versus ClearWave cold-water active systems side by side. Answer substantively and preserve each retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "pectate lyase",
+        "LAS"
+      ],
+      "requiredSources": [
+        "BrightWash Cold active system",
+        "ClearWave Cold Clean active system"
+      ],
+      "sourceTitleMode": "advisory"
+    },
+    {
+      "agentId": "consumer-connect-develop",
+      "prompt": "How does OpenBridge screen an external technology partner? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "IP",
+        "scalability"
+      ],
+      "requiredSources": [
+        "OpenBridge external innovation model"
+      ]
+    },
+    {
+      "agentId": "consumer-consumer-care",
+      "prompt": "A consumer reports product-related skin irritation. What is the approved escalation path? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "Product Safety",
+        "adverse"
+      ],
+      "requiredSources": [
+        "Consumer Care escalation procedure"
+      ]
+    },
+    {
+      "agentId": "consumer-consumer-insights",
+      "prompt": "How should Fabrikam Consumer Products synthesize consumer insight for a new synthetic skin-care launch? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "quantitative",
+        "qualitative"
+      ],
+      "requiredSources": [
+        "Consumer evidence synthesis"
+      ]
+    },
+    {
+      "agentId": "consumer-demand-forecasting",
+      "prompt": "How does demand sensing reduce forecast error and stockouts? Use the exact terms forecast error and stockouts, answer substantively, and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "forecast error",
+        "stockouts"
+      ],
+      "requiredSources": [
+        "Adaptive Supply Network demand sensing"
+      ]
+    },
+    {
+      "agentId": "consumer-ecommerce-retail-media",
+      "prompt": "Which digital-shelf signals should we improve to raise marketplace conversion? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "search",
+        "availability"
+      ],
+      "requiredSources": [
+        "Digital shelf conversion signals"
+      ]
+    },
+    {
+      "agentId": "consumer-formulation-rd",
+      "prompt": "Which enzymes power BrightWash Cold cleaning? Name the source title exactly and preserve its [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "protease",
+        "amylase",
+        "mannanase",
+        "lipase"
+      ],
+      "requiredSources": [
+        "BrightWash Cold active system"
+      ],
+      "sourceTitleMode": "required"
+    },
+    {
+      "agentId": "consumer-fragrance-sensory",
+      "prompt": "How does AirKind capture volatile odors from fabric? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "cyclodextrin",
+        "volatile"
+      ],
+      "requiredSources": [
+        "AirKind odor-capture system"
+      ]
+    },
+    {
+      "agentId": "consumer-logistics-distribution",
+      "prompt": "How can distribution reduce transport cost without hurting service? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "OTIF|on-time-in-full",
+        "empty miles"
+      ],
+      "requiredSources": [
+        "Distribution service and carrier scorecards"
+      ]
+    },
+    {
+      "agentId": "consumer-manufacturing-operations",
+      "prompt": "How should a detergent line improve OEE and reduce changeover loss? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "Availability",
+        "Performance",
+        "Quality"
+      ],
+      "requiredSources": [
+        "OEE loss and changeover method"
+      ]
+    },
+    {
+      "agentId": "consumer-manufacturing-sustainability",
+      "prompt": "Explain how FSC certification and chain-of-custody controls support sustainable palm and pulp commitments. Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "FSC",
+        "chain-of-custody"
+      ],
+      "requiredSources": [
+        "Responsible material chain of custody"
+      ]
+    },
+    {
+      "agentId": "consumer-microbiological-safety",
+      "prompt": "How should preservative efficacy be validated for a water-based shampoo? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "ISO 11930",
+        "challenge testing"
+      ],
+      "requiredSources": [
+        "Preservation and challenge-test standard"
+      ]
+    },
+    {
+      "agentId": "consumer-packaging-sustainability",
+      "prompt": "How can a shampoo bottle reduce virgin plastic while remaining recyclable? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "PCR",
+        "mono-material"
+      ],
+      "requiredSources": [
+        "Circular packaging design standard"
+      ]
+    },
+    {
+      "agentId": "consumer-pricing-revenue-growth",
+      "prompt": "How should we design a price-pack architecture ladder? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "entry",
+        "premium"
+      ],
+      "requiredSources": [
+        "Price-pack architecture method"
+      ]
+    },
+    {
+      "agentId": "consumer-procurement-sourcing",
+      "prompt": "How should procurement assess and mitigate a critical supplier risk? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "financial",
+        "alternates"
+      ],
+      "requiredSources": [
+        "Supplier risk and alternate-source method"
+      ]
+    },
+    {
+      "agentId": "consumer-product-safety-toxicology",
+      "prompt": "How is the safety margin for a new ingredient assessed? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "NOAEL",
+        "margin of safety"
+      ],
+      "requiredSources": [
+        "Exposure-based product safety assessment"
+      ]
+    },
+    {
+      "agentId": "consumer-quality-capa",
+      "prompt": "What CAPA steps follow an out-of-spec viscosity deviation? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "quarantines|quarantine",
+        "root-cause"
+      ],
+      "requiredSources": [
+        "Deviation quarantine and CAPA"
+      ]
+    },
+    {
+      "agentId": "consumer-regulatory-affairs",
+      "prompt": "What does EU Regulation 1223/2009 require before placing a cosmetic on the market? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "Responsible Person",
+        "CPNP"
+      ],
+      "requiredSources": [
+        "EU cosmetic market-entry checklist"
+      ]
+    },
+    {
+      "agentId": "consumer-trade-promotion",
+      "prompt": "How should we measure whether a trade promotion created profitable incremental demand? Answer substantively and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "cannibalization",
+        "forward-buying"
+      ],
+      "requiredSources": [
+        "Trade promotion incrementality"
+      ]
+    },
+    {
+      "agentId": "employee-vacation-leave",
+      "prompt": "How much vacation do I have remaining this year? Return the exact marked vacation balance and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "12",
+        "VACATION_BALANCE_JSON_START",
+        "VACATION_BALANCE_JSON_END"
+      ],
+      "requiredSources": [
+        "Synthetic 2026 vacation balance"
+      ],
+      "sourceTitleMode": "required"
+    },
+    {
+      "agentId": "employee-it-helpdesk",
+      "prompt": "My VPN is down. Return the safest first step, preserve the retrieved [ref_id:n] citation marker verbatim, and include the exact marked VPN recovery guidance record.",
+      "requiredTerms": [
+        "Reconnect the VPN once",
+        "VPN_RECOVERY_JSON_START",
+        "VPN_RECOVERY_JSON_END"
+      ],
+      "requiredSources": [
+        "VPN recovery guidance snapshot"
+      ],
+      "sourceTitleMode": "required"
+    },
+    {
+      "agentId": "employee-identity-security",
+      "prompt": "My MFA prompts are coming from an unknown location. Give the safest containment guidance and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "Do not approve the prompt",
+        "security team"
+      ],
+      "requiredSources": [
+        "Identity security response guide"
+      ],
+      "sourceTitleMode": "advisory"
+    },
+    {
+      "agentId": "employee-expense",
+      "prompt": "I must submit a client dinner before the AMEX cutoff. Explain readiness and preserve the retrieved [ref_id:n] citation marker verbatim.",
+      "requiredTerms": [
+        "client dinner",
+        "AMEX cutoff"
+      ],
+      "requiredSources": [
+        "Client dinner expense and AMEX cutoff"
+      ],
+      "sourceTitleMode": "advisory"
+    }
+  ]
+}

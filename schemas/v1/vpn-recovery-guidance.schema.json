@@ -1,0 +1,167 @@
+{
+  "$defs": {
+    "VpnRecoveryOutcome": {
+      "additionalProperties": false,
+      "description": "One governed recovery outcome in the aggregate guidance record.",
+      "properties": {
+        "count": {
+          "minimum": 1,
+          "title": "Count",
+          "type": "integer"
+        },
+        "label": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "outcomeId": {
+          "$ref": "#/$defs/VpnRecoveryOutcomeKind"
+        }
+      },
+      "required": [
+        "outcomeId",
+        "label",
+        "count"
+      ],
+      "title": "VpnRecoveryOutcome",
+      "type": "object"
+    },
+    "VpnRecoveryOutcomeKind": {
+      "description": "The governed recovery outcomes displayed on the compact VPN flow.",
+      "enum": [
+        "reconnect",
+        "restart",
+        "network_reset",
+        "help_desk"
+      ],
+      "title": "VpnRecoveryOutcomeKind",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/vpn-recovery-guidance.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Machine-validated aggregate VPN guidance returned by the IT specialist.",
+  "properties": {
+    "agentId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Agentid",
+      "type": "string"
+    },
+    "escalationBoundary": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Escalationboundary",
+      "type": "string"
+    },
+    "fixtureData": {
+      "default": true,
+      "title": "Fixturedata",
+      "type": "boolean"
+    },
+    "freshness": {
+      "format": "date-time",
+      "title": "Freshness",
+      "type": "string"
+    },
+    "guidanceNote": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Guidancenote",
+      "type": "string"
+    },
+    "outcomes": {
+      "items": {
+        "$ref": "#/$defs/VpnRecoveryOutcome"
+      },
+      "maxItems": 4,
+      "minItems": 4,
+      "title": "Outcomes",
+      "type": "array"
+    },
+    "periodEnd": {
+      "format": "date-time",
+      "title": "Periodend",
+      "type": "string"
+    },
+    "periodStart": {
+      "format": "date-time",
+      "title": "Periodstart",
+      "type": "string"
+    },
+    "population": {
+      "minimum": 1,
+      "title": "Population",
+      "type": "integer"
+    },
+    "readOnly": {
+      "title": "Readonly",
+      "type": "boolean"
+    },
+    "recommendedFirstAction": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Recommendedfirstaction",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "scope": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Scope",
+      "type": "string"
+    },
+    "sourceRecordId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Sourcerecordid",
+      "type": "string"
+    },
+    "sourceSystem": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourcesystem",
+      "type": "string"
+    },
+    "sourceTitle": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourcetitle",
+      "type": "string"
+    },
+    "title": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    }
+  },
+  "required": [
+    "agentId",
+    "title",
+    "population",
+    "periodStart",
+    "periodEnd",
+    "scope",
+    "outcomes",
+    "recommendedFirstAction",
+    "escalationBoundary",
+    "guidanceNote",
+    "readOnly",
+    "freshness",
+    "sourceSystem",
+    "sourceRecordId",
+    "sourceTitle"
+  ],
+  "title": "VpnRecoveryGuidance",
+  "type": "object"
+}

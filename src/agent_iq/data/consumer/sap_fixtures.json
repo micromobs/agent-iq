@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-07-11T00:00:00Z",
+  "records": [
+    {
+      "market": "Germany",
+      "periodEnd": "2026-10-31",
+      "periodStart": "2026-10-01",
+      "productId": "brightwash-cold",
+      "quantity": 125000,
+      "reference": {
+        "auditId": "fixture-audit-demand-001",
+        "authorizationScope": "sap:s4:demand:read",
+        "deepLink": "https://fixture.sap.example.invalid/demand/DE-BRIGHTWASH-2026-10",
+        "objectId": "DE-BRIGHTWASH-2026-10",
+        "objectType": "demand-fact",
+        "retrievedAt": "2026-07-11T00:00:00Z",
+        "sourceMode": "fixture",
+        "systemId": "sap-fixture"
+      },
+      "resourceKind": "demand_fact",
+      "unit": "cases"
+    },
+    {
+      "market": "Germany",
+      "orderId": "SO-FIXTURE-1001",
+      "productId": "brightwash-cold",
+      "quantity": 24000,
+      "reference": {
+        "auditId": "fixture-audit-order-001",
+        "authorizationScope": "sap:s4:sales-orders:read",
+        "deepLink": "https://fixture.sap.example.invalid/sales-orders/SO-FIXTURE-1001",
+        "objectId": "SO-FIXTURE-1001",
+        "objectType": "sales-order",
+        "retrievedAt": "2026-07-11T00:00:00Z",
+        "sourceMode": "fixture",
+        "systemId": "sap-fixture"
+      },
+      "requestedDate": "2026-10-01",
+      "resourceKind": "sales_order",
+      "status": "confirmed-fixture",
+      "unit": "cases"
+    },
+    {
+      "allocatedQuantity": 18000,
+      "availableQuantity": 32000,
+      "locationId": "DE-DC-FIXTURE-01",
+      "productId": "brightwash-cold",
+      "reference": {
+        "auditId": "fixture-audit-inventory-001",
+        "authorizationScope": "sap:s4:inventory:read",
+        "deepLink": "https://fixture.sap.example.invalid/inventory/DE-DC-FIXTURE-01/BRIGHTWASH",
+        "objectId": "DE-DC-FIXTURE-01-BRIGHTWASH",
+        "objectType": "inventory-position",
+        "retrievedAt": "2026-07-11T00:00:00Z",
+        "sourceMode": "fixture",
+        "systemId": "sap-fixture"
+      },
+      "resourceKind": "inventory_position",
+      "unit": "cases"
+    },
+    {
+      "description": "BrightWash Cold synthetic finished-goods material fixture",
+      "materialId": "MAT-BRIGHTWASH-COLD-FIXTURE",
+      "plantId": "DE-PLANT-FIXTURE-01",
+      "reference": {
+        "auditId": "fixture-audit-material-001",
+        "authorizationScope": "sap:s4:materials:read",
+        "deepLink": "https://fixture.sap.example.invalid/materials/MAT-BRIGHTWASH-COLD-FIXTURE",
+        "objectId": "MAT-BRIGHTWASH-COLD-FIXTURE",
+        "objectType": "material",
+        "retrievedAt": "2026-07-11T00:00:00Z",
+        "sourceMode": "fixture",
+        "systemId": "sap-fixture"
+      },
+      "resourceKind": "material_fact",
+      "status": "released-fixture"
+    },
+    {
+      "plantId": "DE-PLANT-FIXTURE-01",
+      "productId": "brightwash-cold",
+      "productionOrderId": "PO-FIXTURE-2001",
+      "quantity": 45000,
+      "reference": {
+        "auditId": "fixture-audit-production-001",
+        "authorizationScope": "sap:s4:production-orders:read",
+        "deepLink": "https://fixture.sap.example.invalid/production-orders/PO-FIXTURE-2001",
+        "objectId": "PO-FIXTURE-2001",
+        "objectType": "production-order",
+        "retrievedAt": "2026-07-11T00:00:00Z",
+        "sourceMode": "fixture",
+        "systemId": "sap-fixture"
+      },
+      "resourceKind": "production_order",
+      "scheduledEnd": "2026-09-20",
+      "scheduledStart": "2026-09-15",
+      "status": "scheduled-fixture",
+      "unit": "cases"
+    },
+    {
+      "availableHours": 1000,
+      "committedHours": 820,
+      "periodEnd": "2026-10-31",
+      "periodStart": "2026-10-01",
+      "plantId": "DE-PLANT-FIXTURE-01",
+      "reference": {
+        "auditId": "fixture-audit-capacity-001",
+        "authorizationScope": "sap:s4:plant-capacity:read",
+        "deepLink": "https://fixture.sap.example.invalid/capacity/DE-PLANT-FIXTURE-01/2026-10",
+        "objectId": "DE-PLANT-FIXTURE-01-2026-10",
+        "objectType": "plant-capacity",
+        "retrievedAt": "2026-07-11T00:00:00Z",
+        "sourceMode": "fixture",
+        "systemId": "sap-fixture"
+      },
+      "resourceKind": "plant_capacity"
+    },
+    {
+      "lineId": "LINE-FIXTURE-01",
+      "metric": "oee",
+      "plantId": "DE-PLANT-FIXTURE-01",
+      "reference": {
+        "auditId": "fixture-audit-status-001",
+        "authorizationScope": "sap:s4:operations:read",
+        "deepLink": "https://fixture.sap.example.invalid/operations/DE-PLANT-FIXTURE-01/LINE-FIXTURE-01",
+        "objectId": "DE-PLANT-FIXTURE-01-LINE-FIXTURE-01",
+        "objectType": "operational-status",
+        "retrievedAt": "2026-07-11T00:00:00Z",
+        "sourceMode": "fixture",
+        "systemId": "sap-fixture"
+      },
+      "resourceKind": "operational_status",
+      "status": "running-fixture",
+      "unit": "percent",
+      "value": 87.2
+    }
+  ],
+  "schemaVersion": "1.0",
+  "sourceLabel": "SYNTHETIC FABRIKAM FIXTURE - NOT LIVE SAP"
+}

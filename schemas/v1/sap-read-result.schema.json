@@ -1,0 +1,594 @@
+{
+  "$defs": {
+    "SapDemandFact": {
+      "additionalProperties": false,
+      "properties": {
+        "market": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Market",
+          "type": "string"
+        },
+        "periodEnd": {
+          "format": "date",
+          "title": "Periodend",
+          "type": "string"
+        },
+        "periodStart": {
+          "format": "date",
+          "title": "Periodstart",
+          "type": "string"
+        },
+        "productId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Productid",
+          "type": "string"
+        },
+        "quantity": {
+          "minimum": 0,
+          "title": "Quantity",
+          "type": "number"
+        },
+        "reference": {
+          "$ref": "#/$defs/SapObjectReference"
+        },
+        "resourceKind": {
+          "const": "demand_fact",
+          "default": "demand_fact",
+          "title": "Resourcekind",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "productId",
+        "market",
+        "periodStart",
+        "periodEnd",
+        "quantity",
+        "unit",
+        "reference"
+      ],
+      "title": "SapDemandFact",
+      "type": "object"
+    },
+    "SapInventoryPosition": {
+      "additionalProperties": false,
+      "properties": {
+        "allocatedQuantity": {
+          "minimum": 0,
+          "title": "Allocatedquantity",
+          "type": "number"
+        },
+        "availableQuantity": {
+          "minimum": 0,
+          "title": "Availablequantity",
+          "type": "number"
+        },
+        "locationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Locationid",
+          "type": "string"
+        },
+        "productId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Productid",
+          "type": "string"
+        },
+        "reference": {
+          "$ref": "#/$defs/SapObjectReference"
+        },
+        "resourceKind": {
+          "const": "inventory_position",
+          "default": "inventory_position",
+          "title": "Resourcekind",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "productId",
+        "locationId",
+        "availableQuantity",
+        "allocatedQuantity",
+        "unit",
+        "reference"
+      ],
+      "title": "SapInventoryPosition",
+      "type": "object"
+    },
+    "SapMaterialFact": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "materialId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Materialid",
+          "type": "string"
+        },
+        "plantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Plantid",
+          "type": "string"
+        },
+        "reference": {
+          "$ref": "#/$defs/SapObjectReference"
+        },
+        "resourceKind": {
+          "const": "material_fact",
+          "default": "material_fact",
+          "title": "Resourcekind",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "materialId",
+        "plantId",
+        "description",
+        "status",
+        "reference"
+      ],
+      "title": "SapMaterialFact",
+      "type": "object"
+    },
+    "SapObjectReference": {
+      "additionalProperties": false,
+      "properties": {
+        "auditId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Auditid",
+          "type": "string"
+        },
+        "authorizationScope": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Authorizationscope",
+          "type": "string"
+        },
+        "deepLink": {
+          "format": "uri",
+          "minLength": 1,
+          "title": "Deeplink",
+          "type": "string"
+        },
+        "objectId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Objectid",
+          "type": "string"
+        },
+        "objectType": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Objecttype",
+          "type": "string"
+        },
+        "retrievedAt": {
+          "format": "date-time",
+          "title": "Retrievedat",
+          "type": "string"
+        },
+        "sourceMode": {
+          "$ref": "#/$defs/SapSourceMode"
+        },
+        "systemId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Systemid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "systemId",
+        "objectType",
+        "objectId",
+        "deepLink",
+        "sourceMode",
+        "retrievedAt",
+        "authorizationScope",
+        "auditId"
+      ],
+      "title": "SapObjectReference",
+      "type": "object"
+    },
+    "SapOperationalStatus": {
+      "additionalProperties": false,
+      "properties": {
+        "lineId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Lineid",
+          "type": "string"
+        },
+        "metric": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Metric",
+          "type": "string"
+        },
+        "plantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Plantid",
+          "type": "string"
+        },
+        "reference": {
+          "$ref": "#/$defs/SapObjectReference"
+        },
+        "resourceKind": {
+          "const": "operational_status",
+          "default": "operational_status",
+          "title": "Resourcekind",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        },
+        "value": {
+          "minimum": 0,
+          "title": "Value",
+          "type": "number"
+        }
+      },
+      "required": [
+        "plantId",
+        "lineId",
+        "metric",
+        "value",
+        "unit",
+        "status",
+        "reference"
+      ],
+      "title": "SapOperationalStatus",
+      "type": "object"
+    },
+    "SapPlantCapacity": {
+      "additionalProperties": false,
+      "properties": {
+        "availableHours": {
+          "minimum": 0,
+          "title": "Availablehours",
+          "type": "number"
+        },
+        "committedHours": {
+          "minimum": 0,
+          "title": "Committedhours",
+          "type": "number"
+        },
+        "periodEnd": {
+          "format": "date",
+          "title": "Periodend",
+          "type": "string"
+        },
+        "periodStart": {
+          "format": "date",
+          "title": "Periodstart",
+          "type": "string"
+        },
+        "plantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Plantid",
+          "type": "string"
+        },
+        "reference": {
+          "$ref": "#/$defs/SapObjectReference"
+        },
+        "resourceKind": {
+          "const": "plant_capacity",
+          "default": "plant_capacity",
+          "title": "Resourcekind",
+          "type": "string"
+        }
+      },
+      "required": [
+        "plantId",
+        "periodStart",
+        "periodEnd",
+        "availableHours",
+        "committedHours",
+        "reference"
+      ],
+      "title": "SapPlantCapacity",
+      "type": "object"
+    },
+    "SapProductionOrder": {
+      "additionalProperties": false,
+      "properties": {
+        "plantId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Plantid",
+          "type": "string"
+        },
+        "productId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Productid",
+          "type": "string"
+        },
+        "productionOrderId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Productionorderid",
+          "type": "string"
+        },
+        "quantity": {
+          "exclusiveMinimum": 0,
+          "title": "Quantity",
+          "type": "number"
+        },
+        "reference": {
+          "$ref": "#/$defs/SapObjectReference"
+        },
+        "resourceKind": {
+          "const": "production_order",
+          "default": "production_order",
+          "title": "Resourcekind",
+          "type": "string"
+        },
+        "scheduledEnd": {
+          "format": "date",
+          "title": "Scheduledend",
+          "type": "string"
+        },
+        "scheduledStart": {
+          "format": "date",
+          "title": "Scheduledstart",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "productionOrderId",
+        "productId",
+        "plantId",
+        "scheduledStart",
+        "scheduledEnd",
+        "quantity",
+        "unit",
+        "status",
+        "reference"
+      ],
+      "title": "SapProductionOrder",
+      "type": "object"
+    },
+    "SapResourceKind": {
+      "enum": [
+        "demand_fact",
+        "sales_order",
+        "inventory_position",
+        "material_fact",
+        "production_order",
+        "plant_capacity",
+        "operational_status"
+      ],
+      "title": "SapResourceKind",
+      "type": "string"
+    },
+    "SapSalesOrder": {
+      "additionalProperties": false,
+      "properties": {
+        "market": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Market",
+          "type": "string"
+        },
+        "orderId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Orderid",
+          "type": "string"
+        },
+        "productId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Productid",
+          "type": "string"
+        },
+        "quantity": {
+          "exclusiveMinimum": 0,
+          "title": "Quantity",
+          "type": "number"
+        },
+        "reference": {
+          "$ref": "#/$defs/SapObjectReference"
+        },
+        "requestedDate": {
+          "format": "date",
+          "title": "Requesteddate",
+          "type": "string"
+        },
+        "resourceKind": {
+          "const": "sales_order",
+          "default": "sales_order",
+          "title": "Resourcekind",
+          "type": "string"
+        },
+        "status": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "unit": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Unit",
+          "type": "string"
+        }
+      },
+      "required": [
+        "orderId",
+        "productId",
+        "market",
+        "requestedDate",
+        "quantity",
+        "unit",
+        "status",
+        "reference"
+      ],
+      "title": "SapSalesOrder",
+      "type": "object"
+    },
+    "SapSourceMode": {
+      "enum": [
+        "fixture",
+        "live"
+      ],
+      "title": "SapSourceMode",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/sap-read-result.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authorizationScope": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Authorizationscope",
+      "type": "string"
+    },
+    "records": {
+      "items": {
+        "discriminator": {
+          "mapping": {
+            "demand_fact": "#/$defs/SapDemandFact",
+            "inventory_position": "#/$defs/SapInventoryPosition",
+            "material_fact": "#/$defs/SapMaterialFact",
+            "operational_status": "#/$defs/SapOperationalStatus",
+            "plant_capacity": "#/$defs/SapPlantCapacity",
+            "production_order": "#/$defs/SapProductionOrder",
+            "sales_order": "#/$defs/SapSalesOrder"
+          },
+          "propertyName": "resourceKind"
+        },
+        "oneOf": [
+          {
+            "$ref": "#/$defs/SapDemandFact"
+          },
+          {
+            "$ref": "#/$defs/SapSalesOrder"
+          },
+          {
+            "$ref": "#/$defs/SapInventoryPosition"
+          },
+          {
+            "$ref": "#/$defs/SapMaterialFact"
+          },
+          {
+            "$ref": "#/$defs/SapProductionOrder"
+          },
+          {
+            "$ref": "#/$defs/SapPlantCapacity"
+          },
+          {
+            "$ref": "#/$defs/SapOperationalStatus"
+          }
+        ]
+      },
+      "minItems": 1,
+      "title": "Records",
+      "type": "array"
+    },
+    "resourceKind": {
+      "$ref": "#/$defs/SapResourceKind"
+    },
+    "retrievedAt": {
+      "format": "date-time",
+      "title": "Retrievedat",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "sourceLabel": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourcelabel",
+      "type": "string"
+    },
+    "sourceMode": {
+      "$ref": "#/$defs/SapSourceMode"
+    }
+  },
+  "required": [
+    "sourceMode",
+    "sourceLabel",
+    "resourceKind",
+    "records",
+    "retrievedAt",
+    "authorizationScope"
+  ],
+  "title": "SapReadResult",
+  "type": "object"
+}

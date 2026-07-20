@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "ExecutionMemoryIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "intentClass": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Intentclass",
+          "type": "string"
+        },
+        "neighborhoodId": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Neighborhoodid"
+        },
+        "textHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Texthash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "textHash",
+        "intentClass"
+      ],
+      "title": "ExecutionMemoryIntent",
+      "type": "object"
+    },
+    "FeedbackSignal": {
+      "enum": [
+        "helpful",
+        "not_helpful"
+      ],
+      "title": "FeedbackSignal",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/memory-feedback-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "commentHash": {
+      "anyOf": [
+        {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Commenthash"
+    },
+    "correlationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Correlationid",
+      "type": "string"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "feedbackId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Feedbackid",
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Idempotencykey",
+      "type": "string"
+    },
+    "intent": {
+      "$ref": "#/$defs/ExecutionMemoryIntent"
+    },
+    "projectId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Projectid",
+      "type": "string"
+    },
+    "rating": {
+      "$ref": "#/$defs/FeedbackSignal"
+    },
+    "recordType": {
+      "const": "feedback",
+      "default": "feedback",
+      "title": "Recordtype",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "subjectId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Subjectid",
+      "type": "string"
+    },
+    "submittedAt": {
+      "format": "date-time",
+      "title": "Submittedat",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Tenantid",
+      "type": "string"
+    },
+    "traceId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Traceid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "idempotencyKey",
+    "feedbackId",
+    "executionId",
+    "traceId",
+    "correlationId",
+    "tenantId",
+    "subjectId",
+    "projectId",
+    "intent",
+    "rating",
+    "submittedAt"
+  ],
+  "title": "FeedbackMemoryRecord",
+  "type": "object"
+}

@@ -1,0 +1,111 @@
+{
+  "$id": "https://schemas.agent-iq.dev/v1/demand-scenario.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifactId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Artifactid",
+      "type": "string"
+    },
+    "assumptions": {
+      "default": [],
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Assumptions",
+      "type": "array"
+    },
+    "baselineQuantity": {
+      "minimum": 0,
+      "title": "Baselinequantity",
+      "type": "number"
+    },
+    "confidence": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Confidence",
+      "type": "number"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "title": "Createdat",
+      "type": "string"
+    },
+    "evidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidenceids",
+      "type": "array"
+    },
+    "forecastQuantity": {
+      "minimum": 0,
+      "title": "Forecastquantity",
+      "type": "number"
+    },
+    "horizonEnd": {
+      "format": "date",
+      "title": "Horizonend",
+      "type": "string"
+    },
+    "horizonStart": {
+      "format": "date",
+      "title": "Horizonstart",
+      "type": "string"
+    },
+    "kind": {
+      "const": "demand_scenario",
+      "default": "demand_scenario",
+      "title": "Kind",
+      "type": "string"
+    },
+    "market": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Market",
+      "type": "string"
+    },
+    "productId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Productid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "unit": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Unit",
+      "type": "string"
+    }
+  },
+  "required": [
+    "artifactId",
+    "productId",
+    "market",
+    "horizonStart",
+    "horizonEnd",
+    "unit",
+    "baselineQuantity",
+    "forecastQuantity",
+    "confidence",
+    "evidenceIds",
+    "createdAt"
+  ],
+  "title": "DemandScenario",
+  "type": "object"
+}

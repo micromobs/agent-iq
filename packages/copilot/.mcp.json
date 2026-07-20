@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "agent-iq": {
+      "type": "http",
+      "url": "https://agent-iq-orchestrator-canary.template-00000000.swedencentral.azurecontainerapps.io/mcp",
+      "tools": [
+        "search_agents",
+        "orchestrate",
+        "get_execution",
+        "cancel_execution",
+        "submit_feedback",
+        "capabilities"
+      ]
+    }
+  }
+}

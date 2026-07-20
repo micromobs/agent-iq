@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "destinations": [
+        "src/agent_iq/data/consumer/agents.json",
+        "src/agent_iq/data/consumer/runtime.json",
+        "src/agent_iq/data/consumer/knowledge_bases.json"
+      ],
+      "license": "MIT",
+      "origin": "locally authored synthetic fixture; no external source material",
+      "path": "consumer/fleet.py",
+      "sha256": "1463249819bb5101d13c672d80295c35357f511a0e6cf21a294e731510245c1e",
+      "sourceId": "consumer-demo-source",
+      "transformations": [
+        "authored twenty fictional consumer-product agent cards from blank role specifications",
+        "used only Fabrikam Consumer Products synthetic identities",
+        "bound every card to synthetic corpora and deterministic fixture tools"
+      ]
+    },
+    {
+      "destinations": [
+        "src/agent_iq/data/consumer/corpora"
+      ],
+      "license": "Apache-2.0",
+      "origin": "locally authored synthetic fixture; no external source material",
+      "path": "consumer/corpora.py",
+      "sha256": "eef3352ae7ecfe3fb0dcf019869747d82277b1ff3ff1d5b8baad8eccfca2d5bc",
+      "sourceId": "consumer-demo-source",
+      "transformations": [
+        "authored fictional products, operating methods and evidence records from scratch",
+        "retained only public standards and regulatory concepts needed by role semantics",
+        "excluded public-company prose, real-company URLs and real-brand facts"
+      ]
+    },
+    {
+      "destinations": [
+        "src/agent_iq/data/consumer/discovery_cases.jsonl",
+        "src/agent_iq/data/consumer/tool_cases.jsonl",
+        "src/agent_iq/data/consumer/orchestration_cases.jsonl",
+        "src/agent_iq/data/consumer/live_smoke.json",
+        "src/agent_iq/data/consumer/sap_fixtures.json"
+      ],
+      "license": "CC BY-SA 4.0",
+      "origin": "locally authored synthetic fixture; no external source material",
+      "path": "datasets/discovery_testset_consumer.jsonl",
+      "sha256": "1d137e95ae504c266bfa4ac1172399520b815200ada8fbbbad39f1fffff85aea",
+      "sourceId": "consumer-demo-source",
+      "transformations": [
+        "authored separable intents for all twenty synthetic functional roles",
+        "created deterministic BrightWash Cold operational records with invalid fixture URLs",
+        "aligned discovery, tool, orchestration and smoke evidence contracts"
+      ]
+    }
+  ]
+}

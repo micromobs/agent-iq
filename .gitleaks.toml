@@ -1,0 +1,17 @@
+# Agent IQ gitleaks configuration
+# Extends the built-in gitleaks ruleset and adds project allowlists.
+title = "Agent IQ gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = """
+Allowlist the detect-secrets baseline. `.secrets.baseline` stores only SHA-1
+hashed_secret fingerprints (is_verified=false), which are one-way and not
+recoverable to live credentials. The file exists to gate real secrets in CI,
+so its hashes must not be treated as leaks.
+"""
+paths = [
+  '''(^|/)\.secrets\.baseline$''',
+]

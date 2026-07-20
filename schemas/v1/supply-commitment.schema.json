@@ -1,0 +1,146 @@
+{
+  "$defs": {
+    "SupplyCommitmentStatus": {
+      "enum": [
+        "available",
+        "constrained",
+        "not_available",
+        "proposed"
+      ],
+      "title": "SupplyCommitmentStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/supply-commitment.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifactId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Artifactid",
+      "type": "string"
+    },
+    "asOf": {
+      "format": "date-time",
+      "title": "Asof",
+      "type": "string"
+    },
+    "availableFrom": {
+      "format": "date",
+      "title": "Availablefrom",
+      "type": "string"
+    },
+    "availableUntil": {
+      "anyOf": [
+        {
+          "format": "date",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Availableuntil"
+    },
+    "evidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidenceids",
+      "type": "array"
+    },
+    "kind": {
+      "const": "supply_commitment",
+      "default": "supply_commitment",
+      "title": "Kind",
+      "type": "string"
+    },
+    "market": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Market",
+      "type": "string"
+    },
+    "materialId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Materialid",
+      "type": "string"
+    },
+    "plantId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Plantid",
+      "type": "string"
+    },
+    "quantity": {
+      "minimum": 0,
+      "title": "Quantity",
+      "type": "number"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "sourceObjectId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourceobjectid",
+      "type": "string"
+    },
+    "sourceSystem": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourcesystem",
+      "type": "string"
+    },
+    "sourceUrl": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Sourceurl"
+    },
+    "status": {
+      "$ref": "#/$defs/SupplyCommitmentStatus"
+    },
+    "unit": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Unit",
+      "type": "string"
+    }
+  },
+  "required": [
+    "artifactId",
+    "materialId",
+    "plantId",
+    "market",
+    "quantity",
+    "unit",
+    "availableFrom",
+    "status",
+    "sourceSystem",
+    "sourceObjectId",
+    "asOf",
+    "evidenceIds"
+  ],
+  "title": "SupplyCommitment",
+  "type": "object"
+}

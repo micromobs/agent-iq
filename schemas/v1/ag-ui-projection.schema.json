@@ -1,0 +1,1376 @@
+{
+  "$defs": {
+    "AgUiActivityContent": {
+      "additionalProperties": false,
+      "description": "Governed activity content rendered by the Agent IQ command center.",
+      "properties": {
+        "agentId": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Agentid"
+        },
+        "evidenceIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "invocationId": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Invocationid"
+        },
+        "label": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "sourceEventType": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Sourceeventtype",
+          "type": "string"
+        },
+        "stage": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stage",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "running",
+            "complete",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stage",
+        "label",
+        "status",
+        "sourceEventType"
+      ],
+      "title": "AgUiActivityContent",
+      "type": "object"
+    },
+    "AgUiActivitySnapshotEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "activityType": {
+          "const": "agent_iq.lifecycle",
+          "default": "agent_iq.lifecycle",
+          "title": "Activitytype",
+          "type": "string"
+        },
+        "content": {
+          "$ref": "#/$defs/AgUiActivityContent"
+        },
+        "messageId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Messageid",
+          "type": "string"
+        },
+        "replace": {
+          "default": true,
+          "title": "Replace",
+          "type": "boolean"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "ACTIVITY_SNAPSHOT",
+          "default": "ACTIVITY_SNAPSHOT",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageId",
+        "content",
+        "timestamp"
+      ],
+      "title": "AgUiActivitySnapshotEvent",
+      "type": "object"
+    },
+    "AgUiApprovalState": {
+      "additionalProperties": false,
+      "description": "Approval state without private policy metadata.",
+      "properties": {
+        "approvalId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Approvalid",
+          "type": "string"
+        },
+        "scopeSummary": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Scopesummary",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "requested",
+            "approved",
+            "declined",
+            "expired",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "stepIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Stepids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "approvalId",
+        "stepIds",
+        "scopeSummary",
+        "status"
+      ],
+      "title": "AgUiApprovalState",
+      "type": "object"
+    },
+    "AgUiCandidate": {
+      "additionalProperties": false,
+      "description": "Security-trimmed candidate safe for the internal command center.",
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "components": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AgUiScoreComponent"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "explanation": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "fusedScore": {
+          "title": "Fusedscore",
+          "type": "number"
+        },
+        "matchedFields": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedfields",
+          "type": "array"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agentId",
+        "rank",
+        "fusedScore",
+        "explanation"
+      ],
+      "title": "AgUiCandidate",
+      "type": "object"
+    },
+    "AgUiCanvasState": {
+      "additionalProperties": false,
+      "description": "Reconstructable safe state consumed by internal Agent IQ canvases.",
+      "properties": {
+        "answer": {
+          "anyOf": [
+            {
+              "maxLength": 16384,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Answer"
+        },
+        "approvals": {
+          "patternProperties": {
+            "^[A-Za-z0-9][A-Za-z0-9._:-]*$": {
+              "$ref": "#/$defs/AgUiApprovalState"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Approvals",
+          "type": "object"
+        },
+        "candidateCount": {
+          "default": 0,
+          "minimum": 0,
+          "title": "Candidatecount",
+          "type": "integer"
+        },
+        "candidates": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AgUiCandidate"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "catalogVersion": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Catalogversion"
+        },
+        "citationNumbers": {
+          "default": [],
+          "items": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "title": "Citationnumbers",
+          "type": "array"
+        },
+        "durationMs": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Durationms"
+        },
+        "evidenceIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "executionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Executionid",
+          "type": "string"
+        },
+        "invocations": {
+          "patternProperties": {
+            "^[A-Za-z0-9][A-Za-z0-9._:-]*$": {
+              "$ref": "#/$defs/AgUiInvocationState"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Invocations",
+          "type": "object"
+        },
+        "plan": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/AgUiPlanState"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "selections": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/AgUiSelection"
+          },
+          "title": "Selections",
+          "type": "array"
+        },
+        "stage": {
+          "default": "accepted",
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stage",
+          "type": "string"
+        },
+        "status": {
+          "default": "running",
+          "enum": [
+            "running",
+            "completed",
+            "partial",
+            "declined",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "tasks": {
+          "patternProperties": {
+            "^[A-Za-z0-9][A-Za-z0-9._:-]*$": {
+              "$ref": "#/$defs/AgUiTaskState"
+            }
+          },
+          "propertyNames": {
+            "maxLength": 128,
+            "minLength": 1
+          },
+          "title": "Tasks",
+          "type": "object"
+        }
+      },
+      "required": [
+        "executionId"
+      ],
+      "title": "AgUiCanvasState",
+      "type": "object"
+    },
+    "AgUiInvocationState": {
+      "additionalProperties": false,
+      "description": "Safe invocation state. Arguments, prompts, and provider messages are excluded.",
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "durationMs": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Durationms"
+        },
+        "errorCode": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Errorcode"
+        },
+        "evidenceIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "invocationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Invocationid",
+          "type": "string"
+        },
+        "protocolVersion": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Protocolversion",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "running",
+            "completed",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        },
+        "transport": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Transport",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invocationId",
+        "stepId",
+        "agentId",
+        "status",
+        "transport",
+        "protocolVersion"
+      ],
+      "title": "AgUiInvocationState",
+      "type": "object"
+    },
+    "AgUiJsonPatchOperation": {
+      "additionalProperties": false,
+      "description": "RFC 6902 operation used by the safe state projection.",
+      "properties": {
+        "op": {
+          "enum": [
+            "add",
+            "remove",
+            "replace"
+          ],
+          "title": "Op",
+          "type": "string"
+        },
+        "path": {
+          "maxLength": 512,
+          "minLength": 1,
+          "pattern": "^/",
+          "title": "Path",
+          "type": "string"
+        },
+        "value": {
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "op",
+        "path"
+      ],
+      "title": "AgUiJsonPatchOperation",
+      "type": "object"
+    },
+    "AgUiPlanState": {
+      "additionalProperties": false,
+      "description": "Safe plan shape used to render order, parallelism, and approvals.",
+      "properties": {
+        "maxConcurrency": {
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Maxconcurrency",
+          "type": "integer"
+        },
+        "planId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Planid",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/AgUiPlanStepState"
+          },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        }
+      },
+      "required": [
+        "planId",
+        "steps",
+        "maxConcurrency"
+      ],
+      "title": "AgUiPlanState",
+      "type": "object"
+    },
+    "AgUiPlanStepState": {
+      "additionalProperties": false,
+      "description": "Safe execution-DAG facts without work-item text or context identifiers.",
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "approvalRequired": {
+          "title": "Approvalrequired",
+          "type": "boolean"
+        },
+        "contextKinds": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Contextkinds",
+          "type": "array"
+        },
+        "dependsOn": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Dependson",
+          "type": "array"
+        },
+        "expectedOutputCount": {
+          "minimum": 1,
+          "title": "Expectedoutputcount",
+          "type": "integer"
+        },
+        "invocationMode": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Invocationmode",
+          "type": "string"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stepId",
+        "agentId",
+        "expectedOutputCount",
+        "invocationMode",
+        "approvalRequired"
+      ],
+      "title": "AgUiPlanStepState",
+      "type": "object"
+    },
+    "AgUiProjectionEnvelope": {
+      "additionalProperties": false,
+      "description": "Correlation wrapper around one projected AG-UI event.",
+      "properties": {
+        "event": {
+          "discriminator": {
+            "mapping": {
+              "ACTIVITY_SNAPSHOT": "#/$defs/AgUiActivitySnapshotEvent",
+              "RUN_ERROR": "#/$defs/AgUiRunErrorEvent",
+              "RUN_FINISHED": "#/$defs/AgUiRunFinishedEvent",
+              "RUN_STARTED": "#/$defs/AgUiRunStartedEvent",
+              "STATE_DELTA": "#/$defs/AgUiStateDeltaEvent",
+              "STATE_SNAPSHOT": "#/$defs/AgUiStateSnapshotEvent",
+              "STEP_FINISHED": "#/$defs/AgUiStepFinishedEvent",
+              "STEP_STARTED": "#/$defs/AgUiStepStartedEvent",
+              "TEXT_MESSAGE_CONTENT": "#/$defs/AgUiTextMessageContentEvent",
+              "TEXT_MESSAGE_END": "#/$defs/AgUiTextMessageEndEvent",
+              "TEXT_MESSAGE_START": "#/$defs/AgUiTextMessageStartEvent",
+              "TOOL_CALL_END": "#/$defs/AgUiToolCallEndEvent",
+              "TOOL_CALL_START": "#/$defs/AgUiToolCallStartEvent"
+            },
+            "propertyName": "type"
+          },
+          "oneOf": [
+            {
+              "$ref": "#/$defs/AgUiRunStartedEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiRunFinishedEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiRunErrorEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiStepStartedEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiStepFinishedEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiTextMessageStartEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiTextMessageContentEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiTextMessageEndEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiToolCallStartEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiToolCallEndEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiStateSnapshotEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiStateDeltaEvent"
+            },
+            {
+              "$ref": "#/$defs/AgUiActivitySnapshotEvent"
+            }
+          ],
+          "title": "Event"
+        },
+        "executionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Executionid",
+          "type": "string"
+        },
+        "projectionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Projectionid",
+          "type": "string"
+        },
+        "projectionIndex": {
+          "minimum": 0,
+          "title": "Projectionindex",
+          "type": "integer"
+        },
+        "sourceEventId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Sourceeventid",
+          "type": "string"
+        },
+        "sourceSequence": {
+          "minimum": 0,
+          "title": "Sourcesequence",
+          "type": "integer"
+        },
+        "traceId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Traceid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "projectionId",
+        "sourceEventId",
+        "sourceSequence",
+        "projectionIndex",
+        "executionId",
+        "traceId",
+        "event"
+      ],
+      "title": "AgUiProjectionEnvelope",
+      "type": "object"
+    },
+    "AgUiRunErrorEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Code",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "RUN_ERROR",
+          "default": "RUN_ERROR",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "message",
+        "code",
+        "timestamp"
+      ],
+      "title": "AgUiRunErrorEvent",
+      "type": "object"
+    },
+    "AgUiRunFinishedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "result": {
+          "$ref": "#/$defs/AgUiRunResult"
+        },
+        "runId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Runid",
+          "type": "string"
+        },
+        "threadId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Threadid",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "RUN_FINISHED",
+          "default": "RUN_FINISHED",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "threadId",
+        "runId",
+        "result",
+        "timestamp"
+      ],
+      "title": "AgUiRunFinishedEvent",
+      "type": "object"
+    },
+    "AgUiRunResult": {
+      "additionalProperties": false,
+      "description": "Terminal run result safe for a presentation client.",
+      "properties": {
+        "durationMs": {
+          "minimum": 0,
+          "title": "Durationms",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "partial",
+            "declined",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "durationMs"
+      ],
+      "title": "AgUiRunResult",
+      "type": "object"
+    },
+    "AgUiRunStartedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "runId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Runid",
+          "type": "string"
+        },
+        "threadId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Threadid",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "RUN_STARTED",
+          "default": "RUN_STARTED",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "threadId",
+        "runId",
+        "timestamp"
+      ],
+      "title": "AgUiRunStartedEvent",
+      "type": "object"
+    },
+    "AgUiScoreComponent": {
+      "additionalProperties": false,
+      "description": "Public retrieval evidence for one candidate.",
+      "properties": {
+        "matchedFields": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedfields",
+          "type": "array"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "score": {
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "rank",
+        "score"
+      ],
+      "title": "AgUiScoreComponent",
+      "type": "object"
+    },
+    "AgUiSelection": {
+      "additionalProperties": false,
+      "description": "Public selection facts without work-item text or hidden reasoning.",
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "fusedScore": {
+          "title": "Fusedscore",
+          "type": "number"
+        },
+        "matchedSkills": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedskills",
+          "type": "array"
+        },
+        "matchedTags": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedtags",
+          "type": "array"
+        },
+        "policyFacts": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Policyfacts",
+          "type": "array"
+        },
+        "summary": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agentId",
+        "summary",
+        "fusedScore"
+      ],
+      "title": "AgUiSelection",
+      "type": "object"
+    },
+    "AgUiStateDeltaEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "delta": {
+          "items": {
+            "$ref": "#/$defs/AgUiJsonPatchOperation"
+          },
+          "minItems": 1,
+          "title": "Delta",
+          "type": "array"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "STATE_DELTA",
+          "default": "STATE_DELTA",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "delta",
+        "timestamp"
+      ],
+      "title": "AgUiStateDeltaEvent",
+      "type": "object"
+    },
+    "AgUiStateSnapshotEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "snapshot": {
+          "$ref": "#/$defs/AgUiCanvasState"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "STATE_SNAPSHOT",
+          "default": "STATE_SNAPSHOT",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "snapshot",
+        "timestamp"
+      ],
+      "title": "AgUiStateSnapshotEvent",
+      "type": "object"
+    },
+    "AgUiStepFinishedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "stepName": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepname",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "STEP_FINISHED",
+          "default": "STEP_FINISHED",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stepName",
+        "timestamp"
+      ],
+      "title": "AgUiStepFinishedEvent",
+      "type": "object"
+    },
+    "AgUiStepStartedEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "stepName": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepname",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "STEP_STARTED",
+          "default": "STEP_STARTED",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stepName",
+        "timestamp"
+      ],
+      "title": "AgUiStepStartedEvent",
+      "type": "object"
+    },
+    "AgUiTaskState": {
+      "additionalProperties": false,
+      "description": "Durable handoff/task status without destination coordinates.",
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "callbackModes": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Callbackmodes",
+          "type": "array"
+        },
+        "status": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Status",
+          "type": "string"
+        },
+        "taskId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Taskid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "taskId",
+        "agentId",
+        "callbackModes",
+        "status"
+      ],
+      "title": "AgUiTaskState",
+      "type": "object"
+    },
+    "AgUiTextMessageContentEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "delta": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Delta",
+          "type": "string"
+        },
+        "messageId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Messageid",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "TEXT_MESSAGE_CONTENT",
+          "default": "TEXT_MESSAGE_CONTENT",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageId",
+        "delta",
+        "timestamp"
+      ],
+      "title": "AgUiTextMessageContentEvent",
+      "type": "object"
+    },
+    "AgUiTextMessageEndEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "messageId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Messageid",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "TEXT_MESSAGE_END",
+          "default": "TEXT_MESSAGE_END",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageId",
+        "timestamp"
+      ],
+      "title": "AgUiTextMessageEndEvent",
+      "type": "object"
+    },
+    "AgUiTextMessageStartEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "messageId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Messageid",
+          "type": "string"
+        },
+        "role": {
+          "const": "assistant",
+          "default": "assistant",
+          "title": "Role",
+          "type": "string"
+        },
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "type": {
+          "const": "TEXT_MESSAGE_START",
+          "default": "TEXT_MESSAGE_START",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageId",
+        "timestamp"
+      ],
+      "title": "AgUiTextMessageStartEvent",
+      "type": "object"
+    },
+    "AgUiToolCallEndEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "toolCallId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Toolcallid",
+          "type": "string"
+        },
+        "type": {
+          "const": "TOOL_CALL_END",
+          "default": "TOOL_CALL_END",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "toolCallId",
+        "timestamp"
+      ],
+      "title": "AgUiToolCallEndEvent",
+      "type": "object"
+    },
+    "AgUiToolCallStartEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "timestamp": {
+          "minimum": 0,
+          "title": "Timestamp",
+          "type": "integer"
+        },
+        "toolCallId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Toolcallid",
+          "type": "string"
+        },
+        "toolCallName": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Toolcallname",
+          "type": "string"
+        },
+        "type": {
+          "const": "TOOL_CALL_START",
+          "default": "TOOL_CALL_START",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "toolCallId",
+        "toolCallName",
+        "timestamp"
+      ],
+      "title": "AgUiToolCallStartEvent",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/ag-ui-projection.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Deterministic one-way projection of a complete canonical event prefix.",
+  "properties": {
+    "agUiReferenceRevision": {
+      "const": "e0d48fd100c15448553cf4ef91218f4d0bbfff29",
+      "default": "e0d48fd100c15448553cf4ef91218f4d0bbfff29",
+      "title": "Aguireferencerevision",
+      "type": "string"
+    },
+    "canonicalEventCount": {
+      "minimum": 1,
+      "title": "Canonicaleventcount",
+      "type": "integer"
+    },
+    "eventCount": {
+      "minimum": 1,
+      "title": "Eventcount",
+      "type": "integer"
+    },
+    "events": {
+      "items": {
+        "$ref": "#/$defs/AgUiProjectionEnvelope"
+      },
+      "minItems": 1,
+      "title": "Events",
+      "type": "array"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "default": "1.0.0",
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "threadId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Threadid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "executionId",
+    "threadId",
+    "canonicalEventCount",
+    "eventCount",
+    "events"
+  ],
+  "title": "AgUiProjection",
+  "type": "object"
+}

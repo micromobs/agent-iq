@@ -1,0 +1,754 @@
+{
+  "agents": [
+    {
+      "agentId": "employee-hr-concierge",
+      "displayName": "HR Concierge",
+      "examples": [
+        "I'm having a baby and need to plan parental leave",
+        "What is the bereavement leave policy?",
+        "How do I update my HR profile after getting married?"
+      ],
+      "glyph": "HR",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-hr-policies",
+        "kb-onboarding-guide",
+        "kb-time-off-policy"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Answers HR policy questions and guides employees through people-team processes.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Policy guidance",
+        "Leave planning",
+        "Life-event support"
+      ],
+      "tags": [
+        "hr",
+        "policy",
+        "leave",
+        "people"
+      ]
+    },
+    {
+      "agentId": "employee-benefits-advisor",
+      "displayName": "Benefits Advisor",
+      "examples": [
+        "Help me compare medical plans for open enrollment",
+        "Can I add my new spouse to my dental plan?",
+        "What does the HSA employer match look like?"
+      ],
+      "glyph": "BEN",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-benefits-plans",
+        "kb-hr-policies"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Explains medical, dental, vision, and retirement benefit plan options.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Plan comparison",
+        "Open enrollment",
+        "Dependent coverage"
+      ],
+      "tags": [
+        "benefits",
+        "enrollment",
+        "insurance",
+        "retirement"
+      ]
+    },
+    {
+      "agentId": "employee-payroll",
+      "displayName": "Payroll Assistant",
+      "examples": [
+        "Can you explain the deductions on my latest payslip?",
+        "My paycheck looks short this period, what happened?",
+        "When does my next direct deposit land?"
+      ],
+      "glyph": "PAY",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-payroll-guides",
+        "kb-compensation-bands"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Explains payslip line items, deductions, and pay-cycle timing.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Payslip explanation",
+        "Deduction breakdown",
+        "Discrepancy triage"
+      ],
+      "tags": [
+        "payroll",
+        "payslip",
+        "deductions",
+        "paycheck"
+      ]
+    },
+    {
+      "agentId": "employee-it-helpdesk",
+      "displayName": "IT Helpdesk",
+      "examples": [
+        "My VPN won't connect and I have a client meeting in 10 minutes",
+        "My laptop camera stopped working before a call",
+        "I lost my company phone, what do I do?"
+      ],
+      "glyph": "ITH",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-it-runbooks",
+        "kb-device-catalog",
+        "kb-security-policies"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Troubleshoots VPN, network, endpoint, and meeting-readiness issues.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "VPN troubleshooting",
+        "Device triage",
+        "Meeting rescue"
+      ],
+      "tags": [
+        "it",
+        "vpn",
+        "helpdesk",
+        "troubleshooting"
+      ]
+    },
+    {
+      "agentId": "employee-identity-security",
+      "displayName": "Identity & Security Advisor",
+      "examples": [
+        "I lost my company laptop, help me secure my account",
+        "My MFA prompts are coming from an unknown location",
+        "How do I reset my security keys?"
+      ],
+      "glyph": "SEC",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-security-policies",
+        "kb-access-governance"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Handles identity, MFA, and lost-device security response guidance.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Lost device response",
+        "MFA reset",
+        "Security triage"
+      ],
+      "tags": [
+        "security",
+        "identity",
+        "mfa",
+        "device"
+      ]
+    },
+    {
+      "agentId": "employee-expense",
+      "displayName": "Expense Assistant",
+      "examples": [
+        "Help me submit my travel expense receipts",
+        "Is a client dinner reimbursable under policy?",
+        "Why was my expense flagged for review?"
+      ],
+      "glyph": "EXP",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-expense-policy",
+        "kb-travel-guidelines"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Helps submit and categorize expense reports from receipts and card activity.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Smart receipt capture",
+        "Category coding",
+        "Policy checks"
+      ],
+      "tags": [
+        "expense",
+        "receipts",
+        "reimbursement",
+        "policy"
+      ]
+    },
+    {
+      "agentId": "employee-finance",
+      "displayName": "Finance Operations Assistant",
+      "examples": [
+        "Give me the status of month-end close tasks",
+        "Which close controls are still outstanding?",
+        "Show me the finance close calendar for this month"
+      ],
+      "glyph": "FIN",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-finance-close-calendar",
+        "kb-procurement-catalog"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Tracks month-end close tasks, controls, and finance calendar milestones.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Close tracking",
+        "Controls status",
+        "Variance flags"
+      ],
+      "tags": [
+        "finance",
+        "close",
+        "controls",
+        "accounting"
+      ]
+    },
+    {
+      "agentId": "employee-travel",
+      "displayName": "Travel Assistant",
+      "examples": [
+        "My flight got cancelled, help me rebook",
+        "What's the preferred-fare policy for this route?",
+        "Alert me if my connecting flight is delayed"
+      ],
+      "glyph": "TRV",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-travel-guidelines",
+        "kb-expense-policy"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Books and rebooks travel and monitors disruptions against travel policy.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Itinerary rebooking",
+        "Disruption alerts",
+        "Policy fare guidance"
+      ],
+      "tags": [
+        "travel",
+        "itinerary",
+        "flights",
+        "disruption"
+      ]
+    },
+    {
+      "agentId": "employee-procurement",
+      "displayName": "Procurement Assistant",
+      "examples": [
+        "Compare vendors for a new laptop fleet purchase",
+        "Draft a purchase request for a software subscription",
+        "Which vendor has the best contract terms for monitors?"
+      ],
+      "glyph": "PRC",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-procurement-catalog",
+        "kb-finance-close-calendar"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Compares vendors and prepares purchase requests against contract terms.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Vendor comparison",
+        "Purchase request drafting",
+        "Contract terms lookup"
+      ],
+      "tags": [
+        "procurement",
+        "vendor",
+        "purchase",
+        "sourcing"
+      ]
+    },
+    {
+      "agentId": "employee-legal-compliance",
+      "displayName": "Legal & Compliance Assistant",
+      "examples": [
+        "Is this client gift within our gifts and entertainment policy?",
+        "What's our data-retention obligation for this record type?",
+        "Summarize the compliance risk in this contract clause"
+      ],
+      "glyph": "LGL",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-legal-compliance",
+        "kb-policy-governance"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Answers policy and regulatory-compliance questions with cited guidance.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Policy interpretation",
+        "Compliance triage",
+        "Contract clause lookup"
+      ],
+      "tags": [
+        "legal",
+        "compliance",
+        "policy",
+        "regulatory"
+      ]
+    },
+    {
+      "agentId": "employee-sales-customer360",
+      "displayName": "Sales & Customer 360 Assistant",
+      "examples": [
+        "Give me a 360 view of the Fabrikam account",
+        "What's our pipeline coverage for this quarter?",
+        "Which accounts have declining engagement?"
+      ],
+      "glyph": "C360",
+      "group": "line_of_business",
+      "knowledgeSourceIds": [
+        "kb-sales-playbook"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Summarizes account health, pipeline, and customer engagement signals.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Account health summary",
+        "Pipeline rollup",
+        "Engagement signals"
+      ],
+      "tags": [
+        "sales",
+        "customer",
+        "pipeline",
+        "account"
+      ]
+    },
+    {
+      "agentId": "employee-news",
+      "displayName": "Personalized News Assistant",
+      "examples": [
+        "What's the latest company news relevant to me?",
+        "Summarize this week's engineering announcements",
+        "Show me news about my product area"
+      ],
+      "glyph": "NEWS",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-news-articles"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Curates corporate news relevant to an employee's role and interests.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Personalized curation",
+        "Topic summarization",
+        "Digest scheduling"
+      ],
+      "tags": [
+        "news",
+        "communications",
+        "digest",
+        "updates"
+      ]
+    },
+    {
+      "agentId": "employee-task-hub",
+      "displayName": "Task Hub Assistant",
+      "examples": [
+        "What tasks do I have due today?",
+        "Show me my overdue approvals",
+        "Draft a reminder for my pending action items"
+      ],
+      "glyph": "TASK",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-task-templates"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Tracks and prioritizes an employee's open tasks across systems.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Task aggregation",
+        "Priority sorting",
+        "Reminder drafting"
+      ],
+      "tags": [
+        "tasks",
+        "productivity",
+        "reminders",
+        "todo"
+      ]
+    },
+    {
+      "agentId": "employee-personal-dashboard",
+      "displayName": "Personal Dashboard Assistant",
+      "examples": [
+        "Show me my day - tasks, dashboard and news",
+        "Give me a command center view of my morning",
+        "What should I focus on today?"
+      ],
+      "glyph": "DASH",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-task-templates",
+        "kb-news-articles"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Assembles a single command-center view of tasks, news, and org updates.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Dashboard assembly",
+        "Cross-source rollup",
+        "Daily summary"
+      ],
+      "tags": [
+        "dashboard",
+        "my day",
+        "summary",
+        "overview"
+      ]
+    },
+    {
+      "agentId": "employee-org-directory",
+      "displayName": "Org Directory Assistant",
+      "examples": [
+        "Who is my skip-level manager?",
+        "Show me the org chart for the platform team",
+        "Find someone who works on the payments API"
+      ],
+      "glyph": "ORG",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-org-directory"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Looks up people, reporting lines, and org-chart context.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "People lookup",
+        "Org chart traversal",
+        "Team context"
+      ],
+      "tags": [
+        "org",
+        "directory",
+        "people",
+        "reporting line"
+      ]
+    },
+    {
+      "agentId": "employee-onboarding",
+      "displayName": "Onboarding Assistant",
+      "examples": [
+        "It's my first day, what do I need to do?",
+        "Help a new hire get set up across HR, IT, and payroll",
+        "What's on my new employee checklist?"
+      ],
+      "glyph": "ONB",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-onboarding-guide",
+        "kb-hr-policies",
+        "kb-it-runbooks"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Guides new hires through day-one HR, IT, payroll, and campus setup.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Day-one orchestration",
+        "Checklist tracking",
+        "Welcome scheduling"
+      ],
+      "tags": [
+        "onboarding",
+        "new hire",
+        "day one",
+        "orientation"
+      ]
+    },
+    {
+      "agentId": "employee-visual-qa",
+      "displayName": "Visual Policy Q&A Assistant",
+      "examples": [
+        "Is this desk setup compliant with ergonomics policy from this photo?",
+        "Does this receipt photo meet expense documentation rules?",
+        "Check if this workspace photo passes the clean-desk policy"
+      ],
+      "glyph": "VQA",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-visual-qa-samples",
+        "kb-policy-governance"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Answers policy questions from a photo using visual question answering.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Photo policy check",
+        "Visual decision tree",
+        "Remediation guidance"
+      ],
+      "tags": [
+        "visual qa",
+        "photo",
+        "policy",
+        "compliance"
+      ]
+    },
+    {
+      "agentId": "employee-campus-services",
+      "displayName": "Campus Services Assistant",
+      "examples": [
+        "Book a desk near my team for tomorrow",
+        "What healthy options are on the cafeteria menu this week?",
+        "Where is the nearest wellness room on campus?"
+      ],
+      "glyph": "CMP",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-campus-services"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Helps with campus dining, wellness programs, and room/desk reservations.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Room/desk booking",
+        "Wellness program lookup",
+        "Dining info"
+      ],
+      "tags": [
+        "campus",
+        "workplace",
+        "wellness",
+        "reservation"
+      ]
+    },
+    {
+      "agentId": "employee-learning",
+      "displayName": "Learning & Career Assistant",
+      "examples": [
+        "What courses should I take to become a senior engineer?",
+        "Show me the career path for a product manager",
+        "Recommend training for cloud security skills"
+      ],
+      "glyph": "LRN",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-learning-catalog"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Recommends courses and career-path steps aligned to role goals.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Course recommendation",
+        "Career path mapping",
+        "Skill gap analysis"
+      ],
+      "tags": [
+        "learning",
+        "career",
+        "training",
+        "skills"
+      ]
+    },
+    {
+      "agentId": "employee-recognition",
+      "displayName": "Recognition Assistant",
+      "examples": [
+        "Help me write a thank-you note for a teammate",
+        "What recognition awards can I nominate someone for?",
+        "Show recent recognition trends for my team"
+      ],
+      "glyph": "RCG",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-recognition-program"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Drafts peer-recognition messages and tracks recognition program activity.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Praise drafting",
+        "Award lookup",
+        "Recognition trends"
+      ],
+      "tags": [
+        "recognition",
+        "praise",
+        "kudos",
+        "culture"
+      ]
+    },
+    {
+      "agentId": "employee-listening",
+      "displayName": "Listening & Pulse Assistant",
+      "examples": [
+        "What did the last pulse survey say about my team?",
+        "Suggest an action plan for our engagement survey results",
+        "Show sentiment trend over the last three surveys"
+      ],
+      "glyph": "LSN",
+      "group": "corporate_services",
+      "knowledgeSourceIds": [
+        "kb-listening-surveys"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Surfaces pulse-survey themes and suggests constructive follow-up actions.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Survey theme summary",
+        "Action planning",
+        "Sentiment trend"
+      ],
+      "tags": [
+        "listening",
+        "pulse survey",
+        "engagement",
+        "feedback"
+      ]
+    },
+    {
+      "agentId": "employee-site-provisioning",
+      "displayName": "Site Provisioning Assistant",
+      "examples": [
+        "I need a new Teams site provisioned for my project",
+        "Set up a SharePoint site for the launch team",
+        "What site template should I use for a client engagement?"
+      ],
+      "glyph": "SITE",
+      "group": "management_governance",
+      "knowledgeSourceIds": [
+        "kb-site-provisioning-templates"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Provisions Teams/SharePoint sites against governance templates.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Site request intake",
+        "Template selection",
+        "Provisioning tracking"
+      ],
+      "tags": [
+        "site provisioning",
+        "teams",
+        "sharepoint",
+        "governance"
+      ]
+    },
+    {
+      "agentId": "employee-policy-governance",
+      "displayName": "Policy Governance Assistant",
+      "examples": [
+        "This software request seems to violate policy, what's going on?",
+        "Why was this app blocked by policy?",
+        "What's the exception process for a blocked policy request?"
+      ],
+      "glyph": "POL",
+      "group": "management_governance",
+      "knowledgeSourceIds": [
+        "kb-policy-governance",
+        "kb-legal-compliance"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Explains policy-enforcement decisions on software and access requests.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Policy enforcement lookup",
+        "Exception guidance",
+        "Remediation drafting"
+      ],
+      "tags": [
+        "policy",
+        "governance",
+        "enforcement",
+        "compliance"
+      ]
+    },
+    {
+      "agentId": "employee-access-governance",
+      "displayName": "Access Governance Assistant",
+      "examples": [
+        "My access was blocked, how do I get it restored?",
+        "Why can't I reach the finance reporting site anymore?",
+        "Review my entitlements for the procurement system"
+      ],
+      "glyph": "ACC",
+      "group": "management_governance",
+      "knowledgeSourceIds": [
+        "kb-access-governance",
+        "kb-security-policies"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Diagnoses blocked access and drafts entitlement remediation requests.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Blocked access diagnosis",
+        "Entitlement review",
+        "Remediation drafting"
+      ],
+      "tags": [
+        "access",
+        "governance",
+        "entitlement",
+        "blocked access"
+      ]
+    },
+    {
+      "agentId": "employee-site-health",
+      "displayName": "Site Health Assistant",
+      "examples": [
+        "Show me the health dashboard for our team site",
+        "What policy findings need remediation this week?",
+        "Which sites have blocked-access findings?"
+      ],
+      "glyph": "HLTH",
+      "group": "management_governance",
+      "knowledgeSourceIds": [
+        "kb-site-health-dashboards",
+        "kb-site-provisioning-templates"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Surfaces site health dashboards, policy findings, and remediation status.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Site health dashboard",
+        "Policy finding triage",
+        "Remediation tracking"
+      ],
+      "tags": [
+        "site health",
+        "governance",
+        "dashboard",
+        "findings"
+      ]
+    },
+    {
+      "agentId": "employee-records-lifecycle",
+      "displayName": "Records Lifecycle Assistant",
+      "examples": [
+        "What's the retention schedule for HR records?",
+        "When can this project folder be disposed?",
+        "Is this record under legal hold?"
+      ],
+      "glyph": "REC",
+      "group": "management_governance",
+      "knowledgeSourceIds": [
+        "kb-records-retention"
+      ],
+      "provider": "Contoso Employee Services",
+      "roleSummary": "Applies retention schedules and tracks records-disposition status.",
+      "schemaVersion": "1.0",
+      "skills": [
+        "Retention lookup",
+        "Disposition tracking",
+        "Legal hold awareness"
+      ],
+      "tags": [
+        "records",
+        "retention",
+        "lifecycle",
+        "disposition"
+      ]
+    }
+  ],
+  "catalogId": "employee-agents",
+  "publishedAt": "2025-01-01T00:00:00Z",
+  "schemaVersion": "1.0"
+}

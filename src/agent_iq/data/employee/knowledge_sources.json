@@ -1,0 +1,215 @@
+{
+  "schemaVersion": "1.0",
+  "sources": [
+    {
+      "category": "hr",
+      "knowledgeSourceId": "kb-hr-policies",
+      "provider": "Contoso Employee Services",
+      "summary": "Contoso HR handbook covering leave, conduct, and people policies.",
+      "title": "HR Policies & Handbook"
+    },
+    {
+      "category": "benefits",
+      "knowledgeSourceId": "kb-benefits-plans",
+      "provider": "Contoso Employee Services",
+      "summary": "Medical, dental, vision, and retirement plan summaries.",
+      "title": "Benefits Plan Library"
+    },
+    {
+      "category": "payroll",
+      "knowledgeSourceId": "kb-payroll-guides",
+      "provider": "Contoso Employee Services",
+      "summary": "Payslip, tax withholding, and pay-cycle reference guides.",
+      "title": "Payroll & Tax Guides"
+    },
+    {
+      "category": "compensation",
+      "knowledgeSourceId": "kb-compensation-bands",
+      "provider": "Contoso Employee Services",
+      "summary": "Leveling matrix and compensation band reference data.",
+      "title": "Compensation Bands & Leveling Guide"
+    },
+    {
+      "category": "time_off",
+      "knowledgeSourceId": "kb-time-off-policy",
+      "provider": "Contoso Employee Services",
+      "summary": "Paid-time-off accrual rules and coverage-planning guidance.",
+      "title": "Time-Off & PTO Policy"
+    },
+    {
+      "category": "it",
+      "knowledgeSourceId": "kb-it-runbooks",
+      "provider": "Contoso Employee Services",
+      "summary": "Troubleshooting runbooks for VPN, network, and endpoint issues.",
+      "title": "IT Support Runbooks"
+    },
+    {
+      "category": "security",
+      "knowledgeSourceId": "kb-security-policies",
+      "provider": "Contoso Employee Services",
+      "summary": "Identity, MFA, and device-security policy reference.",
+      "title": "Identity & Security Policies"
+    },
+    {
+      "category": "it",
+      "knowledgeSourceId": "kb-device-catalog",
+      "provider": "Contoso Employee Services",
+      "summary": "Laptop and peripheral refresh-eligibility catalog.",
+      "title": "Device & Hardware Catalog"
+    },
+    {
+      "category": "expense",
+      "knowledgeSourceId": "kb-expense-policy",
+      "provider": "Contoso Employee Services",
+      "summary": "Expense category, receipt, and reimbursement policy reference.",
+      "title": "Expense Policy"
+    },
+    {
+      "category": "travel",
+      "knowledgeSourceId": "kb-travel-guidelines",
+      "provider": "Contoso Employee Services",
+      "summary": "Preferred-fare, rebooking, and travel-disruption guidance.",
+      "title": "Travel Booking Guidelines"
+    },
+    {
+      "category": "finance",
+      "knowledgeSourceId": "kb-finance-close-calendar",
+      "provider": "Contoso Employee Services",
+      "summary": "Month-end close checklist, controls, and calendar.",
+      "title": "Finance Close Calendar & Controls"
+    },
+    {
+      "category": "procurement",
+      "knowledgeSourceId": "kb-procurement-catalog",
+      "provider": "Contoso Employee Services",
+      "summary": "Preferred-vendor catalog and purchase-comparison data.",
+      "title": "Procurement Vendor Catalog"
+    },
+    {
+      "category": "legal",
+      "knowledgeSourceId": "kb-legal-compliance",
+      "provider": "Contoso Employee Services",
+      "summary": "Contract, policy, and regulatory-compliance reference.",
+      "title": "Legal & Compliance Handbook"
+    },
+    {
+      "category": "sales",
+      "knowledgeSourceId": "kb-sales-playbook",
+      "provider": "Contoso Employee Services",
+      "summary": "Account health, pipeline, and customer-360 playbook.",
+      "title": "Sales & Customer 360 Playbook"
+    },
+    {
+      "category": "news",
+      "knowledgeSourceId": "kb-news-articles",
+      "provider": "Contoso Employee Services",
+      "summary": "Corporate-communications news article archive.",
+      "title": "Corporate News Articles"
+    },
+    {
+      "category": "productivity",
+      "knowledgeSourceId": "kb-task-templates",
+      "provider": "Contoso Employee Services",
+      "summary": "Task-hub workflow and reminder templates.",
+      "title": "Task & Workflow Templates"
+    },
+    {
+      "category": "directory",
+      "knowledgeSourceId": "kb-org-directory",
+      "provider": "Contoso Employee Services",
+      "summary": "Org chart, reporting line, and people-profile directory.",
+      "title": "Org Directory & People Data"
+    },
+    {
+      "category": "onboarding",
+      "knowledgeSourceId": "kb-onboarding-guide",
+      "provider": "Contoso Employee Services",
+      "summary": "Day-one onboarding checklist and orientation guide.",
+      "title": "New Hire Onboarding Guide"
+    },
+    {
+      "category": "visual_qa",
+      "knowledgeSourceId": "kb-visual-qa-samples",
+      "provider": "Contoso Employee Services",
+      "summary": "Annotated photo samples used for visual policy question answering.",
+      "title": "Visual Policy Q&A Samples"
+    },
+    {
+      "category": "campus",
+      "knowledgeSourceId": "kb-campus-services",
+      "provider": "Contoso Employee Services",
+      "summary": "Campus dining, wellness, and facilities services guide.",
+      "title": "Campus & Workplace Services"
+    },
+    {
+      "category": "learning",
+      "knowledgeSourceId": "kb-learning-catalog",
+      "provider": "Contoso Employee Services",
+      "summary": "Course catalog and career-path curricula.",
+      "title": "Learning & Career Catalog"
+    },
+    {
+      "category": "recognition",
+      "knowledgeSourceId": "kb-recognition-program",
+      "provider": "Contoso Employee Services",
+      "summary": "Peer-recognition program rules and award catalog.",
+      "title": "Recognition Program Guide"
+    },
+    {
+      "category": "listening",
+      "knowledgeSourceId": "kb-listening-surveys",
+      "provider": "Contoso Employee Services",
+      "summary": "Employee-listening pulse survey results and themes.",
+      "title": "Listening & Pulse Survey Data"
+    },
+    {
+      "category": "site_provisioning",
+      "knowledgeSourceId": "kb-site-provisioning-templates",
+      "provider": "Contoso Employee Services",
+      "summary": "Teams/SharePoint site provisioning templates and standards.",
+      "title": "Site Provisioning Templates"
+    },
+    {
+      "category": "governance",
+      "knowledgeSourceId": "kb-policy-governance",
+      "provider": "Contoso Employee Services",
+      "summary": "Policy-enforcement rules for software and access requests.",
+      "title": "Policy Governance Rules"
+    },
+    {
+      "category": "governance",
+      "knowledgeSourceId": "kb-access-governance",
+      "provider": "Contoso Employee Services",
+      "summary": "Access-review, entitlement, and blocked-access remediation rules.",
+      "title": "Access Governance Rules"
+    },
+    {
+      "category": "governance",
+      "knowledgeSourceId": "kb-site-health-dashboards",
+      "provider": "Contoso Employee Services",
+      "summary": "SharePoint/Teams site health and policy-finding dashboards.",
+      "title": "Site Health Dashboards"
+    },
+    {
+      "category": "records",
+      "knowledgeSourceId": "kb-records-retention",
+      "provider": "Contoso Employee Services",
+      "summary": "Records-lifecycle retention and disposition schedules.",
+      "title": "Records Retention Schedules"
+    },
+    {
+      "category": "offboarding",
+      "knowledgeSourceId": "kb-offboarding-checklist",
+      "provider": "Contoso Employee Services",
+      "summary": "Departure checklist covering access, assets, and knowledge transfer.",
+      "title": "Offboarding Checklist & Procedures"
+    },
+    {
+      "category": "contractor",
+      "knowledgeSourceId": "kb-contractor-onboarding",
+      "provider": "Contoso Employee Services",
+      "summary": "Contingent-worker onboarding and access-scoping guide.",
+      "title": "Contractor Onboarding Guide"
+    }
+  ]
+}

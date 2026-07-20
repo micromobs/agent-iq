@@ -1,0 +1,162 @@
+{
+  "$defs": {
+    "RegulatoryClaimDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "claim": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Claim",
+          "type": "string"
+        },
+        "claimId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Claimid",
+          "type": "string"
+        },
+        "evidenceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "rationale": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/RegulatoryClaimStatus"
+        }
+      },
+      "required": [
+        "claimId",
+        "claim",
+        "status",
+        "rationale",
+        "evidenceIds"
+      ],
+      "title": "RegulatoryClaimDecision",
+      "type": "object"
+    },
+    "RegulatoryClaimStatus": {
+      "enum": [
+        "approved",
+        "conditional",
+        "rejected",
+        "requires_evidence"
+      ],
+      "title": "RegulatoryClaimStatus",
+      "type": "string"
+    },
+    "RegulatoryDisposition": {
+      "enum": [
+        "approved",
+        "conditional",
+        "rejected",
+        "requires_review"
+      ],
+      "title": "RegulatoryDisposition",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/regulatory-decision.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifactId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Artifactid",
+      "type": "string"
+    },
+    "claims": {
+      "items": {
+        "$ref": "#/$defs/RegulatoryClaimDecision"
+      },
+      "minItems": 1,
+      "title": "Claims",
+      "type": "array"
+    },
+    "conditions": {
+      "default": [],
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Conditions",
+      "type": "array"
+    },
+    "decidedAt": {
+      "format": "date-time",
+      "title": "Decidedat",
+      "type": "string"
+    },
+    "disposition": {
+      "$ref": "#/$defs/RegulatoryDisposition"
+    },
+    "evidenceIds": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Evidenceids",
+      "type": "array"
+    },
+    "kind": {
+      "const": "regulatory_decision",
+      "default": "regulatory_decision",
+      "title": "Kind",
+      "type": "string"
+    },
+    "market": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Market",
+      "type": "string"
+    },
+    "productId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Productid",
+      "type": "string"
+    },
+    "rationale": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Rationale",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    }
+  },
+  "required": [
+    "artifactId",
+    "productId",
+    "market",
+    "disposition",
+    "claims",
+    "rationale",
+    "evidenceIds",
+    "decidedAt"
+  ],
+  "title": "RegulatoryDecision",
+  "type": "object"
+}

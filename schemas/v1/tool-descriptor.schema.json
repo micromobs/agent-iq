@@ -1,0 +1,193 @@
+{
+  "$defs": {
+    "ArtifactKind": {
+      "enum": [
+        "demand_scenario",
+        "regulatory_decision",
+        "sap_change_proposal",
+        "supply_commitment"
+      ],
+      "title": "ArtifactKind",
+      "type": "string"
+    },
+    "ToolBackend": {
+      "enum": [
+        "foundry_iq",
+        "sap"
+      ],
+      "title": "ToolBackend",
+      "type": "string"
+    },
+    "ToolEffect": {
+      "enum": [
+        "read",
+        "propose_write",
+        "write"
+      ],
+      "title": "ToolEffect",
+      "type": "string"
+    },
+    "ToolIdempotency": {
+      "enum": [
+        "safe",
+        "requires_key",
+        "never_retry"
+      ],
+      "title": "ToolIdempotency",
+      "type": "string"
+    },
+    "ToolParameter": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "parameterId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Parameterid",
+          "type": "string"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "valueType": {
+          "$ref": "#/$defs/ToolParameterType",
+          "default": "text"
+        }
+      },
+      "required": [
+        "parameterId",
+        "description"
+      ],
+      "title": "ToolParameter",
+      "type": "object"
+    },
+    "ToolParameterType": {
+      "enum": [
+        "text",
+        "date"
+      ],
+      "title": "ToolParameterType",
+      "type": "string"
+    },
+    "ToolTelemetryPolicy": {
+      "additionalProperties": false,
+      "properties": {
+        "captureArguments": {
+          "default": false,
+          "title": "Capturearguments",
+          "type": "boolean"
+        },
+        "captureCost": {
+          "default": true,
+          "title": "Capturecost",
+          "type": "boolean"
+        },
+        "captureLatency": {
+          "default": true,
+          "title": "Capturelatency",
+          "type": "boolean"
+        }
+      },
+      "title": "ToolTelemetryPolicy",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/tool-descriptor.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "approvalRequired": {
+      "default": false,
+      "title": "Approvalrequired",
+      "type": "boolean"
+    },
+    "artifactKinds": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ArtifactKind"
+      },
+      "title": "Artifactkinds",
+      "type": "array"
+    },
+    "authorizationScopes": {
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Authorizationscopes",
+      "type": "array"
+    },
+    "backend": {
+      "$ref": "#/$defs/ToolBackend"
+    },
+    "description": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "effect": {
+      "$ref": "#/$defs/ToolEffect",
+      "default": "read"
+    },
+    "idempotency": {
+      "$ref": "#/$defs/ToolIdempotency",
+      "default": "safe"
+    },
+    "name": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "parameters": {
+      "items": {
+        "$ref": "#/$defs/ToolParameter"
+      },
+      "minItems": 1,
+      "title": "Parameters",
+      "type": "array"
+    },
+    "producesEvidence": {
+      "default": true,
+      "title": "Producesevidence",
+      "type": "boolean"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "telemetry": {
+      "$ref": "#/$defs/ToolTelemetryPolicy"
+    },
+    "toolId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Toolid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "toolId",
+    "name",
+    "description",
+    "backend",
+    "parameters",
+    "authorizationScopes"
+  ],
+  "title": "ToolDescriptor",
+  "type": "object"
+}

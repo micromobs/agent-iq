@@ -1,0 +1,380 @@
+{
+  "schemaVersion": "1.0",
+  "suiteId": "agent-iq-release-replay",
+  "rubric": {
+    "schemaVersion": "1.0",
+    "rubricId": "agent-iq-release",
+    "version": "1.0.0",
+    "title": "Agent IQ release rubric",
+    "description": "Deterministic release gates plus additive model-judge criteria for sanitized transcript and trace replay.",
+    "passThreshold": 0.95,
+    "criteria": [
+      {
+        "criterionId": "routing-exact",
+        "dimension": "routing",
+        "mode": "deterministic",
+        "evaluator": "routing_exact",
+        "description": "The selected agent set exactly matches the labelled set.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "orchestration-exact",
+        "dimension": "orchestration",
+        "mode": "deterministic",
+        "evaluator": "orchestration_exact",
+        "description": "The selected agents and dependency graph exactly match the labelled DAG.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "grounded-claims",
+        "dimension": "groundedness",
+        "mode": "deterministic",
+        "evaluator": "grounded_claims",
+        "description": "Every applicable factual claim is backed by structured evidence.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "evidence-coverage",
+        "dimension": "evidence_coverage",
+        "mode": "deterministic",
+        "evaluator": "evidence_coverage",
+        "description": "Expected evidence is present and every expected record is cited.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "honest-decline",
+        "dimension": "honest_decline",
+        "mode": "deterministic",
+        "evaluator": "honest_decline",
+        "description": "The response answers or declines according to the labelled evidence boundary.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "conflict-visible",
+        "dimension": "conflict_handling",
+        "mode": "deterministic",
+        "evaluator": "conflict_visible",
+        "description": "Expected conflicts remain visible and conflict-free cases do not invent one.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "response-completeness",
+        "dimension": "completeness",
+        "mode": "deterministic",
+        "evaluator": "response_completeness",
+        "description": "Required answer elements and outputs are present and forbidden content is absent.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "task-success",
+        "dimension": "task_success",
+        "mode": "deterministic",
+        "evaluator": "task_success",
+        "description": "Terminal status and visible failures exactly match the labelled outcome.",
+        "weight": 1.0,
+        "threshold": 1.0,
+        "required": true
+      },
+      {
+        "criterionId": "answer-quality-judge",
+        "dimension": "completeness",
+        "mode": "model_judge",
+        "evaluator": "answer_quality_v1",
+        "description": "A configured judge scores clarity and decision usefulness from the sanitized answer.",
+        "weight": 0.5,
+        "threshold": 0.8,
+        "required": true
+      },
+      {
+        "criterionId": "task-adherence-judge",
+        "dimension": "task_success",
+        "mode": "model_judge",
+        "evaluator": "task_adherence_v1",
+        "description": "A configured judge scores whether the sanitized answer addresses the labelled task.",
+        "weight": 0.5,
+        "threshold": 0.8,
+        "required": true
+      }
+    ]
+  },
+  "cases": [
+    {
+      "caseId": "cowork-brightwash-grounded",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "expectedAgentIds": [
+        "consumer-formulation-rd"
+      ],
+      "expectedPlan": [
+        {
+          "agentId": "consumer-formulation-rd",
+          "dependsOnAgentIds": []
+        }
+      ],
+      "expectedSynthesisStatus": "complete",
+      "expectedExecutionStatus": "completed",
+      "expectedEvidenceIds": [
+        "evidence-brightwash"
+      ],
+      "requiredAnswerTerms": [
+        "protease",
+        "amylase",
+        "mannanase",
+        "lipase",
+        "[1]"
+      ],
+      "forbiddenAnswerTerms": [
+        "ClearWave",
+        "pectate lyase"
+      ],
+      "expectedConflict": false,
+      "expectedVisibleFailureIds": [],
+      "requiredOutputIds": [
+        "cited-answer"
+      ]
+    },
+    {
+      "caseId": "trace-honest-decline",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "expectedAgentIds": [],
+      "expectedPlan": [],
+      "expectedSynthesisStatus": "declined",
+      "expectedExecutionStatus": "declined",
+      "expectedEvidenceIds": [],
+      "requiredAnswerTerms": [
+        "cannot provide a grounded answer"
+      ],
+      "forbiddenAnswerTerms": [],
+      "expectedConflict": false,
+      "expectedVisibleFailureIds": [],
+      "requiredOutputIds": []
+    },
+    {
+      "caseId": "trace-visible-conflict",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "expectedAgentIds": [
+        "consumer-formulation-rd",
+        "consumer-regulatory-affairs"
+      ],
+      "expectedPlan": [
+        {
+          "agentId": "consumer-formulation-rd",
+          "dependsOnAgentIds": []
+        },
+        {
+          "agentId": "consumer-regulatory-affairs",
+          "dependsOnAgentIds": [
+            "consumer-formulation-rd"
+          ]
+        }
+      ],
+      "expectedSynthesisStatus": "partial",
+      "expectedExecutionStatus": "partial",
+      "expectedEvidenceIds": [
+        "evidence-formula",
+        "evidence-regulatory"
+      ],
+      "requiredAnswerTerms": [
+        "conflicting evidence",
+        "requires review",
+        "[1]",
+        "[2]"
+      ],
+      "forbiddenAnswerTerms": [],
+      "expectedConflict": true,
+      "expectedVisibleFailureIds": [],
+      "requiredOutputIds": [
+        "decision-brief"
+      ]
+    },
+    {
+      "caseId": "trace-visible-partial-failure",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "expectedAgentIds": [
+        "consumer-demand-forecasting",
+        "consumer-manufacturing-operations"
+      ],
+      "expectedPlan": [
+        {
+          "agentId": "consumer-demand-forecasting",
+          "dependsOnAgentIds": []
+        },
+        {
+          "agentId": "consumer-manufacturing-operations",
+          "dependsOnAgentIds": []
+        }
+      ],
+      "expectedSynthesisStatus": "partial",
+      "expectedExecutionStatus": "partial",
+      "expectedEvidenceIds": [
+        "evidence-demand"
+      ],
+      "requiredAnswerTerms": [
+        "demand estimate",
+        "manufacturing operations timed out",
+        "[1]"
+      ],
+      "forbiddenAnswerTerms": [],
+      "expectedConflict": false,
+      "expectedVisibleFailureIds": [
+        "consumer-manufacturing-operations"
+      ],
+      "requiredOutputIds": [
+        "partial-brief"
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "observationId": "cowork-brightwash-certified",
+      "caseId": "cowork-brightwash-grounded",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "source": "cowork_transcript",
+      "selectedAgentIds": [
+        "consumer-formulation-rd"
+      ],
+      "actualPlan": [
+        {
+          "agentId": "consumer-formulation-rd",
+          "dependsOnAgentIds": []
+        }
+      ],
+      "synthesisStatus": "complete",
+      "executionStatus": "completed",
+      "answer": "BrightWash Cold uses protease, amylase, mannanase, and lipase for cold-water cleaning [1].",
+      "evidenceIds": [
+        "evidence-brightwash"
+      ],
+      "citedEvidenceIds": [
+        "evidence-brightwash"
+      ],
+      "totalClaims": 1,
+      "groundedClaims": 1,
+      "conflictClaimIds": [],
+      "visibleFailureIds": [],
+      "deliveredOutputIds": [
+        "cited-answer"
+      ]
+    },
+    {
+      "observationId": "trace-decline-certified",
+      "caseId": "trace-honest-decline",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "source": "execution_trace",
+      "selectedAgentIds": [],
+      "actualPlan": [],
+      "synthesisStatus": "declined",
+      "executionStatus": "declined",
+      "answer": "I cannot provide a grounded answer because no eligible evidence source is available.",
+      "evidenceIds": [],
+      "citedEvidenceIds": [],
+      "totalClaims": 0,
+      "groundedClaims": 0,
+      "conflictClaimIds": [],
+      "visibleFailureIds": [],
+      "deliveredOutputIds": []
+    },
+    {
+      "observationId": "trace-conflict-certified",
+      "caseId": "trace-visible-conflict",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "source": "execution_trace",
+      "selectedAgentIds": [
+        "consumer-formulation-rd",
+        "consumer-regulatory-affairs"
+      ],
+      "actualPlan": [
+        {
+          "agentId": "consumer-formulation-rd",
+          "dependsOnAgentIds": []
+        },
+        {
+          "agentId": "consumer-regulatory-affairs",
+          "dependsOnAgentIds": [
+            "consumer-formulation-rd"
+          ]
+        }
+      ],
+      "synthesisStatus": "partial",
+      "executionStatus": "partial",
+      "answer": "Conflicting evidence requires review: the formula record supports readiness [1], while the regulatory record keeps the claim conditional [2].",
+      "evidenceIds": [
+        "evidence-formula",
+        "evidence-regulatory"
+      ],
+      "citedEvidenceIds": [
+        "evidence-formula",
+        "evidence-regulatory"
+      ],
+      "totalClaims": 2,
+      "groundedClaims": 2,
+      "conflictClaimIds": [
+        "claim-formula-status"
+      ],
+      "visibleFailureIds": [],
+      "deliveredOutputIds": [
+        "decision-brief"
+      ]
+    },
+    {
+      "observationId": "trace-partial-certified",
+      "caseId": "trace-visible-partial-failure",
+      "rubricId": "agent-iq-release",
+      "rubricVersion": "1.0.0",
+      "source": "execution_trace",
+      "selectedAgentIds": [
+        "consumer-demand-forecasting",
+        "consumer-manufacturing-operations"
+      ],
+      "actualPlan": [
+        {
+          "agentId": "consumer-demand-forecasting",
+          "dependsOnAgentIds": []
+        },
+        {
+          "agentId": "consumer-manufacturing-operations",
+          "dependsOnAgentIds": []
+        }
+      ],
+      "synthesisStatus": "partial",
+      "executionStatus": "partial",
+      "answer": "The demand estimate is available [1]. Manufacturing Operations timed out, so plant capacity remains an explicit gap.",
+      "evidenceIds": [
+        "evidence-demand"
+      ],
+      "citedEvidenceIds": [
+        "evidence-demand"
+      ],
+      "totalClaims": 1,
+      "groundedClaims": 1,
+      "conflictClaimIds": [],
+      "visibleFailureIds": [
+        "consumer-manufacturing-operations"
+      ],
+      "deliveredOutputIds": [
+        "partial-brief"
+      ]
+    }
+  ],
+  "judgments": []
+}

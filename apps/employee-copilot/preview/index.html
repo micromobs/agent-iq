@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agent IQ Employee Operations Preview</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", Arial, sans-serif; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #eef3f8; color: #17243a; }
+    .shell { min-height: 100vh; display: grid; grid-template-rows: auto 1fr; }
+    .hostbar {
+      align-items: center; background: #0f172a; color: white; display: flex;
+      flex-wrap: wrap; gap: 12px; justify-content: space-between; padding: 10px 16px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .mark {
+      align-items: center; background: linear-gradient(135deg, #0f6cbd, #7c3aed);
+      border-radius: 9px; display: flex; font-weight: 800; height: 34px;
+      justify-content: center; width: 34px;
+    }
+    .title { font-size: 14px; font-weight: 700; }
+    .subtitle { color: #bfdbfe; font-size: 11px; }
+    .controls { display: flex; flex-wrap: wrap; gap: 8px; }
+    button {
+      background: #1e293b; border: 1px solid #475569; border-radius: 7px;
+      color: white; cursor: pointer; font: inherit; padding: 7px 11px;
+    }
+    button:hover { background: #334155; }
+    .stage { display: flex; justify-content: center; padding: 18px; }
+    iframe {
+      background: white; border: 1px solid #cbd5e1; border-radius: 16px;
+      box-shadow: 0 24px 60px rgba(15, 23, 42, .16); min-height: 720px;
+      width: min(1180px, 100%);
+    }
+    .stage.narrow iframe { width: 320px; }
+    .stage.fullscreen { padding: 0; }
+    .stage.fullscreen iframe { border: 0; border-radius: 0; min-height: calc(100vh - 56px); width: 100%; }
+    @media (max-width: 520px) { .stage { padding: 0; } iframe { border-radius: 0; width: 100%; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="hostbar">
+      <div class="brand">
+        <div class="mark" aria-hidden="true">IQ</div>
+        <div>
+          <div class="title">Employee Operations strict-host preview</div>
+          <div class="subtitle">Local synthetic data · live MCP Apps protocol simulation</div>
+        </div>
+      </div>
+      <div class="controls" aria-label="Preview controls">
+        <button id="gallery" type="button">Scenario gallery</button>
+        <button id="narrow" type="button">320 px reflow</button>
+        <button id="theme" type="button">Dark theme</button>
+      </div>
+    </header>
+    <section class="stage" id="stage">
+      <iframe id="widget" title="Agent IQ Employee Operations"></iframe>
+    </section>
+  </main>
+  <script>
+    "use strict";
+
+    const frame = document.getElementById("widget");
+    const stage = document.getElementById("stage");
+    let catalog;
+    let experiences;
+    let initialized = false;
+    let displayMode = "inline";
+    let theme = "light";
+
+    const approvers = {
+      command_center: "Employee", onboarding: "Hiring manager and service owner",
+      benefits: "Benefits administrator", payroll: "Payroll specialist",
+      compensation: "Manager and HR business partner", time_off: "Manager",
+      expense: "Expense approver", travel: "Travel approver",
+      offboarding: "Manager, HR, and IT service owner", it_support: "IT service owner",
+      security_access: "Resource owner and IT Security", device_lifecycle: "IT asset manager",
+      workplace_wellness: "Employee", workplace_reservations: "Workplace services",
+      recognition: "Employee", listening: "People manager", sales_customer: "Account owner",
+      finance_close: "Finance control owner", procurement: "Procurement approver",
+      contractor: "Hiring manager and access owner", news: "Employee",
+      org_directory: "Employee", visual_qa: "Policy owner", learning: "Manager",
+      site_provisioning: "SharePoint administrator",
+      site_governance: "Site owner and governance administrator"
+    };
+
+    function post(message) {
+      frame.contentWindow.postMessage(message, "*");
+    }
+
+    function result(id, value) {
+      post({ jsonrpc: "2.0", id, result: value });
+    }
+
+    function hostContext() {
+      return {
+        theme,
+        displayMode,
+        availableDisplayModes: ["inline", "fullscreen"],
+        containerDimensions: { maxHeight: displayMode === "fullscreen" ? 1400 : 900 }
+      };
+    }
+
+    function actionReceipt(request) {
+      const scenarioId = request.scenario_id || request.scenarioId;
+      const actionId = request.action_id || request.actionId;
+      const experience = experiences[scenarioId];
+      const action = experience.actions.find((candidate) => candidate.actionId === actionId);
+      if (!action) throw new Error(`Unknown action ${actionId} for ${scenarioId}`);
+      const confirmed = Boolean(request.confirmed);
+      const state = confirmed ? "review_required" : "prepared";
+      const approver = approvers[experience.category] || "Named service owner";
+      const values = request.form_values || request.formValues || {};
+      return {
+        schemaVersion: "1.0",
+        receiptId: `${scenarioId}-${actionId}-${state}`,
+        scenarioId,
+        actionId,
+        actionKind: action.kind,
+        actionClass: action.actionClass,
+        label: action.label,
+        state,
+        summary: confirmed
+          ? `The "${action.label}" draft is ready for ${approver} review. It was not submitted.`
+          : `The "${action.label}" draft is prepared. Review every field before requesting approval.`,
+        requiresApproval: action.requiresApproval,
+        requiredApprover: approver,
+        submittedValues: Object.keys(values).sort().map((fieldId) => ({ fieldId, value: values[fieldId] })),
+        nextSteps: confirmed
+          ? [`Route the draft to ${approver}.`, "Wait for authenticated system-of-record confirmation."]
+          : ["Review the prepared fields.", `Confirm when ready to route the draft to ${approver}.`],
+        executed: false,
+        disclosure: experience.readOnlyDisclosure
+      };
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.source !== frame.contentWindow || !event.data || typeof event.data !== "object") return;
+      const message = event.data;
+      if (message.method === "ui/initialize") {
+        result(message.id, {
+          protocolVersion: "2026-01-26",
+          hostCapabilities: { serverTools: true, openLinks: true, message: true },
+          hostContext: hostContext()
+        });
+      } else if (message.method === "ui/notifications/initialized") {
+        initialized = true;
+        post({ jsonrpc: "2.0", method: "ui/notifications/tool-result", params: { structuredContent: catalog } });
+      } else if (message.method === "ui/notifications/size-changed") {
+        if (displayMode !== "fullscreen") {
+          frame.style.height = `${Math.max(720, Number(message.params && message.params.height) || 720)}px`;
+        }
+      } else if (message.method === "tools/call") {
+        try {
+          const params = message.params || {};
+          const args = params.arguments || {};
+          if (params.name === "list_employee_scenarios") result(message.id, catalog);
+          else if (params.name === "open_employee_experience") {
+            result(message.id, experiences[args.scenario_id || args.scenarioId]);
+          } else if (params.name === "prepare_employee_action") {
+            result(message.id, actionReceipt(args.request || {}));
+          } else {
+            throw new Error(`Unsupported preview tool: ${params.name}`);
+          }
+        } catch (error) {
+          post({ jsonrpc: "2.0", id: message.id, error: { code: -32000, message: String(error.message || error) } });
+        }
+      } else if (message.method === "ui/request-display-mode") {
+        displayMode = message.params && message.params.mode === "fullscreen" ? "fullscreen" : "inline";
+        stage.classList.toggle("fullscreen", displayMode === "fullscreen");
+        stage.classList.remove("narrow");
+        result(message.id, { mode: displayMode });
+      } else if (message.method === "ui/open-link" || message.method === "ui/message") {
+        result(message.id, {});
+      }
+    });
+
+    document.getElementById("gallery").addEventListener("click", () => {
+      if (initialized) post({ jsonrpc: "2.0", method: "ui/notifications/tool-result", params: { structuredContent: catalog } });
+    });
+    document.getElementById("narrow").addEventListener("click", () => {
+      displayMode = "inline";
+      stage.classList.remove("fullscreen");
+      stage.classList.toggle("narrow");
+      post({ jsonrpc: "2.0", method: "ui/notifications/host-context-changed", params: hostContext() });
+    });
+    document.getElementById("theme").addEventListener("click", (event) => {
+      theme = theme === "light" ? "dark" : "light";
+      event.currentTarget.textContent = theme === "light" ? "Dark theme" : "Light theme";
+      post({ jsonrpc: "2.0", method: "ui/notifications/host-context-changed", params: hostContext() });
+    });
+
+    Promise.all([
+      fetch("./catalog.json").then((response) => response.json()),
+      fetch("./experiences.json").then((response) => response.json())
+    ]).then(([catalogPayload, experiencePayload]) => {
+      catalog = catalogPayload;
+      experiences = experiencePayload;
+      frame.src = "./employee-operations.html";
+    });
+  </script>
+</body>
+</html>

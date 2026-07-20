@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "1.0",
+  "scenarioId": "eu-cold-water-launch-command-center",
+  "intent": "For Fabrikam Consumer Products (synthetic demo): validate the documented BrightWash Cold cold-water enzyme stability evidence for a German launch on 2026-10-01 (including launch claims), then benchmark BrightWash Cold versus ClearWave cold-water brand differences using available non-market-specific evidence, then forecast Germany launch demand for SAP product brightwash-cold from 2026-10-01 through 2026-10-31, then verify capacity and OEE at SAP plant DE-PLANT-FIXTURE-01 and line LINE-FIXTURE-01 for the same period, then determine whether EU Regulation 1223/2009 registration applies before launch; prepare a read-only approval package and durable post-approval monitoring handoff without changing business systems.",
+  "rehearsalPrompts": [
+    "Validate BrightWash Cold cold-water enzyme stability and prepare a formulation brief with supported performance claims for Germany.",
+    "Benchmark BrightWash versus ClearWave cold-water performance in Germany across enzyme system, evidence strength, and supported claims.",
+    "Forecast German launch demand and verify plant OEE capacity.",
+    "Forecast German launch demand, then verify plant OEE capacity against that forecast.",
+    "Validate BrightWash Cold enzyme claim support, then check EU 1223/2009 registration and claim requirements for Germany."
+  ]
+}

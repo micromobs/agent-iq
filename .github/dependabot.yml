@@ -1,0 +1,49 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns:
+          - "*"
+
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      python:
+        patterns:
+          - "*"
+
+  - package-ecosystem: npm
+    directory: "/apps/canvas"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      canvas:
+        patterns:
+          - "*"
+
+  - package-ecosystem: docker
+    directory: "/deployments/container-apps/orchestrator-canary"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: docker
+    directory: "/deployments/container-apps/artifact-canary"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+
+  - package-ecosystem: docker
+    directory: "/deployments/foundry/host"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5

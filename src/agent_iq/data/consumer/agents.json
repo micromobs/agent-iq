@@ -1,0 +1,2923 @@
+{
+  "agents": [
+    {
+      "agentId": "consumer-brand-marketing",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Brand strategy and creative across Fabrikam Consumer Products (synthetic demo) brands (BrightWash, LittleSteps, EdgeCraft, LuminaSkin) - positioning, campaign development, media and GenAI-assisted content.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-market-brand-consumer-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Marketing"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Brand Marketing",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Shape brand positioning, equity and campaign strategy.",
+          "examples": [
+            "How should we position a premium detergent line?",
+            "Build a campaign brief for a hair-care brand"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Brand Strategy & Positioning",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "brand-strategy",
+          "tags": [
+            "brand",
+            "marketing",
+            "positioning",
+            "campaign",
+            "equity",
+            "advertising",
+            "media",
+            "mega-brand",
+            "brightwash",
+            "littlesteps",
+            "edgecraft",
+            "luminaskin"
+          ]
+        },
+        {
+          "description": "Explain generative-AI use in marketing content and personalization.",
+          "examples": [
+            "How is generative AI used in brand creative?",
+            "How do we personalize creative at scale?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "GenAI Creative",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "genai-creative",
+          "tags": [
+            "genai",
+            "generative ai",
+            "creative",
+            "content",
+            "personalization",
+            "marketing"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-brand-marketing",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Marketing"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-brand-to-brand-compare",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Head-to-head, side-by-side comparison of two Fabrikam Consumer Products (synthetic demo) brands or products - BrightWash vs ClearWave, FreshRise vs SoftBloom, RadiantRoot vs ScalpShield - across enzyme/active suite, surfactants, bleach, working temperature, shelf life and claims basis. Retrieves a grounded source for EACH brand and returns a cited comparison table, and flags any side without a source instead of guessing. Grounds every comparison in the synthetic product and innovation knowledge base.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-product-innovation-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "R&D / Competitive"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Brand-to-Brand Compare",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Put two Fabrikam Consumer Products (synthetic demo) brands or products head to head and return a grounded, cited side-by-side across formulation, actives, bleach, temperature and claims.",
+          "examples": [
+            "Compare BrightWash and ClearWave cold-water enzyme systems side by side",
+            "Brand-to-brand: how does ClearWave's system differ from BrightWash's?",
+            "Head-to-head FreshRise vs SoftBloom on freshness",
+            "Benchmark BrightWash against ClearWave on enzymes, surfactants and bleach"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Brand-to-Brand Comparison",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "brand-to-brand",
+          "tags": [
+            "brand-to-brand",
+            "brand comparison",
+            "head-to-head",
+            "side-by-side",
+            "cross-brand",
+            "brightwash vs clearwave",
+            "clearwave vs brightwash",
+            "freshrise vs softbloom",
+            "brand benchmark",
+            "two brands",
+            "which brand is better",
+            "brightwash",
+            "clearwave",
+            "freshrise",
+            "softbloom",
+            "purefold"
+          ]
+        },
+        {
+          "description": "Explain the concrete formulation deltas between two brands - enzyme count, surfactant choice, bleach system and claims basis - grounded per brand.",
+          "examples": [
+            "What are the formulation deltas between BrightWash and ClearWave?",
+            "How do BrightWash and ClearWave differ on bleach and surfactants?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Formulation Deltas",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "formulation-delta",
+          "tags": [
+            "delta",
+            "difference",
+            "benchmark",
+            "competitive",
+            "formulation comparison",
+            "enzyme count",
+            "bleach system",
+            "positioning",
+            "brand vs brand"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-brand-to-brand-compare",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "R&D / Competitive"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-connect-develop",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Open-innovation scouting via the synthetic OpenBridge program - sourcing external technologies, ingredients and partners to accelerate the innovation pipeline across every category.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-product-innovation-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Open Innovation"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Connect & Develop",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Identify external technologies / ingredients and partnership models for innovation.",
+          "examples": [
+            "Find external enzyme suppliers for a new detergent",
+            "How does OpenBridge source innovation?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Technology Scouting",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "tech-scouting",
+          "tags": [
+            "openbridge",
+            "open innovation",
+            "scouting",
+            "external innovation",
+            "partnership",
+            "licensing",
+            "supplier innovation",
+            "startups",
+            "r&d"
+          ]
+        },
+        {
+          "description": "Explain licensing and co-development models for external innovation.",
+          "examples": [
+            "What partnering models does Fabrikam Consumer Products (synthetic demo) use for external tech?",
+            "How is IP structured in a co-development deal?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "IP & Partnering Models",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "ip-partnering",
+          "tags": [
+            "licensing",
+            "ip",
+            "co-development",
+            "joint development",
+            "open innovation"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-connect-develop",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Open Innovation"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-consumer-care",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Consumer relations and cosmetovigilance - handling consumer contacts, complaints and adverse events by combining product-safety rules with consumer-care practice. Grounds answers in a SHARED knowledge base spanning both the safety and the market knowledge sources.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-consumer-care-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Consumer Care"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Consumer Care",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Triage consumer complaints and adverse events; escalate safety concerns.",
+          "examples": [
+            "A consumer reports skin irritation - what do we do?",
+            "How are adverse events escalated to product safety?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Complaint & Adverse-Event Handling",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "complaint-handling",
+          "tags": [
+            "consumer care",
+            "complaint",
+            "adverse event",
+            "cosmetovigilance",
+            "safety",
+            "consumer relations",
+            "escalation",
+            "triage"
+          ]
+        },
+        {
+          "description": "Draft empathetic, policy-grounded responses to consumer questions.",
+          "examples": [
+            "Draft a response to a consumer asking if a product is safe during pregnancy",
+            "How do we respond to a packaging-quality complaint?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Grounded Consumer Response",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "care-response",
+          "tags": [
+            "consumer response",
+            "care",
+            "policy",
+            "communication",
+            "empathy"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-consumer-care",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Consumer Care"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-consumer-insights",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Consumer understanding and analytics - segmentation, market research, behavioral and voice-of-consumer insight to guide innovation and marketing.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-market-brand-consumer-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Insights / Analytics"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Consumer Insights",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Turn consumer research and data into segmentation and behavioral insight.",
+          "examples": [
+            "Segment consumers for a new skin-care launch",
+            "What insights drive fabric-care purchase decisions?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Insights & Segmentation",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "insight-analytics",
+          "tags": [
+            "consumer insights",
+            "market research",
+            "segmentation",
+            "analytics",
+            "behavior",
+            "panel",
+            "purchase drivers",
+            "shopper"
+          ]
+        },
+        {
+          "description": "Synthesize voice-of-consumer signals into actionable themes.",
+          "examples": [
+            "Summarize consumer sentiment themes for a detergent",
+            "What are the top complaint themes from product reviews?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Voice of Consumer",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "voice-of-consumer",
+          "tags": [
+            "voice of consumer",
+            "reviews",
+            "ratings",
+            "sentiment",
+            "social listening",
+            "insights"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-consumer-insights",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Insights / Analytics"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-demand-forecasting",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Demand sensing and forecasting under the synthetic Adaptive Supply Network program - combining POS, shipments and external signals to plan supply and align S&OP. Grounds answers in Fabrikam Consumer Products (synthetic demo) supply and manufacturing data.",
+      "implementation": {
+        "authoringPlatform": "PydanticAI",
+        "framework": "PydanticAI",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-supply-manufacturing-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Planning"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Demand Forecasting",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Forecast demand from POS, shipment and external signals; explain the Adaptive Supply Network.",
+          "examples": [
+            "How does demand sensing improve forecast accuracy?",
+            "What signals feed Adaptive Supply Network demand planning?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Demand Sensing",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "demand-sensing",
+          "tags": [
+            "demand",
+            "forecast",
+            "demand sensing",
+            "adaptive supply network",
+            "planning",
+            "pos",
+            "forecast accuracy",
+            "replenishment",
+            "s&op"
+          ]
+        },
+        {
+          "description": "Align demand and supply plans through the S&OP / IBP process.",
+          "examples": [
+            "How do we reconcile a demand spike in the S&OP cycle?",
+            "How is inventory set from the forecast?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "S&OP Alignment",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "sop",
+          "tags": [
+            "s&op",
+            "ibp",
+            "inventory",
+            "supply planning",
+            "allocation",
+            "planning"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-demand-forecasting",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Planning"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-ecommerce-retail-media",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Digital commerce and retail media - online shelf, product content, search and retail-media networks across synthetic ShopSphere, marketplaces and retailer sites.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-market-brand-consumer-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "eCommerce"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) eCommerce & Retail Media",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Optimize the online shelf, product content and retail search.",
+          "examples": [
+            "How do we win the digital shelf on a marketplace?",
+            "What improves retail-search ranking?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Digital Shelf & Search",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "digital-shelf",
+          "tags": [
+            "ecommerce",
+            "digital shelf",
+            "online",
+            "search",
+            "product content",
+            "conversion",
+            "shopsphere",
+            "marketplace",
+            "availability"
+          ]
+        },
+        {
+          "description": "Explain retail-media network planning and measurement.",
+          "examples": [
+            "How do retail-media networks drive online sales?",
+            "How do we plan a sponsored-products budget?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Retail Media Networks",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "retail-media",
+          "tags": [
+            "retail media",
+            "rmn",
+            "sponsored products",
+            "advertising",
+            "roas",
+            "ecommerce"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-ecommerce-retail-media",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "eCommerce"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-formulation-rd",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Formulation science across fabric, home, hair, skin and oral care - the enzyme and surfactant systems behind BrightWash, ClearWave, FreshRise and DishGlow, cold-water cleaning performance, product stability and cost-in-use. Grounds every answer in the synthetic product and innovation knowledge base.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-product-innovation-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "R&D / Product"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Formulation R&D",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Explain and compare detergent, hair-care and skin-care formulations, enzyme and surfactant chemistry, and cold-water cleaning performance.",
+          "examples": [
+            "What enzymes power BrightWash's cold-water wash?",
+            "Compare LAS vs nonionic surfactants for grease cleaning",
+            "How is a liquid detergent formulated to work in cold water?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Formulation Science",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "formulation-science",
+          "tags": [
+            "formulation",
+            "chemistry",
+            "enzymes",
+            "surfactants",
+            "detergent",
+            "brightwash",
+            "clearwave",
+            "freshrise",
+            "dishglow",
+            "cold water",
+            "cleaning",
+            "actives",
+            "r&d",
+            "product development"
+          ]
+        },
+        {
+          "description": "Advise on product stability, shelf life and cost-in-use trade-offs in a formula.",
+          "examples": [
+            "How do formulators balance enzyme cost and cold-water performance?",
+            "What limits the shelf life of an enzyme detergent?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Stability & Cost-in-Use",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "stability-costing",
+          "tags": [
+            "stability",
+            "shelf life",
+            "cost-in-use",
+            "formulation",
+            "quality",
+            "actives",
+            "enzyme stability"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-formulation-rd",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "R&D / Product"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-fragrance-sensory",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Fragrance creation and sensory science across beauty, fabric and home care - scent architecture and encapsulation behind SoftBloom, FreshRise, AirKind and TrailScent, with allergen-aware design.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-product-innovation-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Fragrance / Sensory"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Fragrance & Sensory",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Design fragrance profiles and encapsulation for long-lasting scent.",
+          "examples": [
+            "How does scent encapsulation extend freshness in fabric softener?",
+            "Design a fresh-linen fragrance profile"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Scent Architecture",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "scent-design",
+          "tags": [
+            "fragrance",
+            "scent",
+            "perfume",
+            "sensory",
+            "encapsulation",
+            "long-lasting freshness",
+            "softbloom",
+            "freshrise",
+            "airkind",
+            "trailscent",
+            "odor control"
+          ]
+        },
+        {
+          "description": "Advise on fragrance-allergen constraints and labeling thresholds in formulas.",
+          "examples": [
+            "Which fragrance allergens must be labeled in the EU?",
+            "What IFRA limits apply to a leave-on product?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Allergen-Aware Fragrance",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "allergen-aware",
+          "tags": [
+            "fragrance allergen",
+            "ifra",
+            "labeling",
+            "sensory",
+            "compliance",
+            "leave-on"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-fragrance-sensory",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Fragrance / Sensory"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-logistics-distribution",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Finished-product logistics - distribution-network design, transportation, warehousing and carbon, balancing service, cost and sustainability.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-supply-manufacturing-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Logistics"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Logistics & Distribution",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Optimize distribution network, transportation modes and warehousing.",
+          "examples": [
+            "How do we cut transport cost without hurting service?",
+            "What drives distribution-network design?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Network & Transportation",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "network-transport",
+          "tags": [
+            "logistics",
+            "distribution",
+            "transportation",
+            "warehouse",
+            "network design",
+            "fulfillment",
+            "service level",
+            "freight",
+            "3pl"
+          ]
+        },
+        {
+          "description": "Explain carbon reduction in transportation and distribution.",
+          "examples": [
+            "How can we lower logistics carbon emissions?",
+            "What is a mode shift to cut freight carbon?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Green Logistics",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "green-logistics",
+          "tags": [
+            "carbon",
+            "sustainability",
+            "logistics",
+            "freight emissions",
+            "mode shift"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-logistics-distribution",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Logistics"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-manufacturing-operations",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Plant operations excellence - Overall Equipment Effectiveness (OEE), line reliability, changeovers and a daily operations system across Fabrikam Consumer Products (synthetic demo) manufacturing sites.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-supply-manufacturing-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Manufacturing"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Manufacturing Operations",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Diagnose OEE losses and improve line reliability and changeover time.",
+          "examples": [
+            "How do we raise OEE on a detergent filling line?",
+            "What drives changeover losses?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "OEE & Reliability",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "oee-reliability",
+          "tags": [
+            "oee",
+            "manufacturing",
+            "reliability",
+            "changeover",
+            "iws",
+            "line efficiency",
+            "downtime",
+            "plant",
+            "throughput"
+          ]
+        },
+        {
+          "description": "Explain smart-manufacturing sensors, digital twins and predictive maintenance.",
+          "examples": [
+            "How does predictive maintenance reduce downtime?",
+            "What is a digital twin of a production line?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Digital / Smart Plant",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "digital-plant",
+          "tags": [
+            "digital twin",
+            "predictive maintenance",
+            "iiot",
+            "smart manufacturing",
+            "sensors",
+            "industry 4.0"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-manufacturing-operations",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Manufacturing"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-manufacturing-sustainability",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Operations sustainability - water, energy and waste reduction and renewable electricity toward Fabrikam Consumer Products (synthetic demo) ResourcePositive 2032 site goals and net zero.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-supply-manufacturing-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Sustainability"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Manufacturing Sustainability",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Reduce water, energy and waste at manufacturing sites; track ResourcePositive 2032.",
+          "examples": [
+            "How do sites cut water use in production?",
+            "What are Fabrikam Consumer Products (synthetic demo) operations sustainability goals?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Water / Energy / Waste",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "resource-efficiency",
+          "tags": [
+            "sustainability",
+            "water",
+            "energy",
+            "waste",
+            "zero waste to landfill",
+            "renewable",
+            "resourcepositive 2032",
+            "net zero",
+            "efficiency"
+          ]
+        },
+        {
+          "description": "Advise on renewable-electricity sourcing for plants.",
+          "examples": [
+            "How do plants move to 100% renewable electricity?",
+            "What is a renewable PPA?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Renewable Energy",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "renewables",
+          "tags": [
+            "renewable energy",
+            "electricity",
+            "ppa",
+            "solar",
+            "net zero",
+            "sustainability"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-manufacturing-sustainability",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Sustainability"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-microbiological-safety",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Microbiological safety and preservation for water-based consumer products - preservative efficacy, challenge (PET) testing and contamination control.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-safety-regulatory-quality-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Microbiology"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Microbiological Safety",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Design preservative systems and interpret challenge-test results.",
+          "examples": [
+            "How do we design preservative efficacy testing for a shampoo?",
+            "What preservative system suits a rinse-off product?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Preservation & Challenge Testing",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "preservation",
+          "tags": [
+            "microbiology",
+            "preservation",
+            "challenge test",
+            "pet",
+            "preservative efficacy",
+            "preservative",
+            "water-based",
+            "rinse-off"
+          ]
+        },
+        {
+          "description": "Advise on microbial contamination control in manufacturing and use.",
+          "examples": [
+            "What controls prevent microbial contamination on a mixing line?",
+            "How is bioburden monitored in manufacturing?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Contamination Control",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "contamination-control",
+          "tags": [
+            "contamination",
+            "microbial",
+            "hygiene",
+            "bioburden",
+            "quality"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-microbiological-safety",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Microbiology"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-packaging-sustainability",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Sustainable packaging for Fabrikam Consumer Products (synthetic demo) brands such as RadiantRoot, LuminaSkin, BrightWash and ScalpShield - recyclable and post-consumer-recycled (PCR) materials, lightweighting, refills and the Circular Pack 2032 packaging goals.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-product-innovation-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Packaging / Sustainability"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Packaging & Sustainability",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Guide recyclable / recycled-content packaging, refills and lightweighting choices.",
+          "examples": [
+            "How can we cut virgin plastic in a shampoo bottle?",
+            "What are Fabrikam Consumer Products (synthetic demo) packaging goals?",
+            "Design a refillable pack for a home-care brand"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Sustainable Packaging Design",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "packaging-design",
+          "tags": [
+            "packaging",
+            "sustainability",
+            "recyclable",
+            "pcr",
+            "recycled content",
+            "refill",
+            "lightweighting",
+            "plastic reduction",
+            "circular pack 2032",
+            "bottle",
+            "pouch"
+          ]
+        },
+        {
+          "description": "Explain circular-economy material choices and design-for-recycling rules.",
+          "examples": [
+            "Which materials are design-for-recycling compliant?",
+            "Is a mono-material pouch recyclable?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Circularity & Materials",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "circularity",
+          "tags": [
+            "circular economy",
+            "design for recycling",
+            "materials",
+            "mono-material",
+            "sustainability",
+            "recyclability"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-packaging-sustainability",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Packaging / Sustainability"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-pricing-revenue-growth",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Revenue growth management (RGM) - pricing architecture, pack-price-mix, elasticity and promotion strategy to grow net revenue.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-market-brand-consumer-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Pricing / RGM"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Pricing & Revenue Growth",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Advise on pricing architecture, pack-price-mix and net-revenue growth.",
+          "examples": [
+            "How do we build a price-pack-architecture ladder?",
+            "What is revenue growth management?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Revenue Growth Management",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "rgm",
+          "tags": [
+            "pricing",
+            "rgm",
+            "revenue growth management",
+            "pack-price",
+            "price-pack architecture",
+            "mix",
+            "net revenue",
+            "elasticity"
+          ]
+        },
+        {
+          "description": "Explain price elasticity and its use in pricing decisions.",
+          "examples": [
+            "How does price elasticity inform a price increase?",
+            "What elasticity should we assume for a promotion?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Price Elasticity",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "elasticity",
+          "tags": [
+            "elasticity",
+            "price elasticity",
+            "demand",
+            "pricing",
+            "promo"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-pricing-revenue-growth",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Pricing / RGM"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-procurement-sourcing",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Direct and indirect procurement - supplier selection, qualification, raw-material sourcing, should-cost and supply resilience across the Fabrikam Consumer Products (synthetic demo) supply base.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-supply-manufacturing-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Procurement"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Procurement & Sourcing",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Guide supplier selection, qualification, scorecards and resilience.",
+          "examples": [
+            "How do we qualify a new surfactant supplier?",
+            "What makes the raw-material supply base resilient?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Supplier Management",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "supplier-management",
+          "tags": [
+            "procurement",
+            "sourcing",
+            "supplier",
+            "raw materials",
+            "qualification",
+            "scorecard",
+            "resilience",
+            "dual-sourcing",
+            "spend"
+          ]
+        },
+        {
+          "description": "Explain should-cost modeling and commodity cost management.",
+          "examples": [
+            "How does should-cost modeling inform negotiations?",
+            "How do we hedge a commodity price rise?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Cost & Should-Cost",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "cost-management",
+          "tags": [
+            "should-cost",
+            "commodity",
+            "cost",
+            "negotiation",
+            "hedging",
+            "procurement"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-procurement-sourcing",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Procurement"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-product-safety-toxicology",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Human-safety and toxicological risk assessment for consumer products - exposure-based safety, ingredient hazard review, read-across and non-animal new-approach methods.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-safety-regulatory-quality-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Product Safety"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Product Safety & Toxicology",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Run exposure-based safety and toxicology risk assessment for ingredients.",
+          "examples": [
+            "Assess the safety margin for a new preservative",
+            "How does exposure-based risk assessment work?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Safety Risk Assessment",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "risk-assessment",
+          "tags": [
+            "toxicology",
+            "safety",
+            "risk assessment",
+            "exposure",
+            "margin of safety",
+            "hazard",
+            "ingredient safety",
+            "dermal",
+            "sed"
+          ]
+        },
+        {
+          "description": "Explain new-approach methodologies and read-across for safety decisions.",
+          "examples": [
+            "Which non-animal methods substantiate skin-sensitization safety?",
+            "How is read-across used for a new ingredient?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Non-Animal Methods",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "nam",
+          "tags": [
+            "nam",
+            "non-animal",
+            "read-across",
+            "in vitro",
+            "skin sensitization",
+            "toxicology",
+            "alternatives"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-product-safety-toxicology",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Product Safety"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-quality-capa",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Manufacturing quality management across Fabrikam Consumer Products (synthetic demo) plants and suppliers - deviations, root-cause analysis, corrective and preventive action (CAPA) and Good Manufacturing Practice (ISO 22716).",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-safety-regulatory-quality-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Quality"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Quality & CAPA",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Guide quality deviation handling, root-cause analysis and CAPA closure.",
+          "examples": [
+            "Draft a CAPA for an out-of-spec viscosity deviation",
+            "What is the root-cause process for a quality deviation?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Deviation & CAPA",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "deviation-capa",
+          "tags": [
+            "quality",
+            "capa",
+            "deviation",
+            "root cause",
+            "nonconformance",
+            "5-why",
+            "out-of-spec",
+            "gmp"
+          ]
+        },
+        {
+          "description": "Advise on Good Manufacturing Practice (ISO 22716) for cosmetics.",
+          "examples": [
+            "What does ISO 22716 require for a filling line?",
+            "How do we prepare for a GMP audit?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "GMP Compliance",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "gmp",
+          "tags": [
+            "gmp",
+            "iso 22716",
+            "quality management",
+            "audit",
+            "manufacturing"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-quality-capa",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Quality"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-regulatory-affairs",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Global product regulatory compliance for cosmetics, personal care and OTC - EU Cosmetics Regulation (EC) 1223/2009, EU REACH, US FDA OTC drug monographs and China NMPA registration across synthetic brands such as LuminaSkin, SmileBright, EdgeCraft and BrushOne. Grounds answers in the synthetic safety, regulatory and quality knowledge base.",
+      "implementation": {
+        "authoringPlatform": "PydanticAI",
+        "framework": "PydanticAI",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-safety-regulatory-quality-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Regulatory"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Regulatory Affairs",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Interpret cosmetic, chemical and OTC-drug regulations across major markets.",
+          "examples": [
+            "What does EU 1223/2009 require to place a cosmetic on market?",
+            "How do we register a cosmetic in China under NMPA?",
+            "Is this ingredient restricted under an EU annex?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Global Regulatory Compliance",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "global-compliance",
+          "tags": [
+            "regulatory",
+            "compliance",
+            "eu 1223",
+            "cosmetics regulation",
+            "reach",
+            "fda",
+            "otc monograph",
+            "nmpa",
+            "china",
+            "ingredient restrictions",
+            "annex"
+          ]
+        },
+        {
+          "description": "Guide product notification, dossiers and the Product Information File.",
+          "examples": [
+            "What goes in a Product Information File?",
+            "How do we notify a cosmetic on the EU CPNP?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Registration & Dossiers",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "registration-dossier",
+          "tags": [
+            "registration",
+            "notification",
+            "cpnp",
+            "dossier",
+            "product information file",
+            "pif",
+            "regulatory"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-regulatory-affairs",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Regulatory"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "consumer-trade-promotion",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Retail trade promotion management with synthetic partners such as HarborMart, GreenBasket, Hearthway and ShopSphere - promo planning, lift, ROI and joint business planning. Grounds answers in the synthetic market, brand and consumer knowledge base.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Fabrikam Agent Host (synthetic demo)"
+      },
+      "knowledgeBindingIds": [
+        "consumer-market-brand-consumer-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Sales / Retail"
+        }
+      ],
+      "name": "Fabrikam Consumer Products (synthetic demo) Trade Promotion",
+      "provider": {
+        "name": "Fabrikam Consumer Products (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Plan and evaluate trade promotions: lift, ROI and cannibalization.",
+          "examples": [
+            "How do we measure trade-promotion ROI?",
+            "Plan a promo calendar with a major retailer"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Promotion Planning & ROI",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "promo-planning",
+          "tags": [
+            "trade promotion",
+            "promo",
+            "roi",
+            "lift",
+            "retail",
+            "tpm",
+            "cannibalization",
+            "sales",
+            "harbormart",
+            "greenbasket",
+            "hearthway"
+          ]
+        },
+        {
+          "description": "Support joint business planning with retail customers.",
+          "examples": [
+            "What goes into a joint business plan with a retailer?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Joint Business Planning",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "joint-business",
+          "tags": [
+            "jbp",
+            "joint business planning",
+            "retail customer",
+            "category management",
+            "sales"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-10T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "consumer-trade-promotion",
+        "sourceId": "consumer-demo-source"
+      },
+      "tags": [
+        "Sales / Retail"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-10T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "employee-vacation-leave",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Answers employee vacation, PTO, holiday, annual-leave, entitlement, allowance, booked-leave and remaining-days questions from one approved synthetic leave record. Returns dated entries, prior-year patterns and an August bank-holiday recommendation through a strict validated projection.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Microsoft Foundry Hosted Agent"
+      },
+      "knowledgeBindingIds": [
+        "employee-vacation-leave-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Employee Services / Time Off"
+        }
+      ],
+      "name": "Vacation & Leave Agent",
+      "provider": {
+        "name": "Contoso Employee Services (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Retrieve and reconcile annual vacation entitlement, leave taken, leave booked and remaining allowance.",
+          "examples": [
+            "How much vacation do I have remaining this year?",
+            "How many PTO days are left after my booked leave?",
+            "Show my annual leave balance and dated entries"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Vacation Balance",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "vacation-balance",
+          "tags": [
+            "vacation",
+            "vacation days",
+            "remaining vacation",
+            "pto",
+            "pto balance",
+            "holiday allowance",
+            "annual leave",
+            "leave entitlement",
+            "leave balance",
+            "booked leave",
+            "days remaining"
+          ]
+        },
+        {
+          "description": "Use dated prior-year leave patterns to suggest an efficient bank-holiday vacation window without creating a request.",
+          "examples": [
+            "When should I take my remaining leave around the August bank holiday?",
+            "Show my prior-year vacation pattern and recommend dates"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Leave Planning",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "leave-planning",
+          "tags": [
+            "leave planning",
+            "bank holiday",
+            "august bank holiday",
+            "time off",
+            "holiday dates",
+            "prior-year pattern",
+            "vacation recommendation"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-14T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "employee-vacation-leave",
+        "sourceId": "employee-demo-source"
+      },
+      "tags": [
+        "Employee Services",
+        "HR",
+        "Time Off"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-14T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "employee-it-helpdesk",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Returns aggregate employee VPN and remote-access recovery guidance, highlights the safest first read-only step, and sets a clear help-desk escalation boundary from one governed IT record.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Microsoft Foundry Hosted Agent"
+      },
+      "knowledgeBindingIds": [
+        "employee-it-helpdesk-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Employee Services / IT Support"
+        }
+      ],
+      "name": "IT Helpdesk Agent",
+      "provider": {
+        "name": "Contoso Employee Services (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Guide plain VPN and remote-access recovery with one aggregate governed record and the safest first reconnect step.",
+          "examples": [
+            "My VPN is down",
+            "I cannot connect remotely",
+            "VPN failed before my meeting"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "VPN Recovery Guidance",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "vpn-recovery-guidance",
+          "tags": [
+            "vpn",
+            "virtual private network",
+            "remote access",
+            "cannot connect remotely",
+            "vpn down",
+            "remote connectivity",
+            "reconnect",
+            "meeting readiness"
+          ]
+        },
+        {
+          "description": "Explain when to restart, reset the network stack, or escalate to the help desk without claiming a repair occurred.",
+          "examples": [
+            "What should I try after one failed reconnect?",
+            "When do I escalate a remote access issue?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Remote Access Escalation",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "remote-access-escalation",
+          "tags": [
+            "restart",
+            "network reset",
+            "help desk",
+            "escalation",
+            "remote work",
+            "read only guidance"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-14T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "employee-it-helpdesk",
+        "sourceId": "employee-demo-source"
+      },
+      "tags": [
+        "Employee Services",
+        "IT",
+        "VPN Recovery"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-14T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "employee-identity-security",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Handles suspicious MFA prompts, account-compromise concerns, and conditional-access identity blocks with safe containment guidance from approved security policy sources.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Microsoft Foundry Hosted Agent"
+      },
+      "knowledgeBindingIds": [
+        "employee-identity-security-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Employee Services / Identity Security"
+        }
+      ],
+      "name": "Identity Security Agent",
+      "provider": {
+        "name": "Contoso Employee Services (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Respond to suspicious MFA prompts, sign-in risk, or account-compromise concerns with immediate containment guidance.",
+          "examples": [
+            "My MFA prompts are coming from an unknown location",
+            "I think my account is compromised",
+            "A suspicious sign-in alert blocked me"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "MFA and Compromise Triage",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "mfa-compromise-triage",
+          "tags": [
+            "mfa",
+            "identity",
+            "account compromise",
+            "suspicious sign-in",
+            "unknown location",
+            "phishing",
+            "credential risk"
+          ]
+        },
+        {
+          "description": "Explain conditional-access and identity-policy blocks and identify the correct security escalation path.",
+          "examples": [
+            "A conditional access policy blocked my sign-in",
+            "Why did identity policy stop my remote sign-in?"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Identity Policy Guidance",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "identity-policy-guidance",
+          "tags": [
+            "conditional access",
+            "identity policy",
+            "sign-in policy",
+            "access blocked",
+            "security review",
+            "identity protection"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-14T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "employee-identity-security",
+        "sourceId": "employee-demo-source"
+      },
+      "tags": [
+        "Employee Services",
+        "Identity Security",
+        "Account Protection"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-14T00:00:00Z",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "agentId": "employee-expense",
+      "capabilities": [
+        {
+          "callbackModes": [],
+          "contentTypes": [
+            "text/plain"
+          ],
+          "interactionModes": [
+            "sync"
+          ],
+          "evidence": {
+            "authorization": "caller_identity",
+            "correlationKey": "invocation_id",
+            "delivery": "companion",
+            "mediaType": "application/vnd.agent-iq.evidence+json;version=1.0",
+            "schemaVersion": "1.0"
+          },
+          "protocol": "a2a",
+          "protocolVersion": "1.0.0",
+          "pushNotifications": false,
+          "streaming": false,
+          "taskManagement": false
+        }
+      ],
+      "description": "Checks employee expense, receipt, client-meal, and corporate-card readiness; explains policy gaps and prepares the next safe draft step without submitting a claim.",
+      "implementation": {
+        "authoringPlatform": "LangChain / LangGraph",
+        "framework": "LangGraph",
+        "hostingPlatform": "Microsoft Foundry Hosted Agent"
+      },
+      "knowledgeBindingIds": [
+        "employee-expense-kb"
+      ],
+      "labels": [
+        {
+          "key": "segment",
+          "value": "Employee Services / Expense"
+        }
+      ],
+      "name": "Expense Agent",
+      "provider": {
+        "name": "Contoso Employee Services (synthetic demo)"
+      },
+      "schemaVersion": "1.0",
+      "skills": [
+        {
+          "description": "Check client meals, receipts, attendees, business purpose and expense-policy readiness before a claim is prepared.",
+          "examples": [
+            "I need to submit last night's client dinner",
+            "Is this client meal ready for an expense report?",
+            "Check my receipt and business purpose before submission"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "Expense Submission Readiness",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "expense-submission-readiness",
+          "tags": [
+            "expense",
+            "expense report",
+            "expense claim",
+            "client dinner",
+            "client meal",
+            "receipt",
+            "attendees",
+            "business purpose",
+            "reimbursement",
+            "expense policy"
+          ]
+        },
+        {
+          "description": "Validate corporate-card and AMEX reconciliation cutoffs and identify the prepare-only next action.",
+          "examples": [
+            "Will I make today's AMEX cutoff?",
+            "Prepare my corporate-card expense before the deadline"
+          ],
+          "inputModes": [
+            "text/plain"
+          ],
+          "name": "AMEX Cutoff Readiness",
+          "outputModes": [
+            "text/plain"
+          ],
+          "skillId": "amex-cutoff-readiness",
+          "tags": [
+            "amex",
+            "amex cutoff",
+            "corporate card",
+            "card cutoff",
+            "submission deadline",
+            "cutoff",
+            "expense draft",
+            "prepare expense"
+          ]
+        }
+      ],
+      "source": {
+        "authority": "declared",
+        "fetchedAt": "2026-07-14T00:00:00Z",
+        "kind": "local",
+        "sourceAgentId": "employee-expense",
+        "sourceId": "employee-demo-source"
+      },
+      "tags": [
+        "Employee Services",
+        "Expense",
+        "Corporate Card"
+      ],
+      "trust": {
+        "adminApproved": false,
+        "allowedGeographies": [],
+        "dataClassifications": [],
+        "ownerIds": [],
+        "riskLevel": "unknown",
+        "signed": false,
+        "state": "unknown"
+      },
+      "version": {
+        "publishedAt": "2026-07-14T00:00:00Z",
+        "version": "1.0.0"
+      }
+    }
+  ],
+  "catalogId": "consumer-demo",
+  "publishedAt": "2026-07-10T00:00:00Z",
+  "schemaVersion": "1.0"
+}

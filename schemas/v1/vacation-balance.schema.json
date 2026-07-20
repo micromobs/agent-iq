@@ -1,0 +1,249 @@
+{
+  "$defs": {
+    "VacationEntryType": {
+      "description": "Current-year leave states included in the balance calculation.",
+      "enum": [
+        "taken",
+        "booked"
+      ],
+      "title": "VacationEntryType",
+      "type": "string"
+    },
+    "VacationLeaveEntry": {
+      "additionalProperties": false,
+      "description": "One dated leave entry from the synthetic source record.",
+      "properties": {
+        "days": {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,4}|(?=[\\d.]{1,7}0*$)\\d{0,4}\\.\\d{0,2}0*$)",
+          "title": "Days",
+          "type": "string"
+        },
+        "endDate": {
+          "format": "date",
+          "title": "Enddate",
+          "type": "string"
+        },
+        "entryId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Entryid",
+          "type": "string"
+        },
+        "entryType": {
+          "$ref": "#/$defs/VacationEntryType"
+        },
+        "label": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Label",
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date",
+          "title": "Startdate",
+          "type": "string"
+        }
+      },
+      "required": [
+        "entryId",
+        "entryType",
+        "label",
+        "startDate",
+        "endDate",
+        "days"
+      ],
+      "title": "VacationLeaveEntry",
+      "type": "object"
+    },
+    "VacationRecommendation": {
+      "additionalProperties": false,
+      "description": "One evidence-backed opportunity to use part of the remaining balance.",
+      "properties": {
+        "daysToBook": {
+          "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,4}|(?=[\\d.]{1,7}0*$)\\d{0,4}\\.\\d{0,2}0*$)",
+          "title": "Daystobook",
+          "type": "string"
+        },
+        "endDate": {
+          "format": "date",
+          "title": "Enddate",
+          "type": "string"
+        },
+        "rationale": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Rationale",
+          "type": "string"
+        },
+        "recommendationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Recommendationid",
+          "type": "string"
+        },
+        "returnDate": {
+          "format": "date",
+          "title": "Returndate",
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date",
+          "title": "Startdate",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "totalDaysAway": {
+          "maximum": 31,
+          "minimum": 1,
+          "title": "Totaldaysaway",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "recommendationId",
+        "title",
+        "startDate",
+        "endDate",
+        "returnDate",
+        "daysToBook",
+        "totalDaysAway",
+        "rationale"
+      ],
+      "title": "VacationRecommendation",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/vacation-balance.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Validated vacation balance returned by the selected Foundry specialist.",
+  "properties": {
+    "asOf": {
+      "format": "date-time",
+      "title": "Asof",
+      "type": "string"
+    },
+    "balanceYear": {
+      "maximum": 2100,
+      "minimum": 2000,
+      "title": "Balanceyear",
+      "type": "integer"
+    },
+    "bookedDays": {
+      "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,4}|(?=[\\d.]{1,7}0*$)\\d{0,4}\\.\\d{0,2}0*$)",
+      "title": "Bookeddays",
+      "type": "string"
+    },
+    "currentYearEntries": {
+      "items": {
+        "$ref": "#/$defs/VacationLeaveEntry"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Currentyearentries",
+      "type": "array"
+    },
+    "employeeDisplayName": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Employeedisplayname",
+      "type": "string"
+    },
+    "employeeId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Employeeid",
+      "type": "string"
+    },
+    "entitlementDays": {
+      "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,4}|(?=[\\d.]{1,7}0*$)\\d{0,4}\\.\\d{0,2}0*$)",
+      "title": "Entitlementdays",
+      "type": "string"
+    },
+    "priorYearEntries": {
+      "items": {
+        "$ref": "#/$defs/VacationLeaveEntry"
+      },
+      "maxItems": 20,
+      "minItems": 1,
+      "title": "Prioryearentries",
+      "type": "array"
+    },
+    "recommendations": {
+      "items": {
+        "$ref": "#/$defs/VacationRecommendation"
+      },
+      "maxItems": 5,
+      "minItems": 1,
+      "title": "Recommendations",
+      "type": "array"
+    },
+    "remainingDays": {
+      "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,4}|(?=[\\d.]{1,7}0*$)\\d{0,4}\\.\\d{0,2}0*$)",
+      "title": "Remainingdays",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "sourceRecordId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Sourcerecordid",
+      "type": "string"
+    },
+    "sourceSystem": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourcesystem",
+      "type": "string"
+    },
+    "sourceTitle": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Sourcetitle",
+      "type": "string"
+    },
+    "syntheticData": {
+      "const": true,
+      "default": true,
+      "title": "Syntheticdata",
+      "type": "boolean"
+    },
+    "takenDays": {
+      "pattern": "^(?!^[-+.]*$)[+-]?0*(?:\\d{0,4}|(?=[\\d.]{1,7}0*$)\\d{0,4}\\.\\d{0,2}0*$)",
+      "title": "Takendays",
+      "type": "string"
+    }
+  },
+  "required": [
+    "employeeId",
+    "employeeDisplayName",
+    "balanceYear",
+    "asOf",
+    "entitlementDays",
+    "takenDays",
+    "bookedDays",
+    "remainingDays",
+    "currentYearEntries",
+    "priorYearEntries",
+    "recommendations",
+    "sourceSystem",
+    "sourceRecordId",
+    "sourceTitle"
+  ],
+  "title": "VacationBalance",
+  "type": "object"
+}

@@ -1,0 +1,36 @@
+name: Feature request
+description: Propose an Agent IQ capability or developer-experience improvement.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or operator problem should Agent IQ solve?
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe observable behavior rather than a specific implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Acceptance evidence
+      description: What deterministic test or runtime observation would prove this works?
+    validations:
+      required: true
+  - type: checkboxes
+    id: invariants
+    attributes:
+      label: Product invariants
+      options:
+        - label: This preserves dynamic squad formation instead of adding an agent-ID route.
+          required: true
+        - label: This preserves authorization-before-ranking and grounded-or-decline behavior.
+          required: true

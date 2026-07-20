@@ -1,0 +1,453 @@
+{
+  "$defs": {
+    "CandidateScore": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "catalogVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Catalogversion",
+          "type": "string"
+        },
+        "components": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ScoreComponent"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "eligibility": {
+          "$ref": "#/$defs/EligibilityDecision"
+        },
+        "explanation": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "fusedScore": {
+          "minimum": 0,
+          "title": "Fusedscore",
+          "type": "number"
+        },
+        "matchedFields": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedfields",
+          "type": "array"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agentId",
+        "rank",
+        "fusedScore",
+        "eligibility",
+        "explanation",
+        "catalogVersion"
+      ],
+      "title": "CandidateScore",
+      "type": "object"
+    },
+    "EligibilityDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "blockedReasons": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Blockedreasons",
+          "type": "array"
+        },
+        "eligible": {
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "policyFacts": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Policyfacts",
+          "type": "array"
+        },
+        "policyVersion": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Policyversion"
+        }
+      },
+      "required": [
+        "eligible"
+      ],
+      "title": "EligibilityDecision",
+      "type": "object"
+    },
+    "ScoreComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "matchedFields": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedfields",
+          "type": "array"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "score": {
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "rank",
+        "score"
+      ],
+      "title": "ScoreComponent",
+      "type": "object"
+    },
+    "SelectionDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/CandidateScore"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "title": "Createdat",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "selected": {
+          "items": {
+            "$ref": "#/$defs/SelectionReason"
+          },
+          "title": "Selected",
+          "type": "array"
+        },
+        "selector": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Selector",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestId",
+        "candidates",
+        "selected",
+        "selector",
+        "createdAt"
+      ],
+      "title": "SelectionDecision",
+      "type": "object"
+    },
+    "SelectionReason": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "fusedScore": {
+          "minimum": 0,
+          "title": "Fusedscore",
+          "type": "number"
+        },
+        "matchedSkills": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Matchedskills",
+          "type": "array"
+        },
+        "matchedTags": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedtags",
+          "type": "array"
+        },
+        "policyFacts": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Policyfacts",
+          "type": "array"
+        },
+        "summary": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        },
+        "workItem": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Workitem",
+          "type": "string"
+        },
+        "workItemId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Workitemid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agentId",
+        "workItemId",
+        "workItem",
+        "summary",
+        "fusedScore"
+      ],
+      "title": "SelectionReason",
+      "type": "object"
+    },
+    "SquadOverride": {
+      "additionalProperties": false,
+      "properties": {
+        "actorSubjectId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Actorsubjectid",
+          "type": "string"
+        },
+        "authorizedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Authorizedagentids",
+          "type": "array"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "title": "Createdat",
+          "type": "string"
+        },
+        "executionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Executionid",
+          "type": "string"
+        },
+        "overrideId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Overrideid",
+          "type": "string"
+        },
+        "projectId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Projectid",
+          "type": "string"
+        },
+        "proposedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Proposedagentids",
+          "type": "array"
+        },
+        "reasonCode": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Reasoncode",
+          "type": "string"
+        },
+        "reasonHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Reasonhash",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "tenantId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Tenantid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "overrideId",
+        "requestId",
+        "executionId",
+        "tenantId",
+        "actorSubjectId",
+        "projectId",
+        "proposedAgentIds",
+        "authorizedAgentIds",
+        "reasonCode",
+        "reasonHash",
+        "createdAt"
+      ],
+      "title": "SquadOverride",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/squad-decision-envelope.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "createdAt": {
+      "format": "date-time",
+      "title": "Createdat",
+      "type": "string"
+    },
+    "decisionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Decisionid",
+      "type": "string"
+    },
+    "executionDecision": {
+      "$ref": "#/$defs/SelectionDecision"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "override": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SquadOverride"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "proposal": {
+      "$ref": "#/$defs/SelectionDecision"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Requestid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decisionId",
+    "requestId",
+    "executionId",
+    "proposal",
+    "executionDecision",
+    "createdAt"
+  ],
+  "title": "SquadDecisionEnvelope",
+  "type": "object"
+}

@@ -1,0 +1,297 @@
+{
+  "$defs": {
+    "CapabilityContentPolicy": {
+      "additionalProperties": false,
+      "description": "Sensitive classes that the report is forbidden to persist.",
+      "properties": {
+        "persistsEndpoints": {
+          "const": false,
+          "default": false,
+          "title": "Persistsendpoints",
+          "type": "boolean"
+        },
+        "persistsPayloads": {
+          "const": false,
+          "default": false,
+          "title": "Persistspayloads",
+          "type": "boolean"
+        },
+        "persistsPrompts": {
+          "const": false,
+          "default": false,
+          "title": "Persistsprompts",
+          "type": "boolean"
+        },
+        "persistsRawErrors": {
+          "const": false,
+          "default": false,
+          "title": "Persistsrawerrors",
+          "type": "boolean"
+        },
+        "persistsResourceIdentifiers": {
+          "const": false,
+          "default": false,
+          "title": "Persistsresourceidentifiers",
+          "type": "boolean"
+        },
+        "persistsResourceNames": {
+          "const": false,
+          "default": false,
+          "title": "Persistsresourcenames",
+          "type": "boolean"
+        },
+        "persistsTokens": {
+          "const": false,
+          "default": false,
+          "title": "Persiststokens",
+          "type": "boolean"
+        }
+      },
+      "title": "CapabilityContentPolicy",
+      "type": "object"
+    },
+    "CapabilityObservation": {
+      "additionalProperties": false,
+      "description": "One documented capability and its observed tenant state.",
+      "properties": {
+        "capabilityId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Capabilityid",
+          "type": "string"
+        },
+        "category": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Category",
+          "type": "string"
+        },
+        "details": {
+          "additionalProperties": true,
+          "title": "Details",
+          "type": "object"
+        },
+        "documentedStatus": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Documentedstatus",
+          "type": "string"
+        },
+        "observedStatus": {
+          "$ref": "#/$defs/ProbeStatus"
+        },
+        "probeMode": {
+          "$ref": "#/$defs/ProbeMode"
+        },
+        "required": {
+          "default": false,
+          "title": "Required",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "capabilityId",
+        "category",
+        "documentedStatus",
+        "observedStatus",
+        "probeMode"
+      ],
+      "title": "CapabilityObservation",
+      "type": "object"
+    },
+    "CapabilityScope": {
+      "additionalProperties": false,
+      "description": "Non-identifying scope retained in a capability report.",
+      "properties": {
+        "canaryConfigured": {
+          "title": "Canaryconfigured",
+          "type": "boolean"
+        },
+        "location": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Location",
+          "type": "string"
+        },
+        "projectConfigured": {
+          "title": "Projectconfigured",
+          "type": "boolean"
+        },
+        "targetModels": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Targetmodels",
+          "type": "array"
+        }
+      },
+      "required": [
+        "location",
+        "targetModels",
+        "projectConfigured",
+        "canaryConfigured"
+      ],
+      "title": "CapabilityScope",
+      "type": "object"
+    },
+    "CapabilitySummary": {
+      "additionalProperties": false,
+      "description": "Aggregate gate result.",
+      "properties": {
+        "capabilityCount": {
+          "minimum": 0,
+          "title": "Capabilitycount",
+          "type": "integer"
+        },
+        "probeErrors": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Probeerrors",
+          "type": "array"
+        },
+        "requiredAvailableCount": {
+          "minimum": 0,
+          "title": "Requiredavailablecount",
+          "type": "integer"
+        },
+        "requiredCount": {
+          "minimum": 0,
+          "title": "Requiredcount",
+          "type": "integer"
+        },
+        "requiredFailures": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Requiredfailures",
+          "type": "array"
+        },
+        "statusCounts": {
+          "additionalProperties": {
+            "type": "integer"
+          },
+          "propertyNames": {
+            "$ref": "#/$defs/ProbeStatus"
+          },
+          "title": "Statuscounts",
+          "type": "object"
+        }
+      },
+      "required": [
+        "capabilityCount",
+        "requiredCount",
+        "requiredAvailableCount",
+        "statusCounts"
+      ],
+      "title": "CapabilitySummary",
+      "type": "object"
+    },
+    "ProbeMode": {
+      "description": "How the live observation was obtained.",
+      "enum": [
+        "sdk",
+        "arm",
+        "data_plane",
+        "certificate",
+        "derived",
+        "classified"
+      ],
+      "title": "ProbeMode",
+      "type": "string"
+    },
+    "ProbeStatus": {
+      "description": "Normalized live capability result.",
+      "enum": [
+        "available",
+        "unavailable",
+        "unauthorized",
+        "not_configured",
+        "mutation_required",
+        "probe_error"
+      ],
+      "title": "ProbeStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/foundry-capability-ledger.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Content-safe capability certificate.",
+  "properties": {
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/CapabilityObservation"
+      },
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "checkedAt": {
+      "format": "date-time",
+      "title": "Checkedat",
+      "type": "string"
+    },
+    "contentPolicy": {
+      "$ref": "#/$defs/CapabilityContentPolicy"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "scope": {
+      "$ref": "#/$defs/CapabilityScope"
+    },
+    "sdk": {
+      "patternProperties": {
+        "^[A-Za-z0-9][A-Za-z0-9._:-]*$": {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "maxLength": 128,
+        "minLength": 1
+      },
+      "title": "Sdk",
+      "type": "object"
+    },
+    "status": {
+      "enum": [
+        "pass",
+        "fail"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "summary": {
+      "$ref": "#/$defs/CapabilitySummary"
+    }
+  },
+  "required": [
+    "status",
+    "checkedAt",
+    "scope",
+    "contentPolicy",
+    "sdk",
+    "summary",
+    "capabilities"
+  ],
+  "title": "CapabilityLedger",
+  "type": "object"
+}

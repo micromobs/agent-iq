@@ -1,0 +1,198 @@
+{
+  "$defs": {
+    "CallbackMode": {
+      "enum": [
+        "poll",
+        "webhook",
+        "push",
+        "teams",
+        "email"
+      ],
+      "title": "CallbackMode",
+      "type": "string"
+    },
+    "CallbackTarget": {
+      "additionalProperties": false,
+      "properties": {
+        "destination": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Destination",
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/$defs/CallbackMode"
+        }
+      },
+      "required": [
+        "mode",
+        "destination"
+      ],
+      "title": "CallbackTarget",
+      "type": "object"
+    },
+    "TaskCheckpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "recordedAt": {
+          "format": "date-time",
+          "title": "Recordedat",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "status": {
+          "$ref": "#/$defs/TaskStatus"
+        },
+        "summary": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "sequence",
+        "status",
+        "summary",
+        "recordedAt"
+      ],
+      "title": "TaskCheckpoint",
+      "type": "object"
+    },
+    "TaskMode": {
+      "enum": [
+        "attended",
+        "unattended"
+      ],
+      "title": "TaskMode",
+      "type": "string"
+    },
+    "TaskStatus": {
+      "enum": [
+        "pending",
+        "running",
+        "waiting_approval",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "TaskStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/agent-task.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agentId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Agentid",
+      "type": "string"
+    },
+    "approvalId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Approvalid"
+    },
+    "callbackTargets": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CallbackTarget"
+      },
+      "title": "Callbacktargets",
+      "type": "array"
+    },
+    "checkpoints": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/TaskCheckpoint"
+      },
+      "title": "Checkpoints",
+      "type": "array"
+    },
+    "createdAt": {
+      "format": "date-time",
+      "title": "Createdat",
+      "type": "string"
+    },
+    "deadlineAt": {
+      "anyOf": [
+        {
+          "format": "date-time",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Deadlineat"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "mode": {
+      "$ref": "#/$defs/TaskMode"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/TaskStatus"
+    },
+    "stepId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Stepid",
+      "type": "string"
+    },
+    "taskId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Taskid",
+      "type": "string"
+    },
+    "updatedAt": {
+      "format": "date-time",
+      "title": "Updatedat",
+      "type": "string"
+    }
+  },
+  "required": [
+    "taskId",
+    "executionId",
+    "stepId",
+    "agentId",
+    "mode",
+    "status",
+    "createdAt",
+    "updatedAt"
+  ],
+  "title": "AgentTask",
+  "type": "object"
+}

@@ -1,0 +1,591 @@
+{
+  "$defs": {
+    "ExecutionStatus": {
+      "enum": [
+        "completed",
+        "partial",
+        "declined",
+        "failed",
+        "cancelled"
+      ],
+      "title": "ExecutionStatus",
+      "type": "string"
+    },
+    "ModelJudgment": {
+      "additionalProperties": false,
+      "properties": {
+        "criterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Criterionid",
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "observationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Observationid",
+          "type": "string"
+        },
+        "promptVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Promptversion",
+          "type": "string"
+        },
+        "provider": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Provider",
+          "type": "string"
+        },
+        "publicReason": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Publicreason",
+          "type": "string"
+        },
+        "rubricId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Rubricid",
+          "type": "string"
+        },
+        "rubricVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Rubricversion",
+          "type": "string"
+        },
+        "score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "observationId",
+        "rubricId",
+        "rubricVersion",
+        "criterionId",
+        "provider",
+        "model",
+        "promptVersion",
+        "score",
+        "publicReason"
+      ],
+      "title": "ModelJudgment",
+      "type": "object"
+    },
+    "RubricCase": {
+      "additionalProperties": false,
+      "properties": {
+        "caseId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Caseid",
+          "type": "string"
+        },
+        "expectedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Expectedagentids",
+          "type": "array"
+        },
+        "expectedConflict": {
+          "default": false,
+          "title": "Expectedconflict",
+          "type": "boolean"
+        },
+        "expectedEvidenceIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Expectedevidenceids",
+          "type": "array"
+        },
+        "expectedExecutionStatus": {
+          "$ref": "#/$defs/ExecutionStatus"
+        },
+        "expectedPlan": {
+          "items": {
+            "$ref": "#/$defs/RubricPlanStep"
+          },
+          "title": "Expectedplan",
+          "type": "array"
+        },
+        "expectedSynthesisStatus": {
+          "$ref": "#/$defs/SynthesisStatus"
+        },
+        "expectedVisibleFailureIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Expectedvisiblefailureids",
+          "type": "array"
+        },
+        "forbiddenAnswerTerms": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Forbiddenanswerterms",
+          "type": "array"
+        },
+        "requiredAnswerTerms": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Requiredanswerterms",
+          "type": "array"
+        },
+        "requiredOutputIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Requiredoutputids",
+          "type": "array"
+        },
+        "rubricId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Rubricid",
+          "type": "string"
+        },
+        "rubricVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Rubricversion",
+          "type": "string"
+        }
+      },
+      "required": [
+        "caseId",
+        "rubricId",
+        "rubricVersion",
+        "expectedAgentIds",
+        "expectedPlan",
+        "expectedSynthesisStatus",
+        "expectedExecutionStatus"
+      ],
+      "title": "RubricCase",
+      "type": "object"
+    },
+    "RubricCriterion": {
+      "additionalProperties": false,
+      "properties": {
+        "criterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Criterionid",
+          "type": "string"
+        },
+        "description": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "dimension": {
+          "$ref": "#/$defs/RubricDimension"
+        },
+        "evaluator": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Evaluator",
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "#/$defs/RubricCriterionMode"
+        },
+        "required": {
+          "default": true,
+          "title": "Required",
+          "type": "boolean"
+        },
+        "threshold": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Threshold",
+          "type": "number"
+        },
+        "weight": {
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Weight",
+          "type": "number"
+        }
+      },
+      "required": [
+        "criterionId",
+        "dimension",
+        "mode",
+        "evaluator",
+        "description",
+        "weight",
+        "threshold"
+      ],
+      "title": "RubricCriterion",
+      "type": "object"
+    },
+    "RubricCriterionMode": {
+      "enum": [
+        "deterministic",
+        "model_judge"
+      ],
+      "title": "RubricCriterionMode",
+      "type": "string"
+    },
+    "RubricDefinition": {
+      "additionalProperties": false,
+      "properties": {
+        "criteria": {
+          "items": {
+            "$ref": "#/$defs/RubricCriterion"
+          },
+          "minItems": 1,
+          "title": "Criteria",
+          "type": "array"
+        },
+        "description": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "passThreshold": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Passthreshold",
+          "type": "number"
+        },
+        "rubricId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Rubricid",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "rubricId",
+        "version",
+        "title",
+        "description",
+        "passThreshold",
+        "criteria"
+      ],
+      "title": "RubricDefinition",
+      "type": "object"
+    },
+    "RubricDimension": {
+      "enum": [
+        "routing",
+        "orchestration",
+        "groundedness",
+        "evidence_coverage",
+        "honest_decline",
+        "conflict_handling",
+        "completeness",
+        "task_success"
+      ],
+      "title": "RubricDimension",
+      "type": "string"
+    },
+    "RubricObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "actualPlan": {
+          "items": {
+            "$ref": "#/$defs/RubricPlanStep"
+          },
+          "title": "Actualplan",
+          "type": "array"
+        },
+        "answer": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Answer",
+          "type": "string"
+        },
+        "caseId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Caseid",
+          "type": "string"
+        },
+        "citedEvidenceIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Citedevidenceids",
+          "type": "array"
+        },
+        "conflictClaimIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Conflictclaimids",
+          "type": "array"
+        },
+        "deliveredOutputIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Deliveredoutputids",
+          "type": "array"
+        },
+        "evidenceIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "executionStatus": {
+          "$ref": "#/$defs/ExecutionStatus"
+        },
+        "groundedClaims": {
+          "minimum": 0,
+          "title": "Groundedclaims",
+          "type": "integer"
+        },
+        "observationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Observationid",
+          "type": "string"
+        },
+        "rubricId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Rubricid",
+          "type": "string"
+        },
+        "rubricVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Rubricversion",
+          "type": "string"
+        },
+        "selectedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Selectedagentids",
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/$defs/RubricObservationSource"
+        },
+        "synthesisStatus": {
+          "$ref": "#/$defs/SynthesisStatus"
+        },
+        "totalClaims": {
+          "minimum": 0,
+          "title": "Totalclaims",
+          "type": "integer"
+        },
+        "visibleFailureIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Visiblefailureids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "observationId",
+        "caseId",
+        "rubricId",
+        "rubricVersion",
+        "source",
+        "selectedAgentIds",
+        "actualPlan",
+        "synthesisStatus",
+        "executionStatus",
+        "answer",
+        "totalClaims",
+        "groundedClaims"
+      ],
+      "title": "RubricObservation",
+      "type": "object"
+    },
+    "RubricObservationSource": {
+      "enum": [
+        "cowork_transcript",
+        "execution_trace"
+      ],
+      "title": "RubricObservationSource",
+      "type": "string"
+    },
+    "RubricPlanStep": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "dependsOnAgentIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Dependsonagentids",
+          "type": "array"
+        }
+      },
+      "required": [
+        "agentId"
+      ],
+      "title": "RubricPlanStep",
+      "type": "object"
+    },
+    "SynthesisStatus": {
+      "enum": [
+        "complete",
+        "partial",
+        "declined"
+      ],
+      "title": "SynthesisStatus",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/evaluation-replay.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/RubricCase"
+      },
+      "minItems": 1,
+      "title": "Cases",
+      "type": "array"
+    },
+    "judgments": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ModelJudgment"
+      },
+      "title": "Judgments",
+      "type": "array"
+    },
+    "observations": {
+      "items": {
+        "$ref": "#/$defs/RubricObservation"
+      },
+      "minItems": 1,
+      "title": "Observations",
+      "type": "array"
+    },
+    "rubric": {
+      "$ref": "#/$defs/RubricDefinition"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "suiteId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Suiteid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "suiteId",
+    "rubric",
+    "cases",
+    "observations"
+  ],
+  "title": "RubricReplayBundle",
+  "type": "object"
+}

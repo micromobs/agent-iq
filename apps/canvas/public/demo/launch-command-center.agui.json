@@ -1,0 +1,2836 @@
+{
+  "agUiReferenceRevision": "e0d48fd100c15448553cf4ef91218f4d0bbfff29",
+  "canonicalEventCount": 26,
+  "eventCount": 77,
+  "events": [
+    {
+      "event": {
+        "runId": "demo-eu-launch-command-center",
+        "threadId": "demo-launch-thread",
+        "timestamp": 1783864800000,
+        "type": "RUN_STARTED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-4b717f9adb0233fecaa6263a",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-00",
+      "sourceSequence": 0,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "snapshot": {
+          "answer": null,
+          "approvals": {},
+          "candidateCount": 0,
+          "candidates": [],
+          "catalogVersion": null,
+          "citationNumbers": [],
+          "durationMs": null,
+          "evidenceIds": [],
+          "executionId": "demo-eu-launch-command-center",
+          "invocations": {},
+          "plan": null,
+          "selections": [],
+          "stage": "accepted",
+          "status": "running",
+          "tasks": {}
+        },
+        "timestamp": 1783864800000,
+        "type": "STATE_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-345ed7236f8e414acf8b6d20",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-00",
+      "sourceSequence": 0,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Request accepted",
+          "sourceEventType": "request.accepted",
+          "stage": "accepted",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864800000,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-d0e8577e9763810e6bb429e8",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-00",
+      "sourceSequence": 0,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "catalog_searched"
+          },
+          {
+            "op": "replace",
+            "path": "/candidateCount",
+            "value": 20
+          },
+          {
+            "op": "replace",
+            "path": "/catalogVersion",
+            "value": "demo-catalog-20"
+          }
+        ],
+        "timestamp": 1783864800200,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-8daee953403fe8d616ef921f",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-01",
+      "sourceSequence": 1,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Found 20 eligible candidates",
+          "sourceEventType": "catalog.searched",
+          "stage": "catalog_searched",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864800200,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-fcc2b9f559b06472416e3e14",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-01",
+      "sourceSequence": 1,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "candidates_ranked"
+          },
+          {
+            "op": "replace",
+            "path": "/candidates",
+            "value": [
+              {
+                "agentId": "consumer-formulation-rd",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 1,
+                    "score": 8.0
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 1,
+                    "score": 0.925
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.01639344,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 1
+              },
+              {
+                "agentId": "consumer-brand-to-brand-compare",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 2,
+                    "score": 4.0
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 2,
+                    "score": 0.89
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.01612903,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 2
+              },
+              {
+                "agentId": "consumer-demand-forecasting",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 3,
+                    "score": 2.667
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 3,
+                    "score": 0.855
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.01587302,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 3
+              },
+              {
+                "agentId": "consumer-manufacturing-operations",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 4,
+                    "score": 2.0
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 4,
+                    "score": 0.82
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.015625,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 4
+              },
+              {
+                "agentId": "consumer-regulatory-affairs",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 5,
+                    "score": 1.6
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 5,
+                    "score": 0.785
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.01538462,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 5
+              },
+              {
+                "agentId": "consumer-consumer-care",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 6,
+                    "score": 1.333
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 6,
+                    "score": 0.75
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.01515152,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 6
+              },
+              {
+                "agentId": "consumer-packaging-engineering",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 7,
+                    "score": 1.143
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 7,
+                    "score": 0.715
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.01492537,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 7
+              },
+              {
+                "agentId": "consumer-trade-promotion",
+                "components": [
+                  {
+                    "matchedFields": [
+                      "skills.tags",
+                      "skills.examples"
+                    ],
+                    "name": "lexical",
+                    "rank": 8,
+                    "score": 1.0
+                  },
+                  {
+                    "matchedFields": [
+                      "description",
+                      "skills.description"
+                    ],
+                    "name": "semantic",
+                    "rank": 8,
+                    "score": 0.68
+                  }
+                ],
+                "explanation": "Eligible public card signals matched this request.",
+                "fusedScore": 0.01470588,
+                "matchedFields": [
+                  "skills.tags",
+                  "skills.examples"
+                ],
+                "rank": 8
+              }
+            ]
+          }
+        ],
+        "timestamp": 1783864800400,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-c44539c358ec9a61d6cb0459",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-02",
+      "sourceSequence": 2,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Ranked eligible specialists",
+          "sourceEventType": "candidates.ranked",
+          "stage": "candidates_ranked",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864800400,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-fe2d445a9553ebcb5766cb5e",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-02",
+      "sourceSequence": 2,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "agents_selected"
+          },
+          {
+            "op": "replace",
+            "path": "/selections",
+            "value": [
+              {
+                "agentId": "consumer-formulation-rd",
+                "fusedScore": 0.01639344,
+                "matchedSkills": [
+                  "formula"
+                ],
+                "matchedTags": [
+                  "formula",
+                  "enzymes",
+                  "cold-water"
+                ],
+                "policyFacts": [
+                  "catalog active",
+                  "request-time eligible"
+                ],
+                "summary": "Selected from eligible public card and policy signals."
+              },
+              {
+                "agentId": "consumer-brand-to-brand-compare",
+                "fusedScore": 0.01612903,
+                "matchedSkills": [
+                  "brand-comparison"
+                ],
+                "matchedTags": [
+                  "brand comparison",
+                  "ClearWave",
+                  "benchmark"
+                ],
+                "policyFacts": [
+                  "catalog active",
+                  "request-time eligible"
+                ],
+                "summary": "Selected from eligible public card and policy signals."
+              },
+              {
+                "agentId": "consumer-demand-forecasting",
+                "fusedScore": 0.01587302,
+                "matchedSkills": [
+                  "demand"
+                ],
+                "matchedTags": [
+                  "demand",
+                  "forecast",
+                  "Germany"
+                ],
+                "policyFacts": [
+                  "catalog active",
+                  "request-time eligible"
+                ],
+                "summary": "Selected from eligible public card and policy signals."
+              },
+              {
+                "agentId": "consumer-manufacturing-operations",
+                "fusedScore": 0.015625,
+                "matchedSkills": [
+                  "capacity"
+                ],
+                "matchedTags": [
+                  "capacity",
+                  "plant",
+                  "operations"
+                ],
+                "policyFacts": [
+                  "catalog active",
+                  "request-time eligible"
+                ],
+                "summary": "Selected from eligible public card and policy signals."
+              },
+              {
+                "agentId": "consumer-regulatory-affairs",
+                "fusedScore": 0.01538462,
+                "matchedSkills": [
+                  "Germany"
+                ],
+                "matchedTags": [
+                  "Germany",
+                  "claims",
+                  "regulatory"
+                ],
+                "policyFacts": [
+                  "catalog active",
+                  "request-time eligible"
+                ],
+                "summary": "Selected from eligible public card and policy signals."
+              }
+            ]
+          }
+        ],
+        "timestamp": 1783864800600,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-91998c7adb91598c7e8c4108",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-03",
+      "sourceSequence": 3,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Selected 5 specialist(s)",
+          "sourceEventType": "agents.selected",
+          "stage": "agents_selected",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864800600,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-a8b5b4466d8655f333fbcf53",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-03",
+      "sourceSequence": 3,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "plan_prepared"
+          },
+          {
+            "op": "replace",
+            "path": "/plan",
+            "value": {
+              "maxConcurrency": 4,
+              "planId": "plan-demo-launch",
+              "steps": [
+                {
+                  "agentId": "consumer-formulation-rd",
+                  "approvalRequired": false,
+                  "contextKinds": [
+                    "work_iq",
+                    "foundry_iq",
+                    "fabric_iq"
+                  ],
+                  "dependsOn": [],
+                  "expectedOutputCount": 1,
+                  "invocationMode": "sync",
+                  "stepId": "step-formulation"
+                },
+                {
+                  "agentId": "consumer-brand-to-brand-compare",
+                  "approvalRequired": false,
+                  "contextKinds": [
+                    "foundry_iq",
+                    "web_iq"
+                  ],
+                  "dependsOn": [],
+                  "expectedOutputCount": 1,
+                  "invocationMode": "sync",
+                  "stepId": "step-brand"
+                },
+                {
+                  "agentId": "consumer-demand-forecasting",
+                  "approvalRequired": false,
+                  "contextKinds": [
+                    "work_iq",
+                    "fabric_iq"
+                  ],
+                  "dependsOn": [],
+                  "expectedOutputCount": 1,
+                  "invocationMode": "sync",
+                  "stepId": "step-demand"
+                },
+                {
+                  "agentId": "consumer-manufacturing-operations",
+                  "approvalRequired": false,
+                  "contextKinds": [
+                    "fabric_iq"
+                  ],
+                  "dependsOn": [],
+                  "expectedOutputCount": 1,
+                  "invocationMode": "sync",
+                  "stepId": "step-capacity"
+                },
+                {
+                  "agentId": "consumer-regulatory-affairs",
+                  "approvalRequired": false,
+                  "contextKinds": [
+                    "foundry_iq",
+                    "web_iq",
+                    "prior_step"
+                  ],
+                  "dependsOn": [
+                    "step-formulation",
+                    "step-brand"
+                  ],
+                  "expectedOutputCount": 1,
+                  "invocationMode": "sync",
+                  "stepId": "step-regulatory"
+                },
+                {
+                  "agentId": "consumer-manufacturing-operations",
+                  "approvalRequired": true,
+                  "contextKinds": [
+                    "prior_step"
+                  ],
+                  "dependsOn": [
+                    "step-demand",
+                    "step-capacity",
+                    "step-regulatory"
+                  ],
+                  "expectedOutputCount": 1,
+                  "invocationMode": "async",
+                  "stepId": "step-monitor"
+                }
+              ]
+            }
+          }
+        ],
+        "timestamp": 1783864800800,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-e301a3d0ed6615b176d49e63",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-04",
+      "sourceSequence": 4,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Prepared a 6-step execution plan",
+          "sourceEventType": "plan.prepared",
+          "stage": "plan_prepared",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864800800,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-4758c44e0cedd9aebdbd6b31",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-04",
+      "sourceSequence": 4,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invoking"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864801000,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-224f43ceb0bdca85a1d3d526",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-05",
+      "sourceSequence": 5,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-formulation",
+        "timestamp": 1783864801000,
+        "type": "STEP_STARTED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-56042abba811a69fba216bd9",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-05",
+      "sourceSequence": 5,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864801000,
+        "toolCallId": "invocation-formulation",
+        "toolCallName": "invoke_a2a_agent",
+        "type": "TOOL_CALL_START"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-318b4f90cf25f2c229bde144",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-05",
+      "sourceSequence": 5,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-formulation-rd",
+          "evidenceIds": [],
+          "invocationId": "invocation-formulation",
+          "label": "Invoking consumer-formulation-rd",
+          "sourceEventType": "invocation.started",
+          "stage": "invoking",
+          "status": "running"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864801000,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-462163cd314092b47e1a5a20",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-05",
+      "sourceSequence": 5,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invoking"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864801200,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-9d7f599688f551891225c3d4",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-06",
+      "sourceSequence": 6,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-brand",
+        "timestamp": 1783864801200,
+        "type": "STEP_STARTED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-ce1d22957ea4f87dd248a5f3",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-06",
+      "sourceSequence": 6,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864801200,
+        "toolCallId": "invocation-brand",
+        "toolCallName": "invoke_a2a_agent",
+        "type": "TOOL_CALL_START"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-e3e66bbbaeb54901b34cd0c6",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-06",
+      "sourceSequence": 6,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-brand-to-brand-compare",
+          "evidenceIds": [],
+          "invocationId": "invocation-brand",
+          "label": "Invoking consumer-brand-to-brand-compare",
+          "sourceEventType": "invocation.started",
+          "stage": "invoking",
+          "status": "running"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864801200,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-0ff394ce6e5d13570204f984",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-06",
+      "sourceSequence": 6,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invoking"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864801400,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-c373510b7658154da2887117",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-07",
+      "sourceSequence": 7,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-demand",
+        "timestamp": 1783864801400,
+        "type": "STEP_STARTED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-9a612ae8d7d47e7446748510",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-07",
+      "sourceSequence": 7,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864801400,
+        "toolCallId": "invocation-demand",
+        "toolCallName": "invoke_a2a_agent",
+        "type": "TOOL_CALL_START"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-9b2bf12db292402cf56e1339",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-07",
+      "sourceSequence": 7,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-demand-forecasting",
+          "evidenceIds": [],
+          "invocationId": "invocation-demand",
+          "label": "Invoking consumer-demand-forecasting",
+          "sourceEventType": "invocation.started",
+          "stage": "invoking",
+          "status": "running"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864801400,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-8c8581df6567862196435d6b",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-07",
+      "sourceSequence": 7,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invoking"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864801600,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-19aa5ff1a9bd833b1a8060a4",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-08",
+      "sourceSequence": 8,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-capacity",
+        "timestamp": 1783864801600,
+        "type": "STEP_STARTED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-6986115ca6c234703d0ef476",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-08",
+      "sourceSequence": 8,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864801600,
+        "toolCallId": "invocation-capacity",
+        "toolCallName": "invoke_a2a_agent",
+        "type": "TOOL_CALL_START"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-071814fd0895cf8fdd1e0a8d",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-08",
+      "sourceSequence": 8,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-manufacturing-operations",
+          "evidenceIds": [],
+          "invocationId": "invocation-capacity",
+          "label": "Invoking consumer-manufacturing-operations",
+          "sourceEventType": "invocation.started",
+          "stage": "invoking",
+          "status": "running"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864801600,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-d6f92ab91abb5201d390c7a8",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-08",
+      "sourceSequence": 8,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "evidence_received"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          },
+          {
+            "op": "replace",
+            "path": "/evidenceIds",
+            "value": [
+              "evidence-formula-specification"
+            ]
+          }
+        ],
+        "timestamp": 1783864801800,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-94014caed8e3240838b922ea",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-09",
+      "sourceSequence": 9,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-formulation-rd",
+          "evidenceIds": [
+            "evidence-formula-specification"
+          ],
+          "invocationId": "invocation-formulation",
+          "label": "Received 1 governed evidence record(s)",
+          "sourceEventType": "evidence.received",
+          "stage": "evidence_received",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864801800,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-e2ab93913cbeffc9d3e34c22",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-09",
+      "sourceSequence": 9,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invocation_finished"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864802000,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-ccd5e7f8960d05ba59ee5e6e",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-10",
+      "sourceSequence": 10,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864802000,
+        "toolCallId": "invocation-formulation",
+        "type": "TOOL_CALL_END"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-fcb3e35d80cddc7f5c66569f",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-10",
+      "sourceSequence": 10,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-formulation",
+        "timestamp": 1783864802000,
+        "type": "STEP_FINISHED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-7ed4fbb419a3bf70780f5398",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-10",
+      "sourceSequence": 10,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-formulation-rd",
+          "evidenceIds": [],
+          "invocationId": "invocation-formulation",
+          "label": "Completed consumer-formulation-rd",
+          "sourceEventType": "invocation.completed",
+          "stage": "invocation_finished",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864802000,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-a9a6993de7d2133566f78508",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-10",
+      "sourceSequence": 10,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "evidence_received"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          },
+          {
+            "op": "replace",
+            "path": "/evidenceIds",
+            "value": [
+              "evidence-formula-specification",
+              "evidence-competitor-benchmark"
+            ]
+          }
+        ],
+        "timestamp": 1783864802200,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-ce24c9c213bf8c4bcf013000",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-11",
+      "sourceSequence": 11,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-brand-to-brand-compare",
+          "evidenceIds": [
+            "evidence-competitor-benchmark"
+          ],
+          "invocationId": "invocation-brand",
+          "label": "Received 1 governed evidence record(s)",
+          "sourceEventType": "evidence.received",
+          "stage": "evidence_received",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864802200,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-8ef24f767befed05740f0feb",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-11",
+      "sourceSequence": 11,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invocation_finished"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864802400,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-b57d22c30d649a067cc81ea3",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-12",
+      "sourceSequence": 12,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864802400,
+        "toolCallId": "invocation-brand",
+        "type": "TOOL_CALL_END"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-dbdcdeec7c475c2b47069b7e",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-12",
+      "sourceSequence": 12,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-brand",
+        "timestamp": 1783864802400,
+        "type": "STEP_FINISHED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-82edd4f45b7e8d4b05421389",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-12",
+      "sourceSequence": 12,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-brand-to-brand-compare",
+          "evidenceIds": [],
+          "invocationId": "invocation-brand",
+          "label": "Completed consumer-brand-to-brand-compare",
+          "sourceEventType": "invocation.completed",
+          "stage": "invocation_finished",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864802400,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-a6b8f19199566e62ee76f73c",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-12",
+      "sourceSequence": 12,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "evidence_received"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-demand-scenario"
+                ],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          },
+          {
+            "op": "replace",
+            "path": "/evidenceIds",
+            "value": [
+              "evidence-formula-specification",
+              "evidence-competitor-benchmark",
+              "evidence-demand-scenario"
+            ]
+          }
+        ],
+        "timestamp": 1783864802600,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-b66af07c19ed21490054a219",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-13",
+      "sourceSequence": 13,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-demand-forecasting",
+          "evidenceIds": [
+            "evidence-demand-scenario"
+          ],
+          "invocationId": "invocation-demand",
+          "label": "Received 1 governed evidence record(s)",
+          "sourceEventType": "evidence.received",
+          "stage": "evidence_received",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864802600,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-a296bc5ab51b87e18462b7a2",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-13",
+      "sourceSequence": 13,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invocation_finished"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": 2710,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-demand-scenario"
+                ],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864802800,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-14cc3f260505bbd4a4068697",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-14",
+      "sourceSequence": 14,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864802800,
+        "toolCallId": "invocation-demand",
+        "type": "TOOL_CALL_END"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-658af264a7c8e8dee5ac37e6",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-14",
+      "sourceSequence": 14,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-demand",
+        "timestamp": 1783864802800,
+        "type": "STEP_FINISHED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-dfde71a222c1a74e0be877d0",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-14",
+      "sourceSequence": 14,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-demand-forecasting",
+          "evidenceIds": [],
+          "invocationId": "invocation-demand",
+          "label": "Completed consumer-demand-forecasting",
+          "sourceEventType": "invocation.completed",
+          "stage": "invocation_finished",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864802800,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-337d12f55d434b665bd80a89",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-14",
+      "sourceSequence": 14,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "evidence_received"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-plant-capacity"
+                ],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": 2710,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-demand-scenario"
+                ],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          },
+          {
+            "op": "replace",
+            "path": "/evidenceIds",
+            "value": [
+              "evidence-formula-specification",
+              "evidence-competitor-benchmark",
+              "evidence-demand-scenario",
+              "evidence-plant-capacity"
+            ]
+          }
+        ],
+        "timestamp": 1783864803000,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-4f3e222d1e407adac04edd9f",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-15",
+      "sourceSequence": 15,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-manufacturing-operations",
+          "evidenceIds": [
+            "evidence-plant-capacity"
+          ],
+          "invocationId": "invocation-capacity",
+          "label": "Received 1 governed evidence record(s)",
+          "sourceEventType": "evidence.received",
+          "stage": "evidence_received",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864803000,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-8a6641410e8c35e3e4d96f53",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-15",
+      "sourceSequence": 15,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invocation_finished"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": 2960,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-plant-capacity"
+                ],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": 2710,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-demand-scenario"
+                ],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864803200,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-a4c31d27def18153bfe90351",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-16",
+      "sourceSequence": 16,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864803200,
+        "toolCallId": "invocation-capacity",
+        "type": "TOOL_CALL_END"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-026e42a45f6d5ad5d4b9cd8c",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-16",
+      "sourceSequence": 16,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-capacity",
+        "timestamp": 1783864803200,
+        "type": "STEP_FINISHED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-3783399c72fa6b50e9d56494",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-16",
+      "sourceSequence": 16,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-manufacturing-operations",
+          "evidenceIds": [],
+          "invocationId": "invocation-capacity",
+          "label": "Completed consumer-manufacturing-operations",
+          "sourceEventType": "invocation.completed",
+          "stage": "invocation_finished",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864803200,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-c057a1f1dae776e34ffa45b9",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-16",
+      "sourceSequence": 16,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invoking"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": 2960,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-plant-capacity"
+                ],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": 2710,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-demand-scenario"
+                ],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              },
+              "invocation-regulatory": {
+                "agentId": "consumer-regulatory-affairs",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [],
+                "invocationId": "invocation-regulatory",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-regulatory",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864803400,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-3e8ab6ab325cce6a7ee90ea8",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-17",
+      "sourceSequence": 17,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-regulatory",
+        "timestamp": 1783864803400,
+        "type": "STEP_STARTED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-269cbf16b1eae714944594de",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-17",
+      "sourceSequence": 17,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864803400,
+        "toolCallId": "invocation-regulatory",
+        "toolCallName": "invoke_a2a_agent",
+        "type": "TOOL_CALL_START"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-84221db79c52d6c93e77dd97",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-17",
+      "sourceSequence": 17,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-regulatory-affairs",
+          "evidenceIds": [],
+          "invocationId": "invocation-regulatory",
+          "label": "Invoking consumer-regulatory-affairs",
+          "sourceEventType": "invocation.started",
+          "stage": "invoking",
+          "status": "running"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864803400,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-a87a3036b7e253b17ecc0f4f",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-17",
+      "sourceSequence": 17,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "evidence_received"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": 2960,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-plant-capacity"
+                ],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": 2710,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-demand-scenario"
+                ],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              },
+              "invocation-regulatory": {
+                "agentId": "consumer-regulatory-affairs",
+                "durationMs": null,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-germany-claims-guidance"
+                ],
+                "invocationId": "invocation-regulatory",
+                "protocolVersion": "1.0",
+                "status": "running",
+                "stepId": "step-regulatory",
+                "transport": "a2a"
+              }
+            }
+          },
+          {
+            "op": "replace",
+            "path": "/evidenceIds",
+            "value": [
+              "evidence-formula-specification",
+              "evidence-competitor-benchmark",
+              "evidence-demand-scenario",
+              "evidence-plant-capacity",
+              "evidence-germany-claims-guidance"
+            ]
+          }
+        ],
+        "timestamp": 1783864803600,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-b9f1f9707ef3fdcae4ade07d",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-18",
+      "sourceSequence": 18,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-regulatory-affairs",
+          "evidenceIds": [
+            "evidence-germany-claims-guidance"
+          ],
+          "invocationId": "invocation-regulatory",
+          "label": "Received 1 governed evidence record(s)",
+          "sourceEventType": "evidence.received",
+          "stage": "evidence_received",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864803600,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-59a50050efe5b1208431d37c",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-18",
+      "sourceSequence": 18,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "invocation_finished"
+          },
+          {
+            "op": "replace",
+            "path": "/invocations",
+            "value": {
+              "invocation-brand": {
+                "agentId": "consumer-brand-to-brand-compare",
+                "durationMs": 3540,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-competitor-benchmark"
+                ],
+                "invocationId": "invocation-brand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-brand",
+                "transport": "a2a"
+              },
+              "invocation-capacity": {
+                "agentId": "consumer-manufacturing-operations",
+                "durationMs": 2960,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-plant-capacity"
+                ],
+                "invocationId": "invocation-capacity",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-capacity",
+                "transport": "a2a"
+              },
+              "invocation-demand": {
+                "agentId": "consumer-demand-forecasting",
+                "durationMs": 2710,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-demand-scenario"
+                ],
+                "invocationId": "invocation-demand",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-demand",
+                "transport": "a2a"
+              },
+              "invocation-formulation": {
+                "agentId": "consumer-formulation-rd",
+                "durationMs": 3180,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-formula-specification"
+                ],
+                "invocationId": "invocation-formulation",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-formulation",
+                "transport": "a2a"
+              },
+              "invocation-regulatory": {
+                "agentId": "consumer-regulatory-affairs",
+                "durationMs": 3240,
+                "errorCode": null,
+                "evidenceIds": [
+                  "evidence-germany-claims-guidance"
+                ],
+                "invocationId": "invocation-regulatory",
+                "protocolVersion": "1.0",
+                "status": "completed",
+                "stepId": "step-regulatory",
+                "transport": "a2a"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864803800,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-561528553bb7e95a82dbbdf9",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-19",
+      "sourceSequence": 19,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "timestamp": 1783864803800,
+        "toolCallId": "invocation-regulatory",
+        "type": "TOOL_CALL_END"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-dfb2358257e1d8104736887d",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-19",
+      "sourceSequence": 19,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "stepName": "step-regulatory",
+        "timestamp": 1783864803800,
+        "type": "STEP_FINISHED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-87b7571cdc7c09e980a66324",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-19",
+      "sourceSequence": 19,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-regulatory-affairs",
+          "evidenceIds": [],
+          "invocationId": "invocation-regulatory",
+          "label": "Completed consumer-regulatory-affairs",
+          "sourceEventType": "invocation.completed",
+          "stage": "invocation_finished",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864803800,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-ae0131691abab2a77688e285",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-19",
+      "sourceSequence": 19,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "synthesis_completed"
+          },
+          {
+            "op": "replace",
+            "path": "/answer",
+            "value": "Conditional go for the October 1 Germany launch: the formula and claims are supportable, demand fits the current scenario, and the plant has a bounded capacity path [1][2][3][4][5]. Release remains subject to the recorded approval and monitored execution."
+          },
+          {
+            "op": "replace",
+            "path": "/citationNumbers",
+            "value": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ]
+          }
+        ],
+        "timestamp": 1783864804000,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-2e7b4b28dab2fa6901f32ea3",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-20",
+      "sourceSequence": 20,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "messageId": "answer-87264724f951684e10897f9d",
+        "role": "assistant",
+        "timestamp": 1783864804000,
+        "type": "TEXT_MESSAGE_START"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-71adfef27407bb1593dbc725",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-20",
+      "sourceSequence": 20,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": "Conditional go for the October 1 Germany launch: the formula and claims are supportable, demand fits the current scenario, and the plant has a bounded capacity path [1][2][3][4][5]. Release remains subject to the recorded approval and monitored execution.",
+        "messageId": "answer-87264724f951684e10897f9d",
+        "timestamp": 1783864804000,
+        "type": "TEXT_MESSAGE_CONTENT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-65c528006516e93544dd77af",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-20",
+      "sourceSequence": 20,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "messageId": "answer-87264724f951684e10897f9d",
+        "timestamp": 1783864804000,
+        "type": "TEXT_MESSAGE_END"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-64d36a9fb41ea537977e927a",
+      "projectionIndex": 3,
+      "sourceEventId": "event-demo-20",
+      "sourceSequence": 20,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Built the cited answer",
+          "sourceEventType": "synthesis.completed",
+          "stage": "synthesis_completed",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864804000,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-c5ee5498620cd5f23ff5c773",
+      "projectionIndex": 4,
+      "sourceEventId": "event-demo-20",
+      "sourceSequence": 20,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "approval_requested"
+          },
+          {
+            "op": "replace",
+            "path": "/approvals",
+            "value": {
+              "approval-monitoring-handoff": {
+                "approvalId": "approval-monitoring-handoff",
+                "scopeSummary": "Approval required for the governed plan scope.",
+                "status": "requested",
+                "stepIds": [
+                  "step-monitor"
+                ]
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864804200,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-5ad7507f0a392a5feb09a121",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-21",
+      "sourceSequence": 21,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Approval required before continuing",
+          "sourceEventType": "approval.requested",
+          "stage": "approval_requested",
+          "status": "pending"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864804200,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-36d762736b5fe63ef48075c5",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-21",
+      "sourceSequence": 21,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "approval_resolved"
+          },
+          {
+            "op": "replace",
+            "path": "/approvals",
+            "value": {
+              "approval-monitoring-handoff": {
+                "approvalId": "approval-monitoring-handoff",
+                "scopeSummary": "Approval required for the governed plan scope.",
+                "status": "approved",
+                "stepIds": [
+                  "step-monitor"
+                ]
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864804400,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-138d4bc8957017f3a77c811d",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-22",
+      "sourceSequence": 22,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Approval approved",
+          "sourceEventType": "approval.resolved",
+          "stage": "approval_resolved",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864804400,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-a68da61d6871945baa4da116",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-22",
+      "sourceSequence": 22,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "task_handed_off"
+          },
+          {
+            "op": "replace",
+            "path": "/tasks",
+            "value": {
+              "task-launch-monitoring": {
+                "agentId": "consumer-manufacturing-operations",
+                "callbackModes": [
+                  "teams",
+                  "email"
+                ],
+                "status": "handed_off",
+                "taskId": "task-launch-monitoring"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864804600,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-f6d75d3d99bbd6e1afb7c585",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-23",
+      "sourceSequence": 23,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-manufacturing-operations",
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Durable task handed off",
+          "sourceEventType": "task.handed_off",
+          "stage": "task_handed_off",
+          "status": "running"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864804600,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-556dd9b40afdb854507c0a2e",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-23",
+      "sourceSequence": 23,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "task_completed"
+          },
+          {
+            "op": "replace",
+            "path": "/tasks",
+            "value": {
+              "task-launch-monitoring": {
+                "agentId": "consumer-manufacturing-operations",
+                "callbackModes": [
+                  "teams",
+                  "email"
+                ],
+                "status": "completed",
+                "taskId": "task-launch-monitoring"
+              }
+            }
+          }
+        ],
+        "timestamp": 1783864804800,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-70ff4ae48caa1fbab95c0b1d",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-24",
+      "sourceSequence": 24,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": "consumer-manufacturing-operations",
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Durable task status updated",
+          "sourceEventType": "task.completed",
+          "stage": "task_completed",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864804800,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-346a3611abee765b46236218",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-24",
+      "sourceSequence": 24,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "delta": [
+          {
+            "op": "replace",
+            "path": "/stage",
+            "value": "completed"
+          },
+          {
+            "op": "replace",
+            "path": "/status",
+            "value": "completed"
+          },
+          {
+            "op": "replace",
+            "path": "/durationMs",
+            "value": 14860
+          }
+        ],
+        "timestamp": 1783864805000,
+        "type": "STATE_DELTA"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-67d585eb287278495a07e415",
+      "projectionIndex": 0,
+      "sourceEventId": "event-demo-25",
+      "sourceSequence": 25,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "activityType": "agent_iq.lifecycle",
+        "content": {
+          "agentId": null,
+          "evidenceIds": [],
+          "invocationId": null,
+          "label": "Execution completed",
+          "sourceEventType": "execution.completed",
+          "stage": "completed",
+          "status": "complete"
+        },
+        "messageId": "activity-87264724f951684e10897f9d",
+        "replace": true,
+        "timestamp": 1783864805000,
+        "type": "ACTIVITY_SNAPSHOT"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-01d44240b5626bc6b34fead7",
+      "projectionIndex": 1,
+      "sourceEventId": "event-demo-25",
+      "sourceSequence": 25,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    },
+    {
+      "event": {
+        "result": {
+          "durationMs": 14860,
+          "status": "completed"
+        },
+        "runId": "demo-eu-launch-command-center",
+        "threadId": "demo-launch-thread",
+        "timestamp": 1783864805000,
+        "type": "RUN_FINISHED"
+      },
+      "executionId": "demo-eu-launch-command-center",
+      "projectionId": "projection-71dd04b472bfa9e726141998",
+      "projectionIndex": 2,
+      "sourceEventId": "event-demo-25",
+      "sourceSequence": 25,
+      "traceId": "5a6ad7d85cd44b2196871d5c7916fa3c"
+    }
+  ],
+  "executionId": "demo-eu-launch-command-center",
+  "schemaVersion": "1.0.0",
+  "threadId": "demo-launch-thread"
+}

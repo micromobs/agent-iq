@@ -1,0 +1,807 @@
+{
+  "$defs": {
+    "AgentImplementation": {
+      "additionalProperties": false,
+      "description": "Informational implementation metadata, never a routing dependency.",
+      "properties": {
+        "authoringPlatform": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Authoringplatform"
+        },
+        "framework": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Framework"
+        },
+        "hostingPlatform": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Hostingplatform"
+        }
+      },
+      "title": "AgentImplementation",
+      "type": "object"
+    },
+    "AgentVersion": {
+      "additionalProperties": false,
+      "properties": {
+        "cardHash": {
+          "anyOf": [
+            {
+              "pattern": "^sha256:[0-9a-f]{64}$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Cardhash"
+        },
+        "publishedAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publishedat"
+        },
+        "version": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "version"
+      ],
+      "title": "AgentVersion",
+      "type": "object"
+    },
+    "ArtifactKind": {
+      "enum": [
+        "demand_scenario",
+        "regulatory_decision",
+        "sap_change_proposal",
+        "supply_commitment"
+      ],
+      "title": "ArtifactKind",
+      "type": "string"
+    },
+    "CallbackMode": {
+      "enum": [
+        "poll",
+        "webhook",
+        "push",
+        "teams",
+        "email"
+      ],
+      "title": "CallbackMode",
+      "type": "string"
+    },
+    "CatalogAuthority": {
+      "enum": [
+        "registry_of_record",
+        "authoritative",
+        "projection",
+        "declared"
+      ],
+      "title": "CatalogAuthority",
+      "type": "string"
+    },
+    "CatalogKind": {
+      "enum": [
+        "agent365",
+        "foundry",
+        "remote_a2a",
+        "work_iq",
+        "copilot_studio",
+        "external",
+        "local"
+      ],
+      "title": "CatalogKind",
+      "type": "string"
+    },
+    "CatalogSource": {
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "$ref": "#/$defs/CatalogAuthority"
+        },
+        "etag": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Etag"
+        },
+        "expiresAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expiresat"
+        },
+        "fetchedAt": {
+          "format": "date-time",
+          "title": "Fetchedat",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/CatalogKind"
+        },
+        "sourceAgentId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Sourceagentid",
+          "type": "string"
+        },
+        "sourceId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Sourceid",
+          "type": "string"
+        },
+        "sourceUri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourceuri"
+        }
+      },
+      "required": [
+        "sourceId",
+        "kind",
+        "authority",
+        "sourceAgentId",
+        "fetchedAt"
+      ],
+      "title": "CatalogSource",
+      "type": "object"
+    },
+    "EvidenceAuthorization": {
+      "enum": [
+        "caller_identity"
+      ],
+      "title": "EvidenceAuthorization",
+      "type": "string"
+    },
+    "EvidenceCapability": {
+      "additionalProperties": false,
+      "description": "Advertised transport contract for machine-verifiable evidence.",
+      "properties": {
+        "authorization": {
+          "$ref": "#/$defs/EvidenceAuthorization",
+          "default": "caller_identity"
+        },
+        "correlationKey": {
+          "default": "invocation_id",
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Correlationkey",
+          "type": "string"
+        },
+        "delivery": {
+          "$ref": "#/$defs/EvidenceDelivery"
+        },
+        "mediaType": {
+          "default": "application/vnd.agent-iq.evidence+json;version=1.0",
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Mediatype",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        }
+      },
+      "required": [
+        "delivery"
+      ],
+      "title": "EvidenceCapability",
+      "type": "object"
+    },
+    "EvidenceDelivery": {
+      "enum": [
+        "a2a_data_part",
+        "companion"
+      ],
+      "title": "EvidenceDelivery",
+      "type": "string"
+    },
+    "HealthFact": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "value"
+      ],
+      "title": "HealthFact",
+      "type": "object"
+    },
+    "HealthRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "checkedAt": {
+          "format": "date-time",
+          "title": "Checkedat",
+          "type": "string"
+        },
+        "expiresAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Expiresat"
+        },
+        "facts": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/HealthFact"
+          },
+          "title": "Facts",
+          "type": "array"
+        },
+        "status": {
+          "$ref": "#/$defs/HealthStatus",
+          "default": "unknown"
+        }
+      },
+      "required": [
+        "checkedAt"
+      ],
+      "title": "HealthRecord",
+      "type": "object"
+    },
+    "HealthStatus": {
+      "enum": [
+        "unknown",
+        "healthy",
+        "degraded",
+        "unhealthy"
+      ],
+      "title": "HealthStatus",
+      "type": "string"
+    },
+    "InteractionMode": {
+      "enum": [
+        "sync",
+        "async"
+      ],
+      "title": "InteractionMode",
+      "type": "string"
+    },
+    "InvocationCapability": {
+      "additionalProperties": false,
+      "properties": {
+        "artifactKinds": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ArtifactKind"
+          },
+          "title": "Artifactkinds",
+          "type": "array"
+        },
+        "callbackModes": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/CallbackMode"
+          },
+          "title": "Callbackmodes",
+          "type": "array"
+        },
+        "contentTypes": {
+          "default": [
+            "text/plain"
+          ],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Contenttypes",
+          "type": "array"
+        },
+        "endpoint": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Endpoint"
+        },
+        "evidence": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/EvidenceCapability"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "interactionModes": {
+          "default": [
+            "sync"
+          ],
+          "items": {
+            "$ref": "#/$defs/InteractionMode"
+          },
+          "title": "Interactionmodes",
+          "type": "array"
+        },
+        "protocol": {
+          "$ref": "#/$defs/TransportProtocol"
+        },
+        "protocolVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Protocolversion",
+          "type": "string"
+        },
+        "pushNotifications": {
+          "default": false,
+          "title": "Pushnotifications",
+          "type": "boolean"
+        },
+        "streaming": {
+          "default": false,
+          "title": "Streaming",
+          "type": "boolean"
+        },
+        "taskManagement": {
+          "default": false,
+          "title": "Taskmanagement",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "protocol",
+        "protocolVersion"
+      ],
+      "title": "InvocationCapability",
+      "type": "object"
+    },
+    "Label": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Key",
+          "type": "string"
+        },
+        "value": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Value",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value"
+      ],
+      "title": "Label",
+      "type": "object"
+    },
+    "ProviderDescriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "url": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "ProviderDescriptor",
+      "type": "object"
+    },
+    "RiskLevel": {
+      "enum": [
+        "unknown",
+        "low",
+        "medium",
+        "high",
+        "critical"
+      ],
+      "title": "RiskLevel",
+      "type": "string"
+    },
+    "SkillDescriptor": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "examples": {
+          "default": [],
+          "items": {
+            "maxLength": 16384,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Examples",
+          "type": "array"
+        },
+        "inputModes": {
+          "default": [
+            "text/plain"
+          ],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Inputmodes",
+          "type": "array"
+        },
+        "name": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "outputModes": {
+          "default": [
+            "text/plain"
+          ],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Outputmodes",
+          "type": "array"
+        },
+        "skillId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Skillid",
+          "type": "string"
+        },
+        "tags": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Tags",
+          "type": "array"
+        }
+      },
+      "required": [
+        "skillId",
+        "name",
+        "description"
+      ],
+      "title": "SkillDescriptor",
+      "type": "object"
+    },
+    "TransportProtocol": {
+      "enum": [
+        "a2a",
+        "work_iq",
+        "mcp"
+      ],
+      "title": "TransportProtocol",
+      "type": "string"
+    },
+    "TrustMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "adminApproved": {
+          "default": false,
+          "title": "Adminapproved",
+          "type": "boolean"
+        },
+        "allowedGeographies": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Allowedgeographies",
+          "type": "array"
+        },
+        "dataClassifications": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Dataclassifications",
+          "type": "array"
+        },
+        "identityId": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Identityid"
+        },
+        "ownerIds": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Ownerids",
+          "type": "array"
+        },
+        "policyVersion": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Policyversion"
+        },
+        "riskLevel": {
+          "$ref": "#/$defs/RiskLevel",
+          "default": "unknown"
+        },
+        "signed": {
+          "default": false,
+          "title": "Signed",
+          "type": "boolean"
+        },
+        "state": {
+          "$ref": "#/$defs/TrustState",
+          "default": "unknown"
+        }
+      },
+      "title": "TrustMetadata",
+      "type": "object"
+    },
+    "TrustState": {
+      "enum": [
+        "unknown",
+        "unverified",
+        "verified",
+        "blocked"
+      ],
+      "title": "TrustState",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/agent.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "agentId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Agentid",
+      "type": "string"
+    },
+    "capabilities": {
+      "items": {
+        "$ref": "#/$defs/InvocationCapability"
+      },
+      "minItems": 1,
+      "title": "Capabilities",
+      "type": "array"
+    },
+    "description": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Description",
+      "type": "string"
+    },
+    "health": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/HealthRecord"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "implementation": {
+      "$ref": "#/$defs/AgentImplementation"
+    },
+    "knowledgeBindingIds": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "title": "Knowledgebindingids",
+      "type": "array"
+    },
+    "labels": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Label"
+      },
+      "title": "Labels",
+      "type": "array"
+    },
+    "name": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Name",
+      "type": "string"
+    },
+    "provider": {
+      "$ref": "#/$defs/ProviderDescriptor"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "skills": {
+      "items": {
+        "$ref": "#/$defs/SkillDescriptor"
+      },
+      "minItems": 1,
+      "title": "Skills",
+      "type": "array"
+    },
+    "source": {
+      "$ref": "#/$defs/CatalogSource"
+    },
+    "tags": {
+      "default": [],
+      "items": {
+        "maxLength": 512,
+        "minLength": 1,
+        "type": "string"
+      },
+      "title": "Tags",
+      "type": "array"
+    },
+    "trust": {
+      "$ref": "#/$defs/TrustMetadata"
+    },
+    "version": {
+      "$ref": "#/$defs/AgentVersion"
+    }
+  },
+  "required": [
+    "agentId",
+    "name",
+    "description",
+    "provider",
+    "version",
+    "skills",
+    "capabilities",
+    "source"
+  ],
+  "title": "AgentDescriptor",
+  "type": "object"
+}

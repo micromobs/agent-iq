@@ -1,0 +1,1956 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Agent IQ formation</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --aiq-bg: var(--color-background-primary, light-dark(#ffffff, #12141a));
+      --aiq-panel: var(--color-background-secondary, light-dark(#f6f7fb, #1b1e27));
+      --aiq-panel-strong: var(--color-background-tertiary, light-dark(#eceef7, #252936));
+      --aiq-text: var(--color-text-primary, light-dark(#182033, #f5f7ff));
+      --aiq-muted: var(--color-text-secondary, light-dark(#5d6578, #b7bed0));
+      --aiq-border: var(--color-border-secondary, light-dark(#dce0ec, #343949));
+      --aiq-accent: #635bff;
+      --aiq-accent-2: #16a6a1;
+      --aiq-success: var(--color-text-success, light-dark(#087f5b, #63e6be));
+      --aiq-warning: var(--color-text-warning, light-dark(#a05a00, #ffd43b));
+      --aiq-danger: var(--color-text-danger, light-dark(#b42318, #ff8787));
+      --aiq-radius: var(--border-radius-lg, 16px);
+      --aiq-radius-sm: var(--border-radius-md, 10px);
+      --aiq-shadow: var(--shadow-sm, 0 8px 28px rgb(26 32 51 / 10%));
+      --aiq-font: var(--font-sans, "Segoe UI", system-ui, sans-serif);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-width: 280px;
+      overflow: hidden;
+      background: transparent;
+      color: var(--aiq-text);
+      font-family: var(--aiq-font);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    button { font: inherit; }
+
+    .shell {
+      width: min(100%, 860px);
+      min-height: 196px;
+      overflow: hidden;
+      border: 1px solid var(--aiq-border);
+      border-radius: var(--aiq-radius);
+      background:
+        radial-gradient(circle at 96% 2%, rgb(99 91 255 / 12%), transparent 34%),
+        var(--aiq-bg);
+      box-shadow: var(--aiq-shadow);
+    }
+
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--aiq-border);
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--aiq-accent);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { margin-bottom: 2px; font-size: 18px; line-height: 1.25; }
+    h2 { margin-bottom: 10px; font-size: 14px; }
+    h3 { margin: 0; font-size: 14px; }
+
+    .subtitle {
+      max-width: 560px;
+      margin: 0;
+      color: var(--aiq-muted);
+      font-size: 12px;
+    }
+
+    .status {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 6px;
+      min-height: 26px;
+      padding: 4px 9px;
+      border: 1px solid rgb(8 127 91 / 25%);
+      border-radius: 999px;
+      background: rgb(8 127 91 / 9%);
+      color: var(--aiq-success);
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      content: "";
+    }
+
+    .status.working {
+      border-color: rgb(99 91 255 / 24%);
+      background: rgb(99 91 255 / 9%);
+      color: var(--aiq-accent);
+    }
+
+    .status.working::before { animation: pulse 1.2s ease-in-out infinite; }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mode-button {
+      min-width: 0;
+      min-height: 28px;
+      padding: 5px 9px;
+      border-color: var(--aiq-border);
+      background: var(--aiq-panel);
+      color: var(--aiq-muted);
+      font-size: 11px;
+    }
+
+    .body { padding: 18px 20px 20px; }
+
+    .formation {
+      position: relative;
+      display: grid;
+      gap: 10px;
+    }
+
+    .agent-card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      gap: 13px;
+      align-items: center;
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid var(--aiq-border);
+      border-radius: var(--aiq-radius-sm);
+      background: color-mix(in srgb, var(--aiq-panel) 88%, transparent);
+    }
+
+    .agent-card.primary {
+      border-color: rgb(99 91 255 / 45%);
+      background:
+        linear-gradient(110deg, rgb(99 91 255 / 9%), transparent 52%),
+        var(--aiq-panel);
+    }
+
+    .portrait {
+      position: relative;
+      display: grid;
+      width: 54px;
+      height: 54px;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgb(255 255 255 / 34%);
+      border-radius: 14px;
+      background: linear-gradient(145deg, var(--portrait-a), var(--portrait-b));
+      box-shadow: inset 0 0 0 1px rgb(0 0 0 / 7%);
+      color: #fff;
+    }
+
+    .portrait svg {
+      position: absolute;
+      inset: 7px;
+      width: 40px;
+      height: 40px;
+      opacity: .72;
+    }
+
+    .portrait .monogram {
+      position: relative;
+      z-index: 1;
+      padding-top: 3px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: .03em;
+      text-shadow: 0 1px 5px rgb(0 0 0 / 35%);
+    }
+
+    .agent-copy { min-width: 0; }
+
+    .agent-topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .agent-id {
+      overflow: hidden;
+      color: var(--aiq-muted);
+      font-family: var(--font-mono, ui-monospace, monospace);
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .reason {
+      display: -webkit-box;
+      margin: 4px 0 0;
+      overflow: hidden;
+      color: var(--aiq-muted);
+      font-size: 12px;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+    }
+
+    .signals {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      max-width: 100%;
+      min-height: 22px;
+      padding: 3px 7px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: var(--aiq-panel-strong);
+      color: var(--aiq-muted);
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .answer-card {
+      overflow: hidden;
+      border: 1px solid var(--aiq-border);
+      border-radius: 18px;
+      background: var(--aiq-panel);
+    }
+
+    .answer-overview {
+      padding: 18px 18px 14px;
+      background:
+        radial-gradient(circle at 92% 4%, rgb(22 166 161 / 16%), transparent 32%),
+        linear-gradient(135deg, rgb(99 91 255 / 10%), transparent 48%),
+        var(--aiq-panel);
+    }
+
+    .answer-kicker {
+      margin: 0 0 5px;
+      color: var(--aiq-accent);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .answer-overview h2 {
+      max-width: 650px;
+      margin: 0;
+      font-size: clamp(19px, 3.3vw, 28px);
+      line-height: 1.12;
+    }
+
+    .answer-summary {
+      max-width: 700px;
+      margin: 8px 0 0;
+      color: var(--aiq-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .flow-shell {
+      margin-top: 15px;
+      padding: 10px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--aiq-border) 82%, transparent);
+      border-radius: 15px;
+      background: color-mix(in srgb, var(--aiq-bg) 72%, transparent);
+    }
+
+    .formulation-flow {
+      display: block;
+      width: 100%;
+      min-height: 210px;
+    }
+
+    .flow-link {
+      fill: none;
+      stroke-linecap: round;
+      opacity: .48;
+    }
+
+    .flow-enzyme {
+      fill: color-mix(in srgb, var(--aiq-panel-strong) 90%, transparent);
+      stroke: var(--aiq-border);
+      stroke-width: 1;
+    }
+
+    .flow-enzyme-label {
+      fill: var(--aiq-text);
+      font-family: var(--aiq-font);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .flow-product {
+      fill: color-mix(in srgb, var(--aiq-accent) 11%, var(--aiq-bg));
+      stroke: color-mix(in srgb, var(--aiq-accent) 48%, var(--aiq-border));
+      stroke-width: 1.2;
+    }
+
+    .flow-product-label {
+      fill: var(--aiq-text);
+      font-family: var(--aiq-font);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .flow-product-meta {
+      fill: var(--aiq-muted);
+      font-family: var(--aiq-font);
+      font-size: 10px;
+    }
+
+    .flow-insight {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--aiq-accent) 8%, var(--aiq-bg));
+      color: var(--aiq-muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .flow-insight::before {
+      flex: 0 0 auto;
+      width: 8px;
+      height: 8px;
+      margin-top: 4px;
+      border-radius: 50%;
+      background: var(--aiq-accent-2);
+      box-shadow: 0 0 0 4px rgb(22 166 161 / 12%);
+      content: "";
+    }
+
+    .vpn-summary {
+      display: grid;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .vpn-summary p {
+      margin: 0;
+      color: var(--aiq-muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .vpn-flow-shell {
+      margin-top: 15px;
+      padding: 12px;
+      overflow: hidden;
+      border: 1px solid color-mix(in srgb, var(--aiq-border) 82%, transparent);
+      border-radius: 15px;
+      background: color-mix(in srgb, var(--aiq-bg) 72%, transparent);
+    }
+
+    .vpn-flow {
+      display: block;
+      width: 100%;
+      min-height: 240px;
+    }
+
+    .vpn-flow-mobile {
+      display: none;
+      gap: 8px;
+    }
+
+    .vpn-node {
+      fill: color-mix(in srgb, var(--aiq-panel) 92%, var(--aiq-bg));
+      stroke: var(--aiq-border);
+      stroke-width: 1;
+    }
+
+    .vpn-node.primary {
+      fill: color-mix(in srgb, var(--aiq-accent) 12%, var(--aiq-bg));
+      stroke: color-mix(in srgb, var(--aiq-accent) 55%, var(--aiq-border));
+    }
+
+    .vpn-flow-link {
+      fill: none;
+      stroke-linecap: round;
+      opacity: .58;
+    }
+
+    .vpn-node-label {
+      fill: var(--aiq-muted);
+      font-family: var(--aiq-font);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .vpn-node-value {
+      fill: var(--aiq-text);
+      font-family: var(--aiq-font);
+      font-size: 19px;
+      font-weight: 800;
+    }
+
+    .vpn-node-meta {
+      fill: var(--aiq-muted);
+      font-family: var(--aiq-font);
+      font-size: 11px;
+    }
+
+    .vpn-node-share {
+      fill: var(--aiq-accent);
+      font-family: var(--aiq-font);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .vpn-provenance {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+      align-items: center;
+    }
+
+    .vpn-provenance .chip {
+      min-height: 26px;
+      padding-inline: 9px;
+      font-size: 10px;
+    }
+
+    .vpn-note {
+      display: grid;
+      gap: 4px;
+      margin-top: 12px;
+      color: var(--aiq-muted);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .vpn-mobile-card {
+      padding: 10px 11px;
+      border: 1px solid var(--aiq-border);
+      border-radius: 12px;
+      background: var(--aiq-bg);
+    }
+
+    .vpn-mobile-card strong,
+    .vpn-mobile-card span {
+      display: block;
+    }
+
+    .vpn-mobile-card strong {
+      color: var(--aiq-text);
+      font-size: 13px;
+    }
+
+    .vpn-mobile-card span {
+      margin-top: 2px;
+      color: var(--aiq-muted);
+      font-size: 11px;
+    }
+
+    .source-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 12px;
+    }
+
+    .source-pill {
+      max-width: 100%;
+      min-height: 34px;
+      padding: 5px 9px 5px 6px;
+      border: 1px solid var(--aiq-border);
+      border-radius: 10px;
+      background: var(--aiq-bg);
+      color: var(--aiq-muted);
+      font-size: 10px;
+    }
+
+    .source-static,
+    .source-pill-summary {
+      display: grid;
+      grid-template-columns: 22px minmax(0, 1fr);
+      gap: 7px;
+      align-items: center;
+    }
+
+    .source-pill-summary {
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .source-pill-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .source-pill-summary:focus-visible {
+      outline: 2px solid var(--aiq-accent);
+      outline-offset: 3px;
+    }
+
+    .source-detail[open] {
+      flex: 1 1 100%;
+    }
+
+    .source-detail-excerpt {
+      max-width: 68ch;
+      margin: 7px 2px 2px 29px;
+      color: var(--aiq-text);
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .source-pill strong {
+      display: grid;
+      width: 22px;
+      height: 22px;
+      place-items: center;
+      border-radius: 7px;
+      background: var(--aiq-panel-strong);
+      color: var(--aiq-accent);
+      font-size: 10px;
+    }
+
+    .source-pill span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .agent-event {
+      display: grid;
+      grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+      border-top: 1px solid var(--aiq-border);
+      background: var(--aiq-bg);
+    }
+
+    .agent-event-image {
+      display: grid;
+      min-height: 218px;
+      place-items: center;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 28% 20%, rgb(255 255 255 / 32%), transparent 24%),
+        linear-gradient(145deg, rgb(99 91 255 / 92%), rgb(22 166 161 / 88%));
+    }
+
+    .agent-event-image .portrait {
+      width: 98px;
+      height: 98px;
+      border-radius: 28px;
+      box-shadow: 0 18px 44px rgb(19 25 44 / 28%);
+    }
+
+    .agent-event-image .portrait svg {
+      inset: 14px;
+      width: 70px;
+      height: 70px;
+    }
+
+    .agent-event-image .portrait .monogram { font-size: 22px; }
+
+    .agent-event-details {
+      min-width: 0;
+      padding: 18px;
+    }
+
+    .agent-event-details h3 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.28;
+    }
+
+    .agent-event-id {
+      display: block;
+      margin-top: 4px;
+      overflow: hidden;
+      color: var(--aiq-muted);
+      font-family: var(--font-mono, ui-monospace, monospace);
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .agent-event-reason {
+      margin: 10px 0 0;
+      color: var(--aiq-muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .agent-facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .agent-fact {
+      min-width: 0;
+      padding: 9px;
+      border: 1px solid var(--aiq-border);
+      border-radius: 10px;
+      background: var(--aiq-panel);
+    }
+
+    .agent-fact span {
+      display: block;
+      color: var(--aiq-muted);
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .agent-fact strong {
+      display: block;
+      margin-top: 3px;
+      overflow: hidden;
+      font-size: 11px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .generic-answer {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .result {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--aiq-border);
+    }
+
+    .issue-list {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding-left: 18px;
+      color: var(--aiq-muted);
+      font-size: 12px;
+    }
+
+    .failure-panel {
+      padding: 16px;
+      border: 1px solid color-mix(in srgb, var(--aiq-danger) 45%, var(--aiq-border));
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--aiq-danger) 7%, var(--aiq-panel));
+    }
+
+    .failure-panel h2 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+
+    .failure-panel p {
+      margin: 0;
+      color: var(--aiq-muted);
+      font-size: 12px;
+      line-height: 1.55;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .button {
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid var(--aiq-border);
+      border-radius: 9px;
+      background: var(--aiq-panel);
+      color: var(--aiq-text);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .button.primary {
+      border-color: transparent;
+      background: var(--aiq-accent);
+      color: #fff;
+    }
+
+    .button:hover:not(:disabled) { filter: brightness(1.06); }
+    .button:disabled { cursor: wait; opacity: .6; }
+    .button:focus-visible { outline: 3px solid var(--aiq-accent); outline-offset: 2px; }
+
+    .alternatives {
+      margin-top: 12px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .alternative {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 9px;
+      align-items: center;
+      padding: 8px 2px;
+      border-top: 1px solid var(--aiq-border);
+    }
+
+    .rank {
+      display: grid;
+      width: 25px;
+      height: 25px;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--aiq-panel-strong);
+      color: var(--aiq-muted);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .empty {
+      display: grid;
+      min-height: 176px;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .nodes {
+      position: relative;
+      width: 86px;
+      height: 58px;
+      margin: 0 auto 16px;
+    }
+
+    .node {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border: 3px solid var(--aiq-bg);
+      border-radius: 50%;
+      background: var(--aiq-accent);
+      box-shadow: 0 0 0 1px var(--aiq-border);
+    }
+
+    .node:nth-child(1) { top: 3px; left: 34px; }
+    .node:nth-child(2) { bottom: 3px; left: 7px; }
+    .node:nth-child(3) { right: 7px; bottom: 3px; }
+    .node-line {
+      position: absolute;
+      top: 27px;
+      left: 20px;
+      width: 47px;
+      height: 1px;
+      background: var(--aiq-border);
+      transform: rotate(29deg);
+      transform-origin: left center;
+    }
+    .node-line.second { transform: rotate(-29deg); transform-origin: right center; }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    html[data-display-mode="fullscreen"],
+    html[data-display-mode="fullscreen"] body {
+      min-height: 100%;
+    }
+
+    .shell.fullscreen {
+      width: 100%;
+      max-width: none;
+      min-height: 100vh;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .shell.fullscreen .header,
+    .shell.fullscreen .body {
+      width: min(100%, 1180px);
+      margin-inline: auto;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: .45; transform: scale(.78); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 520px) {
+      .header, .body { padding-left: 14px; padding-right: 14px; }
+      .header { flex-direction: column; gap: 9px; }
+      .header-actions { justify-content: flex-start; }
+      .agent-card { grid-template-columns: 50px 1fr; }
+      .portrait { width: 46px; height: 46px; border-radius: 12px; }
+      .portrait svg { inset: 5px; width: 36px; height: 36px; }
+      .answer-overview { padding: 15px 13px 12px; }
+      .flow-shell { padding: 5px; }
+      .vpn-flow-shell { padding: 8px; }
+      .vpn-flow { display: none; }
+      .vpn-flow-mobile { display: grid; }
+      .agent-event { grid-template-columns: 1fr; }
+      .agent-event-image { min-height: 150px; }
+      .agent-facts { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="app" class="shell" aria-busy="true">
+    <section class="empty" aria-live="polite">
+      <div>
+        <div class="nodes" aria-hidden="true">
+          <span class="node-line"></span><span class="node-line second"></span>
+          <span class="node"></span><span class="node"></span><span class="node"></span>
+        </div>
+        <h1>Forming the right specialist team</h1>
+        <p class="subtitle">Matching eligible agents and approved knowledge.</p>
+      </div>
+    </section>
+  </main>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+  <script>
+  (() => {
+    "use strict";
+
+    const app = document.getElementById("app");
+    const announcer = document.getElementById("announcer");
+    const pending = new Map();
+    const MIN_WIDGET_HEIGHT = 196;
+    let sizeNotificationFrame = null;
+    let lastNotifiedHeight = 0;
+    let restorePoll = null;
+    let restoreDeadline = null;
+    const state = {
+      input: {},
+      hostContext: {},
+      hostCapabilities: {},
+      result: null,
+      requestId: 1,
+      bridgeReady: false,
+      busy: false,
+      hasPayload: false,
+      restoredOutput: null
+    };
+    const FORMULATION_ENZYMES = Object.freeze([
+      { key: "protease", label: "Protease", color: "#635bff" },
+      { key: "amylase", label: "Amylase", color: "#1677ff" },
+      { key: "mannanase", label: "Mannanase", color: "#16a6a1" },
+      { key: "lipase", label: "Lipase", color: "#f59e0b" },
+      { key: "pectate lyase", label: "Pectate lyase", color: "#db2777" },
+      { key: "cellulase", label: "Cellulase", color: "#7c3aed" }
+    ]);
+
+    const value = (object, camel, snake) => object && (object[camel] ?? object[snake]);
+    const list = (object, camel, snake) => {
+      const candidate = value(object, camel, snake);
+      return Array.isArray(candidate) ? candidate : [];
+    };
+
+    function element(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text !== undefined && text !== null) node.textContent = String(text);
+      return node;
+    }
+
+    function announce(message) {
+      announcer.textContent = "";
+      requestAnimationFrame(() => { announcer.textContent = message; });
+    }
+
+    function requestKey(id) {
+      return String(id);
+    }
+
+    function scheduleSizeNotification() {
+      if (!state.bridgeReady || sizeNotificationFrame !== null) return;
+      sizeNotificationFrame = requestAnimationFrame(() => {
+        sizeNotificationFrame = null;
+        const height = Math.max(
+          MIN_WIDGET_HEIGHT,
+          Math.ceil(app.getBoundingClientRect().height)
+        );
+        if (height === lastNotifiedHeight) return;
+        lastNotifiedHeight = height;
+        notify("ui/notifications/size-changed", { height });
+      });
+    }
+
+    function normalized(payload) {
+      if (!payload || typeof payload !== "object") return {};
+      return payload.structuredContent || payload.structured_content || payload;
+    }
+
+    function stopRestoreMonitor() {
+      if (restorePoll !== null) window.clearInterval(restorePoll);
+      if (restoreDeadline !== null) window.clearTimeout(restoreDeadline);
+      restorePoll = null;
+      restoreDeadline = null;
+    }
+
+    function restoreOpenAiOutput() {
+      const output = window.openai && window.openai.toolOutput;
+      if (output === undefined || output === null || output === state.restoredOutput) return false;
+      state.restoredOutput = output;
+      render(output);
+      return true;
+    }
+
+    function startRestoreMonitor() {
+      if (restoreOpenAiOutput()) return;
+      restorePoll = window.setInterval(() => {
+        if (restoreOpenAiOutput()) stopRestoreMonitor();
+      }, 250);
+      restoreDeadline = window.setTimeout(() => {
+        stopRestoreMonitor();
+        if (!state.hasPayload && !state.bridgeReady) {
+          renderFailure(
+            "failed",
+            "The saved result could not be restored. Start a new conversation to run it again."
+          );
+        }
+      }, 15000);
+    }
+
+    function canCallServerTools() {
+      return Boolean(state.bridgeReady && state.hostCapabilities.serverTools)
+        || Boolean(window.openai && typeof window.openai.callTool === "function");
+    }
+
+    function displayName(agent) {
+      return value(agent, "displayName", "display_name") || value(agent, "name", "name")
+        || value(agent, "agentId", "agent_id") || "Specialist";
+    }
+
+    function agentId(agent) {
+      return value(agent, "agentId", "agent_id") || "agent";
+    }
+
+    function monogram(name) {
+      if (/formulation/i.test(String(name))) return "FR";
+      if (/vacation|leave/i.test(String(name))) return "VL";
+      const parts = String(name).replace(/[^a-zA-Z0-9 ]/g, " ").trim().split(/\s+/);
+      return parts.slice(0, 2).map((part) => part[0] || "").join("").toUpperCase() || "AI";
+    }
+
+    function palette(identifier) {
+      const palettes = [
+        ["#635bff", "#16a6a1"], ["#7c3aed", "#db2777"], ["#0f766e", "#2563eb"],
+        ["#b45309", "#dc2626"], ["#0369a1", "#6d28d9"], ["#4d7c0f", "#0f766e"]
+      ];
+      let hash = 0;
+      for (const character of String(identifier)) hash = ((hash << 5) - hash) + character.charCodeAt(0);
+      return palettes[Math.abs(hash) % palettes.length];
+    }
+
+    function portrait(agent) {
+      const name = displayName(agent);
+      const colors = palette(agentId(agent));
+      const node = element("div", "portrait");
+      node.style.setProperty("--portrait-a", colors[0]);
+      node.style.setProperty("--portrait-b", colors[1]);
+      node.setAttribute("role", "img");
+      node.setAttribute("aria-label", `Geometric specialist portrait for ${name}`);
+
+      const namespace = "http://www.w3.org/2000/svg";
+      const svg = document.createElementNS(namespace, "svg");
+      svg.setAttribute("viewBox", "0 0 48 48");
+      svg.setAttribute("aria-hidden", "true");
+      const path = document.createElementNS(namespace, "path");
+      path.setAttribute("d", "M7 40 24 7l17 33M14 28h20");
+      path.setAttribute("fill", "none");
+      path.setAttribute("stroke", "currentColor");
+      path.setAttribute("stroke-width", "4");
+      path.setAttribute("stroke-linecap", "round");
+      path.setAttribute("stroke-linejoin", "round");
+      svg.appendChild(path);
+      [[24, 7], [7, 40], [41, 40]].forEach(([cx, cy]) => {
+        const circle = document.createElementNS(namespace, "circle");
+        circle.setAttribute("cx", String(cx));
+        circle.setAttribute("cy", String(cy));
+        circle.setAttribute("r", "3");
+        circle.setAttribute("fill", "currentColor");
+        svg.appendChild(circle);
+      });
+      node.append(svg, element("span", "monogram", monogram(name)));
+      return node;
+    }
+
+    function signalChips(agent, limit = 5) {
+      const container = element("div", "signals");
+      const skills = list(agent, "matchedSkills", "matched_skills");
+      const tags = list(agent, "matchedTags", "matched_tags");
+      [...skills, ...tags].slice(0, limit).forEach((signal) => {
+        container.appendChild(element("span", "chip", signal));
+      });
+      return container;
+    }
+
+    function agentCard(agent, primary = false) {
+      const card = element("article", `agent-card${primary ? " primary" : ""}`);
+      const copy = element("div", "agent-copy");
+      const top = element("div", "agent-topline");
+      top.append(
+        element("h3", "", displayName(agent)),
+        element("span", "agent-id", agentId(agent))
+      );
+      copy.append(top);
+      const reason = value(agent, "reason", "reason");
+      if (reason) copy.appendChild(element("p", "reason", reason));
+      const signals = signalChips(agent);
+      if (signals.childElementCount) copy.appendChild(signals);
+      card.append(portrait(agent), copy);
+      return card;
+    }
+
+    function cleanAnswer(raw) {
+      return String(raw || "")
+        .replace(/^#{1,6}\s+/gm, "")
+        .replace(/\[ref_id:\d+\]/gi, "")
+        .replace(/[*_`]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function extractEnzymes(text) {
+      const normalized = String(text || "").toLowerCase();
+      return FORMULATION_ENZYMES.filter((enzyme) => normalized.includes(enzyme.key));
+    }
+
+    function productLabel(text) {
+      const normalized = String(text || "").toLowerCase();
+      if (normalized.includes("brightwash")) return "BrightWash Cold";
+      if (normalized.includes("clearwave")) return "ClearWave Cold Clean";
+      return null;
+    }
+
+    function readableList(items) {
+      if (items.length < 2) return items[0] || "";
+      if (items.length === 2) return `${items[0]} and ${items[1]}`;
+      return `${items.slice(0, -1).join(", ")}, and ${items.at(-1)}`;
+    }
+
+    function sentencesForProduct(text, product) {
+      const needle = product.toLowerCase().includes("brightwash") ? "brightwash" : "clearwave";
+      return String(text || "")
+        .split(/[.!?]\s+/)
+        .filter((sentence) => sentence.toLowerCase().includes(needle))
+        .join(". ");
+    }
+
+    function formulationModel(data) {
+      const agents = list(data, "selectedAgents", "selected_agents");
+      const citations = list(data, "citations", "citations");
+      const answer = cleanAnswer(value(data, "answer", "answer"));
+      const evidenceText = citations.map((citation) => [
+        value(citation, "title", "title"),
+        value(citation, "sourceId", "source_id"),
+        value(citation, "excerpt", "excerpt")
+      ].filter(Boolean).join(" ")).join(" ");
+      const allText = `${answer} ${evidenceText}`;
+      const formulationSelected = agents.some((agent) =>
+        String(agentId(agent)).toLowerCase().includes("formulation")
+      );
+      if (!formulationSelected && extractEnzymes(allText).length < 2) return null;
+
+      const products = new Map();
+      function addProduct(name, enzymes, sourceNumber) {
+        if (!name || !enzymes.length) return;
+        if (!products.has(name)) {
+          products.set(name, { name, enzymes: new Map(), sources: new Set() });
+        }
+        const product = products.get(name);
+        enzymes.forEach((enzyme) => product.enzymes.set(enzyme.key, enzyme));
+        if (sourceNumber) product.sources.add(sourceNumber);
+      }
+
+      citations.forEach((citation) => {
+        const citationText = [
+          value(citation, "title", "title"),
+          value(citation, "sourceId", "source_id"),
+          value(citation, "excerpt", "excerpt")
+        ].filter(Boolean).join(" ");
+        addProduct(
+          productLabel(citationText),
+          extractEnzymes(citationText),
+          value(citation, "number", "number")
+        );
+      });
+
+      ["BrightWash Cold", "ClearWave Cold Clean"].forEach((name) => {
+        const context = sentencesForProduct(answer, name);
+        addProduct(name, extractEnzymes(context), null);
+      });
+
+      const allEnzymes = extractEnzymes(allText);
+      if (!products.size && allEnzymes.length) {
+        addProduct(productLabel(allText) || "Cold-water wash", allEnzymes, null);
+      }
+
+      const rankedProducts = [...products.values()]
+        .sort((left, right) => {
+          if (left.name.includes("BrightWash")) return -1;
+          if (right.name.includes("BrightWash")) return 1;
+          return left.name.localeCompare(right.name);
+        })
+        .slice(0, 2)
+        .map((product) => ({
+          name: product.name,
+          enzymes: [...product.enzymes.values()],
+          sources: [...product.sources]
+        }));
+      const uniqueEnzymes = FORMULATION_ENZYMES.filter((enzyme) =>
+        rankedProducts.some((product) =>
+          product.enzymes.some((candidate) => candidate.key === enzyme.key)
+        )
+      );
+      if (!uniqueEnzymes.length) return null;
+
+      let summary;
+      let insight;
+      if (rankedProducts.length > 1) {
+        const primary = rankedProducts[0];
+        const comparison = rankedProducts[1];
+        const primaryKeys = new Set(primary.enzymes.map((enzyme) => enzyme.key));
+        const comparisonKeys = new Set(comparison.enzymes.map((enzyme) => enzyme.key));
+        const shared = primary.enzymes.filter((enzyme) => comparisonKeys.has(enzyme.key));
+        const additions = comparison.enzymes.filter((enzyme) => !primaryKeys.has(enzyme.key));
+        summary = `${primary.name} uses ${readableList(primary.enzymes.map((item) => item.label))}.`;
+        insight = additions.length
+          ? `${comparison.name} shares ${shared.length} core enzymes and adds ${readableList(
+            additions.map((item) => item.label)
+          )}.`
+          : `${comparison.name} uses the same ${shared.length}-enzyme core in the cited evidence.`;
+      } else {
+        const product = rankedProducts[0];
+        summary = `${product.name} combines ${readableList(
+          product.enzymes.map((item) => item.label)
+        )} for the grounded cold-water cleaning response.`;
+        insight = `${product.enzymes.length} cited enzyme contributions converge on one wash system.`;
+      }
+
+      return {
+        answer,
+        citations,
+        products: rankedProducts,
+        enzymes: uniqueEnzymes,
+        summary,
+        insight,
+        heading: rankedProducts.length > 1
+          ? "Cold-water enzyme comparison"
+          : `${rankedProducts[0].name} enzyme system`
+      };
+    }
+
+    function svgElement(tag, attributes = {}) {
+      const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+      Object.entries(attributes).forEach(([name, attributeValue]) => {
+        node.setAttribute(name, String(attributeValue));
+      });
+      return node;
+    }
+
+    function renderFormulationFlow(model) {
+      const shell = element("div", "flow-shell");
+      const width = 720;
+      const height = Math.max(220, model.enzymes.length * 40 + 30);
+      const svg = svgElement("svg", {
+        class: "formulation-flow",
+        viewBox: `0 0 ${width} ${height}`,
+        preserveAspectRatio: "xMidYMid meet",
+        "data-answer-flow": "formulation",
+        role: "img",
+        "aria-label": model.products.map((product) =>
+          `${product.name}: ${readableList(product.enzymes.map((enzyme) => enzyme.label))}`
+        ).join(". ")
+      });
+      const enzymeY = new Map();
+      model.enzymes.forEach((enzyme, index) => {
+        enzymeY.set(enzyme.key, 20 + index * 40);
+      });
+      const productY = model.products.map((product, index) => {
+        if (model.products.length === 1) return (height - 66) / 2;
+        return 18 + index * (height - 102);
+      });
+
+      model.products.forEach((product, productIndex) => {
+        product.enzymes.forEach((enzyme) => {
+          const startY = enzymeY.get(enzyme.key) + 14;
+          const endY = productY[productIndex] + 33;
+          svg.appendChild(svgElement("path", {
+            class: "flow-link",
+            d: `M 142 ${startY} C 285 ${startY}, 405 ${endY}, 535 ${endY}`,
+            stroke: enzyme.color,
+            "stroke-width": model.products.length > 1 ? 3.5 : 5
+          }));
+        });
+      });
+
+      model.enzymes.forEach((enzyme) => {
+        const y = enzymeY.get(enzyme.key);
+        svg.appendChild(svgElement("rect", {
+          class: "flow-enzyme",
+          x: 10,
+          y,
+          width: 132,
+          height: 28,
+          rx: 9
+        }));
+        const marker = svgElement("circle", {
+          cx: 24,
+          cy: y + 14,
+          r: 4,
+          fill: enzyme.color
+        });
+        const label = svgElement("text", {
+          class: "flow-enzyme-label",
+          x: 35,
+          y: y + 18
+        });
+        label.textContent = enzyme.label;
+        svg.append(marker, label);
+      });
+
+      model.products.forEach((product, index) => {
+        const y = productY[index];
+        svg.appendChild(svgElement("rect", {
+          class: "flow-product",
+          x: 535,
+          y,
+          width: 174,
+          height: 66,
+          rx: 14
+        }));
+        const name = svgElement("text", {
+          class: "flow-product-label",
+          x: 550,
+          y: y + 27
+        });
+        name.textContent = product.name.replace(" Clean", "");
+        const meta = svgElement("text", {
+          class: "flow-product-meta",
+          x: 550,
+          y: y + 46
+        });
+        meta.textContent = `${product.enzymes.length} enzyme contributions`;
+        svg.append(name, meta);
+      });
+      shell.appendChild(svg);
+      return shell;
+    }
+
+    function renderSourceStrip(citations) {
+      const strip = element("div", "source-strip");
+      strip.setAttribute("aria-label", "Grounding sources");
+      citations.forEach((citation, index) => {
+        const number = value(citation, "number", "number") || index + 1;
+        const title = value(citation, "title", "title") || "Approved source";
+        const excerpt = value(citation, "excerpt", "excerpt");
+        let pill;
+        if (excerpt) {
+          pill = element("details", "source-pill source-detail");
+          const summary = element("summary", "source-pill-summary");
+          summary.append(element("strong", "", number), element("span", "", title));
+          pill.append(summary, element("p", "source-detail-excerpt", String(excerpt)));
+        } else {
+          pill = element("span", "source-pill source-static");
+          pill.append(element("strong", "", number), element("span", "", title));
+        }
+        strip.appendChild(pill);
+      });
+      return strip;
+    }
+
+    function renderAgentEvent(agent, citations, duration) {
+      const event = element("section", "agent-event");
+      event.setAttribute("aria-label", `Selected specialist: ${displayName(agent)}`);
+      const image = element("div", "agent-event-image");
+      image.appendChild(portrait(agent));
+      const details = element("div", "agent-event-details");
+      details.append(
+        element("p", "answer-kicker", "Selected specialist"),
+        element("h3", "", displayName(agent)),
+        element("span", "agent-event-id", agentId(agent))
+      );
+      const reason = value(agent, "reason", "reason");
+      if (reason) details.appendChild(element("p", "agent-event-reason", reason));
+
+      const skills = list(agent, "matchedSkills", "matched_skills");
+      const tags = list(agent, "matchedTags", "matched_tags");
+      const facts = element("div", "agent-facts");
+      [
+        ["Match", skills[0] || tags[0] || "Top ranked"],
+        ["Evidence", `${citations.length} source${citations.length === 1 ? "" : "s"}`],
+        ["Runtime", Number.isFinite(duration) ? `${(duration / 1000).toFixed(1)} sec` : "Completed"]
+      ].forEach(([label, factValue]) => {
+        const fact = element("div", "agent-fact");
+        fact.append(element("span", "", label), element("strong", "", factValue));
+        facts.appendChild(fact);
+      });
+      details.appendChild(facts);
+      const signals = signalChips(agent, 6);
+      if (signals.childElementCount) details.appendChild(signals);
+      event.append(image, details);
+      return event;
+    }
+
+    function renderFormulationAnswer(data, model, agent, duration) {
+      const card = element("section", "answer-card");
+      card.setAttribute("aria-label", "Evidence-backed formulation response");
+      const overview = element("div", "answer-overview");
+      overview.append(
+        element("p", "answer-kicker", "Evidence-backed formulation map"),
+        element("h2", "", model.heading),
+        element("p", "answer-summary", model.summary),
+        renderFormulationFlow(model),
+        element("div", "flow-insight", model.insight)
+      );
+      if (model.citations.length) overview.appendChild(renderSourceStrip(model.citations));
+      card.appendChild(overview);
+      if (agent) card.appendChild(renderAgentEvent(agent, model.citations, duration));
+      return card;
+    }
+
+    function vpnRecoveryModel(data) {
+      const recovery = value(data, "vpnRecovery", "vpn_recovery");
+      if (!recovery || typeof recovery !== "object") return null;
+      const summaryLines = list(recovery, "summaryLines", "summary_lines");
+      return {
+        status: String(value(recovery, "status", "status") || "unavailable"),
+        title: value(recovery, "title", "title") || "VPN recovery guidance",
+        summaryLines: summaryLines.length ? summaryLines : ["Authenticated VPN guidance was unavailable."],
+        population: value(recovery, "population", "population"),
+        periodLabel: value(recovery, "periodLabel", "period_label"),
+        scopeLabel: value(recovery, "scopeLabel", "scope_label"),
+        recommendedFirstAction: value(recovery, "recommendedFirstAction", "recommended_first_action"),
+        escalationBoundary: value(recovery, "escalationBoundary", "escalation_boundary"),
+        freshnessLabel: value(recovery, "freshnessLabel", "freshness_label"),
+        guidanceNote: value(recovery, "guidanceNote", "guidance_note"),
+        readOnlyLabel: value(recovery, "readOnlyLabel", "read_only_label"),
+        selectedAgent: value(recovery, "selectedAgent", "selected_agent"),
+        source: value(recovery, "source", "source"),
+        outcomes: list(recovery, "outcomes", "outcomes").map((outcome) => ({
+          outcomeId: value(outcome, "outcomeId", "outcome_id"),
+          label: value(outcome, "label", "label"),
+          count: Number(value(outcome, "count", "count") || 0),
+          share: Number(value(outcome, "share", "share") || 0),
+          recommended: Boolean(value(outcome, "recommended", "recommended"))
+        }))
+      };
+    }
+
+    function renderVpnRecoveryFlow(model) {
+      const shell = element("div", "vpn-flow-shell");
+      const desktop = svgElement("svg", {
+        class: "vpn-flow",
+        viewBox: "0 0 720 248",
+        preserveAspectRatio: "xMidYMid meet",
+        role: "img",
+        "aria-label": model.outcomes.map((outcome) =>
+          `${outcome.label}: ${outcome.count} recoveries`
+        ).join(". ")
+      });
+      const sourceX = 12;
+      const sourceY = 68;
+      const sourceWidth = 190;
+      const sourceHeight = 108;
+      desktop.appendChild(svgElement("rect", {
+        class: "vpn-node primary",
+        x: sourceX,
+        y: sourceY,
+        width: sourceWidth,
+        height: sourceHeight,
+        rx: 18
+      }));
+      const desktopText = [
+        ["VPN guidance", "vpn-node-label", sourceX + 18, sourceY + 24],
+        [`${Number(model.population || 0).toLocaleString()} incidents`, "vpn-node-value", sourceX + 18, sourceY + 54],
+        [model.periodLabel || "", "vpn-node-meta", sourceX + 18, sourceY + 76],
+        [model.scopeLabel || "", "vpn-node-meta", sourceX + 18, sourceY + 94],
+      ];
+      desktopText.forEach(([text, css, x, y]) => {
+        if (!text) return;
+        const node = svgElement("text", { class: css, x, y });
+        node.textContent = String(text);
+        desktop.appendChild(node);
+      });
+      const palette = ["#635bff", "#2563eb", "#16a6a1", "#f59e0b"];
+      model.outcomes.forEach((outcome, index) => {
+        const y = 18 + index * 55;
+        const count = outcome.count || 0;
+        const share = outcome.share || 0;
+        const strokeWidth = Math.max(6, Math.round(share * 44));
+        desktop.appendChild(svgElement("path", {
+          class: "vpn-flow-link",
+          d: `M ${sourceX + sourceWidth} ${sourceY + 54} C 286 ${sourceY + 54}, 336 ${y + 29}, 430 ${y + 29}`,
+          stroke: palette[index % palette.length],
+          "stroke-width": strokeWidth
+        }));
+        desktop.appendChild(svgElement("rect", {
+          class: `vpn-node${outcome.recommended ? " primary" : ""}`,
+          x: 430,
+          y,
+          width: 260,
+          height: 46,
+          rx: 14
+        }));
+        const label = svgElement("text", {
+          class: "vpn-node-label",
+          x: 448,
+          y: y + 18
+        });
+        label.textContent = outcome.label || "Outcome";
+        const countText = svgElement("text", {
+          class: "vpn-node-value",
+          x: 448,
+          y: y + 38
+        });
+        countText.textContent = count.toLocaleString();
+        const shareText = svgElement("text", {
+          class: "vpn-node-share",
+          x: 625,
+          y: y + 38
+        });
+        shareText.textContent = `${Math.round(share * 100)}%`;
+        desktop.append(label, countText, shareText);
+      });
+      shell.appendChild(desktop);
+
+      const mobile = element("div", "vpn-flow-mobile");
+      const sourceCard = element("div", "vpn-mobile-card");
+      sourceCard.append(
+        element("strong", "", `${Number(model.population || 0).toLocaleString()} resolved incidents`),
+        element("span", "", model.periodLabel || ""),
+        element("span", "", model.scopeLabel || "")
+      );
+      mobile.appendChild(sourceCard);
+      model.outcomes.forEach((outcome) => {
+        const card = element("div", "vpn-mobile-card");
+        card.append(
+          element("strong", "", `${outcome.label || "Outcome"} · ${Number(outcome.count || 0).toLocaleString()}`),
+          element("span", "", `${Math.round((outcome.share || 0) * 100)}% of recoveries`)
+        );
+        mobile.appendChild(card);
+      });
+      shell.appendChild(mobile);
+      return shell;
+    }
+
+    function renderVpnRecoveryAnswer(model) {
+      const card = element("section", "answer-card");
+      card.setAttribute("aria-label", "VPN recovery guidance");
+      const overview = element("div", "answer-overview");
+      overview.append(
+        element("p", "answer-kicker", "Aggregate VPN recovery guidance"),
+        element("h2", "", model.title)
+      );
+      const summary = element("div", "vpn-summary");
+      model.summaryLines.slice(0, 2).forEach((line) => summary.appendChild(element("p", "", line)));
+      overview.appendChild(summary);
+      if (model.status === "available") {
+        overview.appendChild(renderVpnRecoveryFlow(model));
+        const provenance = element("div", "vpn-provenance");
+        if (model.selectedAgent) {
+          provenance.appendChild(
+            element("span", "chip", `Selected agent: ${displayName(model.selectedAgent)}`)
+          );
+        }
+        if (model.source) {
+          provenance.appendChild(renderSourceStrip([model.source]));
+        }
+        overview.appendChild(provenance);
+        const note = element("div", "vpn-note");
+        note.append(
+          element("span", "", model.readOnlyLabel || "Read-only guidance only; no action was taken."),
+          element("span", "", model.guidanceNote || ""),
+          element("span", "", model.freshnessLabel || "")
+        );
+        overview.appendChild(note);
+      } else {
+        overview.appendChild(element("p", "answer-summary generic-answer", model.summaryLines[0]));
+      }
+      card.appendChild(overview);
+      return card;
+    }
+
+    function renderGenericAnswer(data, agent, duration) {
+      const citations = list(data, "citations", "citations");
+      const card = element("section", "answer-card");
+      const overview = element("div", "answer-overview");
+      overview.append(
+        element("p", "answer-kicker", "Specialist response"),
+        element("h2", "", "What the selected agent found"),
+        element("p", "answer-summary generic-answer", cleanAnswer(value(data, "answer", "answer")))
+      );
+      if (citations.length) overview.appendChild(renderSourceStrip(citations));
+      card.appendChild(overview);
+      if (agent) card.appendChild(renderAgentEvent(agent, citations, duration));
+      return card;
+    }
+
+    function modeControl() {
+      const available = Array.isArray(state.hostContext.availableDisplayModes)
+        ? state.hostContext.availableDisplayModes : [];
+      const fullscreen = state.hostContext.displayMode === "fullscreen";
+      if (!available.includes(fullscreen ? "inline" : "fullscreen")) return null;
+      const control = button(fullscreen ? "Return inline" : "Expand", "mode-button", requestDisplayMode);
+      control.dataset.displayToggle = "true";
+      control.setAttribute("aria-label", fullscreen
+        ? "Return Agent IQ formation to inline view"
+        : "Expand Agent IQ formation to fullscreen");
+      return control;
+    }
+
+    function header(title, subtitle, statusText, working = false) {
+      const section = element("header", "header");
+      const copy = element("div");
+      copy.append(
+        element("p", "eyebrow", "Agent IQ"),
+        element("h1", "", title),
+        element("p", "subtitle", subtitle)
+      );
+      const status = element("span", `status${working ? " working" : ""}`, statusText);
+      status.setAttribute("role", "status");
+      const actions = element("div", "header-actions");
+      actions.appendChild(status);
+      const mode = modeControl();
+      if (mode) actions.appendChild(mode);
+      section.append(copy, actions);
+      return section;
+    }
+
+    function button(label, className, handler) {
+      const control = element("button", `button${className ? ` ${className}` : ""}`, label);
+      control.type = "button";
+      control.addEventListener("click", handler);
+      return control;
+    }
+
+    function renderProgress(phase, data = {}) {
+      const copy = phase === "routing"
+        ? ["Routing the approved formation", "The read-only A2A orchestration is in progress.", "Working"]
+        : ["Matching eligible specialists", "Scanning the authorized catalog without exposing private reasoning.", "Scanning"];
+      app.replaceChildren(header(copy[0], copy[1], copy[2], true));
+      app.setAttribute("aria-busy", "true");
+      scheduleSizeNotification();
+      announce(phase === "routing"
+        ? "Routing the approved formation to A2A specialists."
+        : "Matching eligible specialists.");
+    }
+
+    function renderFailure(kind, message) {
+      const cancelled = kind === "cancelled";
+      app.replaceChildren(header(
+        cancelled ? "Run cancelled" : "The run needs attention",
+        cancelled
+          ? "No completion is being claimed for this operation."
+          : "The operation did not produce a completed Agent IQ result.",
+        cancelled ? "Cancelled" : "Recoverable failure"
+      ));
+      const body = element("div", "body");
+      const panel = element("section", "failure-panel");
+      panel.setAttribute("role", "alert");
+      panel.append(
+        element("h2", "", cancelled ? "Execution stopped" : "Result unavailable"),
+        element("p", "", message)
+      );
+      const actions = element("div", "actions");
+      actions.appendChild(button("Review in conversation", "", () => hostMessage(
+        "Review the latest Agent IQ operation and explain the safe next step without retrying automatically."
+      )));
+      body.append(panel, actions);
+      app.appendChild(body);
+      app.setAttribute("aria-busy", "false");
+      scheduleSizeNotification();
+      announce(cancelled ? "The Agent IQ run was cancelled." : "The Agent IQ run did not complete.");
+    }
+
+    function syncDisplayMode() {
+      const displayMode = state.hostContext.displayMode === "fullscreen" ? "fullscreen" : "inline";
+      document.documentElement.dataset.displayMode = displayMode;
+      app.classList.toggle("fullscreen", displayMode === "fullscreen");
+
+      const actions = app.querySelector(".header-actions");
+      if (!actions) return;
+      const current = actions.querySelector("[data-display-toggle]");
+      const replacement = modeControl();
+      if (current && replacement) current.replaceWith(replacement);
+      else if (current) current.remove();
+      else if (replacement) actions.appendChild(replacement);
+    }
+
+    async function requestDisplayMode() {
+      if (!state.bridgeReady) return;
+      const fullscreen = state.hostContext.displayMode === "fullscreen";
+      const target = fullscreen ? "inline" : "fullscreen";
+      const available = Array.isArray(state.hostContext.availableDisplayModes)
+        ? state.hostContext.availableDisplayModes : [];
+      if (!available.includes(target)) return;
+      try {
+        const result = await rpc("ui/request-display-mode", { mode: target }, 15000);
+        applyHostContext({ displayMode: result && result.mode || state.hostContext.displayMode });
+        announce(result && result.mode === "fullscreen"
+          ? "Agent IQ formation expanded."
+          : "Agent IQ formation returned inline.");
+      } catch (error) {
+        announce("The host did not change the Agent IQ display mode.");
+      }
+    }
+
+    async function hostMessage(text) {
+      try {
+        if (state.bridgeReady && state.hostCapabilities.message) {
+          await rpc("ui/message", { role: "user", content: [{ type: "text", text }] }, 15000);
+        } else if (window.openai && typeof window.openai.sendFollowUpMessage === "function") {
+          await window.openai.sendFollowUpMessage({ prompt: text });
+        } else {
+          announce("Continue in the conversation; this host does not accept app messages.");
+          return;
+        }
+        announce("Request sent to the conversation.");
+      } catch (error) {
+        announce("The host did not accept the conversation request.");
+      }
+    }
+
+    function renderResult(data) {
+      const agents = list(data, "selectedAgents", "selected_agents");
+      const issues = list(data, "issues", "issues");
+      const status = value(data, "status", "status") || "completed";
+      const duration = value(data, "durationMs", "duration_ms");
+      const executionId = value(data, "executionId", "execution_id");
+      const normalizedStatus = String(status).toLowerCase();
+      const complete = normalizedStatus === "completed";
+      const formulation = formulationModel(data);
+      const vpnRecovery = vpnRecoveryModel(data);
+      const title = formulation ? "Formulation answer"
+        : vpnRecovery ? vpnRecovery.title
+        : agents.length > 1 ? `${agents.length} specialists answered`
+          : agents.length === 1 ? `${displayName(agents[0])} answered`
+            : "Agent IQ answer";
+      const subtitleParts = [];
+      if (complete) subtitleParts.push("Grounded response completed");
+      if (Number.isFinite(duration)) subtitleParts.push(`${(duration / 1000).toFixed(1)} seconds`);
+
+      app.replaceChildren(header(
+        title,
+        subtitleParts.join(" \u00b7 ") || "Formation and execution details",
+        complete ? "Completed" : String(status),
+        false
+      ));
+      const body = element("div", "body");
+      const primaryAgent = agents[0];
+      body.appendChild(
+        formulation
+          ? renderFormulationAnswer(data, formulation, primaryAgent, duration)
+          : vpnRecovery
+            ? renderVpnRecoveryAnswer(vpnRecovery)
+            : renderGenericAnswer(data, primaryAgent, duration)
+      );
+
+      if (!vpnRecovery && agents.length > 1) {
+        const formation = element("section", "formation result");
+        formation.setAttribute("aria-label", "Other selected agents");
+        agents.slice(1).forEach((agent) => formation.appendChild(agentCard(agent)));
+        body.appendChild(formation);
+      }
+
+      if (!vpnRecovery && issues.length) {
+        const gaps = element("section", "result");
+        gaps.appendChild(element("h2", "", "Visible gaps"));
+        const issueList = element("ul", "issue-list");
+        issues.forEach((issue) => {
+          issueList.appendChild(element(
+            "li",
+            "",
+            value(issue, "message", "message") || value(issue, "status", "status") || "Incomplete work"
+          ));
+        });
+        gaps.appendChild(issueList);
+        body.appendChild(gaps);
+      }
+
+      if (!vpnRecovery) {
+        const actions = element("div", "actions");
+        if (executionId) {
+          actions.appendChild(button("Review audit", "", () => hostMessage(
+            `Show the Agent IQ audit details for execution ${executionId}.`
+          )));
+        }
+        actions.appendChild(button("Change team", "", () => hostMessage(
+          "Review other eligible Agent IQ specialists for this request before rerunning it."
+        )));
+        body.appendChild(actions);
+      }
+      app.appendChild(body);
+      app.setAttribute("aria-busy", "false");
+      scheduleSizeNotification();
+      announce(`${title}. ${complete ? "Execution completed." : `Status ${status}.`}`);
+    }
+
+    async function runPreview(control) {
+      const command = value(state.input, "command", "command");
+      if (!command || state.busy) return;
+      state.busy = true;
+      control.disabled = true;
+      control.textContent = "Running\u2026";
+      renderProgress("routing", state.result || {});
+      try {
+        const args = { command };
+        for (const key of ["caller", "tenant"]) {
+          if (state.input[key]) args[key] = state.input[key];
+        }
+        let result;
+        if (state.bridgeReady && state.hostCapabilities.serverTools) {
+          result = await rpc("tools/call", { name: "orchestrate", arguments: args }, 90000);
+        } else if (window.openai && typeof window.openai.callTool === "function") {
+          result = await window.openai.callTool({ name: "orchestrate", params: args });
+        }
+        if (result) render(result);
+        else renderFailure("failed", "The host returned no result for this operation.");
+      } catch (error) {
+        renderFailure(
+          "failed",
+          "The formation was not started. Review the operation in the conversation before trying again."
+        );
+      } finally {
+        state.busy = false;
+      }
+    }
+
+    function renderPreview(data) {
+      const candidates = list(data, "candidates", "candidates");
+      const top = candidates[0];
+      app.replaceChildren(header(
+        top ? `${displayName(top)} recommended` : "Formation review",
+        "Review the eligible specialist before starting the read-only analysis.",
+        "Ready"
+      ));
+      const body = element("div", "body");
+      if (top) body.appendChild(agentCard(top, true));
+
+      if (candidates.length > 1) {
+        const alternatives = element("ul", "alternatives");
+        alternatives.setAttribute("aria-label", "Other eligible agents");
+        candidates.slice(1, 4).forEach((candidate, index) => {
+          const item = element("li", "alternative");
+          const copy = element("div");
+          copy.append(
+            element("h3", "", displayName(candidate)),
+            element("p", "reason", value(candidate, "reason", "reason") || "Eligible alternative")
+          );
+          item.append(element("span", "rank", String(index + 2)), copy);
+          alternatives.appendChild(item);
+        });
+        body.appendChild(alternatives);
+      }
+
+      const actions = element("div", "actions");
+      let run;
+      run = button("Run once", "primary", () => runPreview(run));
+      if (!value(state.input, "command", "command") || !canCallServerTools()) {
+        run.disabled = true;
+        run.title = "This host does not allow app-initiated tool calls.";
+      }
+      actions.append(
+        run,
+        button("Review plan", "", () => hostMessage(
+          "Explain the proposed Agent IQ formation, context scope, and work plan before running."
+        ))
+      );
+      body.appendChild(actions);
+      app.appendChild(body);
+      app.setAttribute("aria-busy", "false");
+      scheduleSizeNotification();
+      announce(top ? `${displayName(top)} is the recommended specialist.` : "Formation review ready.");
+    }
+
+    function render(payload) {
+      state.hasPayload = true;
+      stopRestoreMonitor();
+      if (payload && payload.isError === true) {
+        renderFailure(
+          "failed",
+          "The tool returned an error instead of a formation result. No success is being claimed."
+        );
+        return;
+      }
+      const data = normalized(payload);
+      state.result = data;
+      const status = String(value(data, "status", "status") || "").toLowerCase();
+      if (status === "cancelled" || status === "failed") {
+        renderFailure(
+          status,
+          status === "cancelled"
+            ? "The host cancelled this operation before completion."
+            : "The operation failed before a completed result was available."
+        );
+      } else if (list(data, "selectedAgents", "selected_agents").length || value(data, "answer", "answer")) {
+        renderResult(data);
+      } else if (Array.isArray(data.candidates)) {
+        renderPreview(data);
+      } else {
+        renderFailure(
+          "failed",
+          "The host returned no recognized formation data. Review the operation in the conversation."
+        );
+      }
+    }
+
+    function notify(method, params) {
+      const message = { jsonrpc: "2.0", method };
+      if (params !== undefined) message.params = params;
+      window.parent.postMessage(message, "*");
+    }
+
+    function rpc(method, params, timeout = 10000) {
+      const id = state.requestId++;
+      return new Promise((resolve, reject) => {
+        const timer = window.setTimeout(() => {
+          pending.delete(requestKey(id));
+          reject(new Error(`${method} timed out`));
+        }, timeout);
+        pending.set(requestKey(id), { resolve, reject, timer });
+        window.parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+      });
+    }
+
+    function applyHostContext(context) {
+      state.hostContext = { ...state.hostContext, ...context };
+      const theme = state.hostContext.theme;
+      if (theme === "light" || theme === "dark") {
+        document.documentElement.style.colorScheme = theme;
+      }
+      const variables = state.hostContext.styles && state.hostContext.styles.variables;
+      if (variables && typeof variables === "object") {
+        Object.entries(variables).forEach(([name, cssValue]) => {
+          if (name.startsWith("--") && typeof cssValue === "string") {
+            document.documentElement.style.setProperty(name, cssValue);
+          }
+        });
+      }
+      syncDisplayMode();
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.source !== window.parent || !event.data || typeof event.data !== "object") return;
+      const message = event.data;
+      const key = requestKey(message.id);
+      if (message.id !== undefined && pending.has(key)) {
+        const task = pending.get(key);
+        pending.delete(key);
+        window.clearTimeout(task.timer);
+        if (message.error) task.reject(new Error(message.error.message || "Host request failed"));
+        else task.resolve(message.result);
+        return;
+      }
+      if (message.method === "ui/resource-teardown" && message.id !== undefined) {
+        stopRestoreMonitor();
+        if (sizeNotificationFrame !== null) cancelAnimationFrame(sizeNotificationFrame);
+        sizeNotificationFrame = null;
+        pending.forEach((task) => window.clearTimeout(task.timer));
+        pending.clear();
+        window.parent.postMessage({ jsonrpc: "2.0", id: message.id, result: {} }, "*");
+        return;
+      }
+      if (message.method === "ui/notifications/tool-input-partial") {
+        const partial = message.params && message.params.arguments || {};
+        state.input = { ...state.input, ...partial };
+        renderProgress("matching");
+      } else if (message.method === "ui/notifications/tool-input") {
+        state.input = message.params && message.params.arguments || {};
+        renderProgress("matching");
+      } else if (message.method === "ui/notifications/tool-result") {
+        render(message.params);
+      } else if (message.method === "ui/notifications/tool-cancelled") {
+        renderFailure("cancelled", "The host cancelled this operation before completion.");
+      } else if (message.method === "ui/notifications/host-context-changed") {
+        applyHostContext(message.params || {});
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && state.hostContext.displayMode === "fullscreen") {
+        requestDisplayMode();
+      }
+    });
+
+    window.addEventListener("openai:set_globals", () => {
+      restoreOpenAiOutput();
+    });
+
+    async function initialize() {
+      try {
+        const result = await rpc("ui/initialize", {
+          protocolVersion: "2026-01-26",
+          appCapabilities: { availableDisplayModes: ["inline", "fullscreen"] },
+          appInfo: { name: "agent-iq-formation", version: "1.0.0" }
+        }, 5000);
+        state.hostCapabilities = result && result.hostCapabilities || {};
+        applyHostContext(result && result.hostContext || {});
+        notify("ui/notifications/initialized");
+        state.bridgeReady = true;
+        scheduleSizeNotification();
+      } catch (error) {
+        state.bridgeReady = false;
+        console.error("Agent IQ MCP Apps initialization failed", error);
+      }
+      restoreOpenAiOutput();
+    }
+
+    startRestoreMonitor();
+    initialize();
+  })();
+  </script>
+</body>
+</html>

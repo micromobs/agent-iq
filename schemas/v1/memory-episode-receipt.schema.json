@@ -1,0 +1,86 @@
+{
+  "$defs": {
+    "EpisodeWriteStatus": {
+      "enum": [
+        "accepted",
+        "duplicate"
+      ],
+      "title": "EpisodeWriteStatus",
+      "type": "string"
+    },
+    "MemoryRecordType": {
+      "enum": [
+        "execution",
+        "feedback"
+      ],
+      "title": "MemoryRecordType",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/memory-episode-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "duplicate": {
+      "default": false,
+      "title": "Duplicate",
+      "type": "boolean"
+    },
+    "episodeId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Episodeid",
+      "type": "string"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "graphId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Graphid",
+      "type": "string"
+    },
+    "idempotencyKey": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Idempotencykey",
+      "type": "string"
+    },
+    "receivedAt": {
+      "format": "date-time",
+      "title": "Receivedat",
+      "type": "string"
+    },
+    "recordType": {
+      "$ref": "#/$defs/MemoryRecordType"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/EpisodeWriteStatus"
+    }
+  },
+  "required": [
+    "recordType",
+    "executionId",
+    "idempotencyKey",
+    "graphId",
+    "episodeId",
+    "status",
+    "receivedAt"
+  ],
+  "title": "EpisodeReceipt",
+  "type": "object"
+}

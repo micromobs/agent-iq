@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0",
+  "request": {
+    "requestId": "wp01-memory-off-baseline",
+    "intent": "Improve forecast accuracy with demand sensing and raise OEE on the bottling line",
+    "subjectId": "user:baseline",
+    "tenantId": "tenant:baseline",
+    "maxCandidates": 10,
+    "maxSelected": 5,
+    "requestedAt": "2026-07-15T12:00:00Z"
+  },
+  "decisionSha256": "sha256:3725b6189d67df3e637abbbc70e6dc67ed29e4685aae1eb9579a59f1520956b1",
+  "candidateAgentIds": [
+    "consumer-demand-forecasting",
+    "consumer-manufacturing-operations",
+    "consumer-brand-marketing",
+    "consumer-microbiological-safety",
+    "consumer-quality-capa",
+    "consumer-procurement-sourcing",
+    "consumer-packaging-sustainability",
+    "consumer-pricing-revenue-growth",
+    "consumer-fragrance-sensory",
+    "consumer-formulation-rd"
+  ],
+  "selectedAgentIds": [
+    "consumer-demand-forecasting",
+    "consumer-manufacturing-operations"
+  ]
+}

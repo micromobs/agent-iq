@@ -1,0 +1,190 @@
+{
+  "$defs": {
+    "MemoryCandidateReference": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "baseRank": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Baserank",
+          "type": "integer"
+        },
+        "eligible": {
+          "const": true,
+          "default": true,
+          "title": "Eligible",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "agentId",
+        "baseRank"
+      ],
+      "title": "MemoryCandidateReference",
+      "type": "object"
+    },
+    "MemoryClauseReference": {
+      "additionalProperties": false,
+      "properties": {
+        "clauseId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Clauseid",
+          "type": "string"
+        },
+        "textHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Texthash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "clauseId",
+        "textHash"
+      ],
+      "title": "MemoryClauseReference",
+      "type": "object"
+    },
+    "MemoryScope": {
+      "enum": [
+        "user",
+        "project",
+        "department",
+        "organization",
+        "partner",
+        "marketplace"
+      ],
+      "title": "MemoryScope",
+      "type": "string"
+    },
+    "MemoryScopeReference": {
+      "additionalProperties": false,
+      "properties": {
+        "graphId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Graphid",
+          "type": "string"
+        },
+        "scope": {
+          "$ref": "#/$defs/MemoryScope"
+        }
+      },
+      "required": [
+        "scope",
+        "graphId"
+      ],
+      "title": "MemoryScopeReference",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/memory-preparation-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "authorizedScopes": {
+      "items": {
+        "$ref": "#/$defs/MemoryScopeReference"
+      },
+      "minItems": 1,
+      "title": "Authorizedscopes",
+      "type": "array"
+    },
+    "baseCandidates": {
+      "items": {
+        "$ref": "#/$defs/MemoryCandidateReference"
+      },
+      "minItems": 1,
+      "title": "Basecandidates",
+      "type": "array"
+    },
+    "clauses": {
+      "items": {
+        "$ref": "#/$defs/MemoryClauseReference"
+      },
+      "minItems": 1,
+      "title": "Clauses",
+      "type": "array"
+    },
+    "correlationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Correlationid",
+      "type": "string"
+    },
+    "intentHash": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Intenthash",
+      "type": "string"
+    },
+    "projectId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Projectid",
+      "type": "string"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Requestid",
+      "type": "string"
+    },
+    "requestedAt": {
+      "format": "date-time",
+      "title": "Requestedat",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "subjectId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Subjectid",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Tenantid",
+      "type": "string"
+    },
+    "traceId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Traceid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "requestId",
+    "traceId",
+    "correlationId",
+    "tenantId",
+    "subjectId",
+    "projectId",
+    "intentHash",
+    "clauses",
+    "authorizedScopes",
+    "baseCandidates",
+    "requestedAt"
+  ],
+  "title": "MemoryPreparationRequest",
+  "type": "object"
+}

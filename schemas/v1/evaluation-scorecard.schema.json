@@ -1,0 +1,289 @@
+{
+  "$defs": {
+    "CriterionScore": {
+      "additionalProperties": false,
+      "properties": {
+        "criterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Criterionid",
+          "type": "string"
+        },
+        "dimension": {
+          "$ref": "#/$defs/RubricDimension"
+        },
+        "mode": {
+          "$ref": "#/$defs/RubricCriterionMode"
+        },
+        "passes": {
+          "title": "Passes",
+          "type": "boolean"
+        },
+        "provenance": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Provenance",
+          "type": "array"
+        },
+        "publicReason": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Publicreason",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "threshold": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Threshold",
+          "type": "number"
+        },
+        "weight": {
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "title": "Weight",
+          "type": "number"
+        },
+        "weightedScore": {
+          "maximum": 100,
+          "minimum": 0,
+          "title": "Weightedscore",
+          "type": "number"
+        }
+      },
+      "required": [
+        "criterionId",
+        "dimension",
+        "mode",
+        "score",
+        "threshold",
+        "weight",
+        "weightedScore",
+        "required",
+        "passes",
+        "publicReason"
+      ],
+      "title": "CriterionScore",
+      "type": "object"
+    },
+    "RubricCaseScore": {
+      "additionalProperties": false,
+      "properties": {
+        "caseId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Caseid",
+          "type": "string"
+        },
+        "criteria": {
+          "items": {
+            "$ref": "#/$defs/CriterionScore"
+          },
+          "minItems": 1,
+          "title": "Criteria",
+          "type": "array"
+        },
+        "observationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Observationid",
+          "type": "string"
+        },
+        "passThreshold": {
+          "exclusiveMinimum": 0,
+          "maximum": 1,
+          "title": "Passthreshold",
+          "type": "number"
+        },
+        "passes": {
+          "title": "Passes",
+          "type": "boolean"
+        },
+        "score": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        },
+        "skippedCriterionIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Skippedcriterionids",
+          "type": "array"
+        },
+        "source": {
+          "$ref": "#/$defs/RubricObservationSource"
+        }
+      },
+      "required": [
+        "caseId",
+        "observationId",
+        "source",
+        "score",
+        "passThreshold",
+        "passes",
+        "criteria"
+      ],
+      "title": "RubricCaseScore",
+      "type": "object"
+    },
+    "RubricCriterionMode": {
+      "enum": [
+        "deterministic",
+        "model_judge"
+      ],
+      "title": "RubricCriterionMode",
+      "type": "string"
+    },
+    "RubricDimension": {
+      "enum": [
+        "routing",
+        "orchestration",
+        "groundedness",
+        "evidence_coverage",
+        "honest_decline",
+        "conflict_handling",
+        "completeness",
+        "task_success"
+      ],
+      "title": "RubricDimension",
+      "type": "string"
+    },
+    "RubricEvaluationMode": {
+      "enum": [
+        "deterministic",
+        "hybrid"
+      ],
+      "title": "RubricEvaluationMode",
+      "type": "string"
+    },
+    "RubricObservationSource": {
+      "enum": [
+        "cowork_transcript",
+        "execution_trace"
+      ],
+      "title": "RubricObservationSource",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/evaluation-scorecard.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "evaluationMode": {
+      "$ref": "#/$defs/RubricEvaluationMode"
+    },
+    "failed": {
+      "minimum": 0,
+      "title": "Failed",
+      "type": "integer"
+    },
+    "generatedAt": {
+      "format": "date-time",
+      "title": "Generatedat",
+      "type": "string"
+    },
+    "meanScore": {
+      "maximum": 1,
+      "minimum": 0,
+      "title": "Meanscore",
+      "type": "number"
+    },
+    "modelJudgments": {
+      "minimum": 0,
+      "title": "Modeljudgments",
+      "type": "integer"
+    },
+    "observations": {
+      "exclusiveMinimum": 0,
+      "title": "Observations",
+      "type": "integer"
+    },
+    "passed": {
+      "minimum": 0,
+      "title": "Passed",
+      "type": "integer"
+    },
+    "passes": {
+      "title": "Passes",
+      "type": "boolean"
+    },
+    "results": {
+      "items": {
+        "$ref": "#/$defs/RubricCaseScore"
+      },
+      "minItems": 1,
+      "title": "Results",
+      "type": "array"
+    },
+    "rubricId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Rubricid",
+      "type": "string"
+    },
+    "rubricSha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Rubricsha256",
+      "type": "string"
+    },
+    "rubricVersion": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Rubricversion",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "suiteId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Suiteid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "suiteId",
+    "rubricId",
+    "rubricVersion",
+    "rubricSha256",
+    "evaluationMode",
+    "generatedAt",
+    "observations",
+    "passed",
+    "failed",
+    "meanScore",
+    "modelJudgments",
+    "passes",
+    "results"
+  ],
+  "title": "RubricEvaluationReport",
+  "type": "object"
+}

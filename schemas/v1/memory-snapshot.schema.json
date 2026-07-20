@@ -1,0 +1,467 @@
+{
+  "$defs": {
+    "CandidateMemoryPrior": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "baseRank": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Baserank",
+          "type": "integer"
+        },
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "decisionDelta": {
+          "maximum": 0.15,
+          "minimum": -0.15,
+          "title": "Decisiondelta",
+          "type": "number"
+        },
+        "evidenceFactIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Evidencefactids",
+          "type": "array"
+        },
+        "inclusionBoundaryGap": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Inclusionboundarygap"
+        },
+        "intentAffinity": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Intentaffinity",
+          "type": "number"
+        },
+        "provisionalOverrideApplied": {
+          "default": false,
+          "title": "Provisionaloverrideapplied",
+          "type": "boolean"
+        },
+        "recency": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Recency",
+          "type": "number"
+        },
+        "reputation": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Reputation",
+          "type": "number"
+        },
+        "sameNeighborhood": {
+          "default": false,
+          "title": "Sameneighborhood",
+          "type": "boolean"
+        },
+        "sameProject": {
+          "default": false,
+          "title": "Sameproject",
+          "type": "boolean"
+        },
+        "sameSubject": {
+          "default": false,
+          "title": "Samesubject",
+          "type": "boolean"
+        },
+        "scope": {
+          "$ref": "#/$defs/MemoryScope"
+        }
+      },
+      "required": [
+        "agentId",
+        "baseRank",
+        "scope",
+        "intentAffinity",
+        "reputation",
+        "confidence",
+        "recency",
+        "decisionDelta"
+      ],
+      "title": "CandidateMemoryPrior",
+      "type": "object"
+    },
+    "IntentNeighborhoodMatch": {
+      "additionalProperties": false,
+      "properties": {
+        "evidenceIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "graphId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Graphid",
+          "type": "string"
+        },
+        "lastObservedAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Lastobservedat"
+        },
+        "neighborhoodId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Neighborhoodid",
+          "type": "string"
+        },
+        "relevantExecutionCount": {
+          "minimum": 0,
+          "title": "Relevantexecutioncount",
+          "type": "integer"
+        },
+        "scope": {
+          "$ref": "#/$defs/MemoryScope"
+        },
+        "similarity": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Similarity",
+          "type": "number"
+        },
+        "successfulExecutionCount": {
+          "minimum": 0,
+          "title": "Successfulexecutioncount",
+          "type": "integer"
+        },
+        "successfulOverrideCount": {
+          "minimum": 0,
+          "title": "Successfuloverridecount",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "neighborhoodId",
+        "graphId",
+        "scope",
+        "similarity",
+        "relevantExecutionCount",
+        "successfulExecutionCount",
+        "successfulOverrideCount"
+      ],
+      "title": "IntentNeighborhoodMatch",
+      "type": "object"
+    },
+    "MemoryOutcomeStatus": {
+      "enum": [
+        "success",
+        "partial",
+        "declined",
+        "failure",
+        "cancelled"
+      ],
+      "title": "MemoryOutcomeStatus",
+      "type": "string"
+    },
+    "MemoryOutcomeSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "agentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Agentids",
+          "type": "array"
+        },
+        "businessSignal": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Businesssignal"
+        },
+        "evidenceFactIds": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Evidencefactids",
+          "type": "array"
+        },
+        "executionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Executionid",
+          "type": "string"
+        },
+        "observedAt": {
+          "format": "date-time",
+          "title": "Observedat",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/MemoryOutcomeStatus"
+        }
+      },
+      "required": [
+        "executionId",
+        "agentIds",
+        "status",
+        "observedAt"
+      ],
+      "title": "MemoryOutcomeSummary",
+      "type": "object"
+    },
+    "MemoryScope": {
+      "enum": [
+        "user",
+        "project",
+        "department",
+        "organization",
+        "partner",
+        "marketplace"
+      ],
+      "title": "MemoryScope",
+      "type": "string"
+    },
+    "MemorySnapshotStatus": {
+      "enum": [
+        "disabled",
+        "ready",
+        "degraded"
+      ],
+      "title": "MemorySnapshotStatus",
+      "type": "string"
+    },
+    "ScopedMemoryFact": {
+      "additionalProperties": false,
+      "properties": {
+        "confidence": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Confidence",
+          "type": "number"
+        },
+        "factId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Factid",
+          "type": "string"
+        },
+        "graphId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Graphid",
+          "type": "string"
+        },
+        "invalidAt": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Invalidat"
+        },
+        "provenanceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Provenanceids",
+          "type": "array"
+        },
+        "scope": {
+          "$ref": "#/$defs/MemoryScope"
+        },
+        "summary": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        },
+        "validAt": {
+          "format": "date-time",
+          "title": "Validat",
+          "type": "string"
+        }
+      },
+      "required": [
+        "factId",
+        "graphId",
+        "scope",
+        "summary",
+        "confidence",
+        "validAt",
+        "provenanceIds"
+      ],
+      "title": "ScopedMemoryFact",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/memory-snapshot.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "candidatePriors": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CandidateMemoryPrior"
+      },
+      "title": "Candidatepriors",
+      "type": "array"
+    },
+    "facts": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ScopedMemoryFact"
+      },
+      "title": "Facts",
+      "type": "array"
+    },
+    "matchedNeighborhoods": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/IntentNeighborhoodMatch"
+      },
+      "title": "Matchedneighborhoods",
+      "type": "array"
+    },
+    "outcomes": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/MemoryOutcomeSummary"
+      },
+      "title": "Outcomes",
+      "type": "array"
+    },
+    "preparedAt": {
+      "format": "date-time",
+      "title": "Preparedat",
+      "type": "string"
+    },
+    "projectId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Projectid",
+      "type": "string"
+    },
+    "provenanceIds": {
+      "default": [],
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "title": "Provenanceids",
+      "type": "array"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Requestid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/MemorySnapshotStatus"
+    },
+    "subjectId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Subjectid",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Tenantid",
+      "type": "string"
+    },
+    "traceId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Traceid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "requestId",
+    "traceId",
+    "tenantId",
+    "subjectId",
+    "projectId",
+    "status",
+    "preparedAt"
+  ],
+  "title": "MemorySnapshot",
+  "type": "object"
+}

@@ -1,0 +1,273 @@
+{
+  "$defs": {
+    "ContextInput": {
+      "additionalProperties": false,
+      "properties": {
+        "approved": {
+          "default": false,
+          "title": "Approved",
+          "type": "boolean"
+        },
+        "contextId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Contextid",
+          "type": "string"
+        },
+        "kind": {
+          "$ref": "#/$defs/ContextKind"
+        },
+        "sensitivity": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sensitivity"
+        },
+        "sourceUri": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Sourceuri"
+        }
+      },
+      "required": [
+        "contextId",
+        "kind"
+      ],
+      "title": "ContextInput",
+      "type": "object"
+    },
+    "ContextKind": {
+      "enum": [
+        "work_iq",
+        "foundry_iq",
+        "fabric_iq",
+        "web_iq",
+        "attachment",
+        "prior_step"
+      ],
+      "title": "ContextKind",
+      "type": "string"
+    },
+    "ExpectedOutput": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "mediaType": {
+          "default": "text/plain",
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Mediatype",
+          "type": "string"
+        },
+        "outputId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Outputid",
+          "type": "string"
+        },
+        "schemaRef": {
+          "anyOf": [
+            {
+              "format": "uri",
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Schemaref"
+        }
+      },
+      "required": [
+        "outputId",
+        "description"
+      ],
+      "title": "ExpectedOutput",
+      "type": "object"
+    },
+    "InteractionMode": {
+      "enum": [
+        "sync",
+        "async"
+      ],
+      "title": "InteractionMode",
+      "type": "string"
+    },
+    "PlanStep": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "approvalRequired": {
+          "default": false,
+          "title": "Approvalrequired",
+          "type": "boolean"
+        },
+        "contextInputs": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ContextInput"
+          },
+          "title": "Contextinputs",
+          "type": "array"
+        },
+        "deadlineSeconds": {
+          "default": 120,
+          "maximum": 86400,
+          "minimum": 1,
+          "title": "Deadlineseconds",
+          "type": "integer"
+        },
+        "dependsOn": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Dependson",
+          "type": "array"
+        },
+        "expectedOutputs": {
+          "items": {
+            "$ref": "#/$defs/ExpectedOutput"
+          },
+          "minItems": 1,
+          "title": "Expectedoutputs",
+          "type": "array"
+        },
+        "invocationMode": {
+          "$ref": "#/$defs/InteractionMode",
+          "default": "sync"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        },
+        "workItem": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Workitem",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stepId",
+        "agentId",
+        "workItem",
+        "expectedOutputs"
+      ],
+      "title": "PlanStep",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/execution-plan.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "createdAt": {
+      "format": "date-time",
+      "title": "Createdat",
+      "type": "string"
+    },
+    "maxConcurrency": {
+      "default": 5,
+      "maximum": 20,
+      "minimum": 1,
+      "title": "Maxconcurrency",
+      "type": "integer"
+    },
+    "objective": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Objective",
+      "type": "string"
+    },
+    "overallDeadlineSeconds": {
+      "default": 300,
+      "maximum": 604800,
+      "minimum": 1,
+      "title": "Overalldeadlineseconds",
+      "type": "integer"
+    },
+    "planId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Planid",
+      "type": "string"
+    },
+    "publicSummary": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Publicsummary",
+      "type": "string"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Requestid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "steps": {
+      "items": {
+        "$ref": "#/$defs/PlanStep"
+      },
+      "minItems": 1,
+      "title": "Steps",
+      "type": "array"
+    }
+  },
+  "required": [
+    "planId",
+    "requestId",
+    "objective",
+    "publicSummary",
+    "steps",
+    "createdAt"
+  ],
+  "title": "ExecutionPlan",
+  "type": "object"
+}

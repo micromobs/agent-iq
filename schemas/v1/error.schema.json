@@ -1,0 +1,135 @@
+{
+  "$defs": {
+    "ErrorCode": {
+      "enum": [
+        "invalid_request",
+        "contract_version_unsupported",
+        "catalog_unavailable",
+        "agent_not_found",
+        "agent_ineligible",
+        "authentication_required",
+        "authorization_denied",
+        "policy_blocked",
+        "card_invalid",
+        "protocol_unsupported",
+        "dependency_failed",
+        "invocation_timeout",
+        "invocation_failed",
+        "evidence_unavailable",
+        "artifact_unavailable",
+        "artifact_conflict",
+        "synthesis_failed",
+        "cancelled",
+        "internal"
+      ],
+      "title": "ErrorCode",
+      "type": "string"
+    },
+    "ErrorDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "issue": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Issue",
+          "type": "string"
+        }
+      },
+      "required": [
+        "issue"
+      ],
+      "title": "ErrorDetail",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/error.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "code": {
+      "$ref": "#/$defs/ErrorCode"
+    },
+    "correlationId": {
+      "anyOf": [
+        {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Correlationid"
+    },
+    "details": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ErrorDetail"
+      },
+      "title": "Details",
+      "type": "array"
+    },
+    "errorId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Errorid",
+      "type": "string"
+    },
+    "message": {
+      "maxLength": 16384,
+      "minLength": 1,
+      "title": "Message",
+      "type": "string"
+    },
+    "retryAfterSeconds": {
+      "anyOf": [
+        {
+          "maximum": 86400,
+          "minimum": 1,
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Retryafterseconds"
+    },
+    "retryable": {
+      "default": false,
+      "title": "Retryable",
+      "type": "boolean"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    }
+  },
+  "required": [
+    "errorId",
+    "code",
+    "message"
+  ],
+  "title": "AgentIqError",
+  "type": "object"
+}

@@ -1,0 +1,572 @@
+{
+  "$defs": {
+    "FoundryCriterionComparison": {
+      "additionalProperties": false,
+      "description": "Normalized comparison with the matching deterministic Agent IQ criterion.",
+      "properties": {
+        "absoluteDelta": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Absolutedelta",
+          "type": "number"
+        },
+        "agentIqCriterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentiqcriterionid",
+          "type": "string"
+        },
+        "agentIqScore": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Agentiqscore",
+          "type": "number"
+        },
+        "foundryCriterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Foundrycriterionid",
+          "type": "string"
+        },
+        "foundryScore": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Foundryscore",
+          "type": "number"
+        },
+        "maximumUnexplainedDelta": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Maximumunexplaineddelta",
+          "type": "number"
+        },
+        "passes": {
+          "title": "Passes",
+          "type": "boolean"
+        },
+        "publicExplanationCode": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publicexplanationcode"
+        }
+      },
+      "required": [
+        "foundryCriterionId",
+        "agentIqCriterionId",
+        "foundryScore",
+        "agentIqScore",
+        "absoluteDelta",
+        "maximumUnexplainedDelta",
+        "passes"
+      ],
+      "title": "FoundryCriterionComparison",
+      "type": "object"
+    },
+    "FoundryCriterionScore": {
+      "additionalProperties": false,
+      "description": "Content-safe aggregate for one native Foundry criterion.",
+      "properties": {
+        "criterionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Criterionid",
+          "type": "string"
+        },
+        "erroredSamples": {
+          "minimum": 0,
+          "title": "Erroredsamples",
+          "type": "integer"
+        },
+        "evaluatorName": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Evaluatorname",
+          "type": "string"
+        },
+        "failedSamples": {
+          "minimum": 0,
+          "title": "Failedsamples",
+          "type": "integer"
+        },
+        "nativeMeanScore": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Nativemeanscore"
+        },
+        "normalizedScore": {
+          "maximum": 1,
+          "minimum": 0,
+          "title": "Normalizedscore",
+          "type": "number"
+        },
+        "passes": {
+          "title": "Passes",
+          "type": "boolean"
+        },
+        "samples": {
+          "exclusiveMinimum": 0,
+          "title": "Samples",
+          "type": "integer"
+        },
+        "skippedSamples": {
+          "minimum": 0,
+          "title": "Skippedsamples",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "criterionId",
+        "evaluatorName",
+        "normalizedScore",
+        "samples",
+        "failedSamples",
+        "erroredSamples",
+        "skippedSamples",
+        "passes"
+      ],
+      "title": "FoundryCriterionScore",
+      "type": "object"
+    },
+    "FoundryEvaluationProtocol": {
+      "description": "Agent protocols relevant to Foundry evaluation capability selection.",
+      "enum": [
+        "responses",
+        "invocations",
+        "a2a",
+        "activity"
+      ],
+      "title": "FoundryEvaluationProtocol",
+      "type": "string"
+    },
+    "FoundryEvaluationResultCounts": {
+      "additionalProperties": false,
+      "description": "Content-safe native run result counts.",
+      "properties": {
+        "errors": {
+          "minimum": 0,
+          "title": "Errors",
+          "type": "integer"
+        },
+        "failed": {
+          "minimum": 0,
+          "title": "Failed",
+          "type": "integer"
+        },
+        "passed": {
+          "minimum": 0,
+          "title": "Passed",
+          "type": "integer"
+        },
+        "total": {
+          "exclusiveMinimum": 0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "total",
+        "passed",
+        "failed",
+        "errors"
+      ],
+      "title": "FoundryEvaluationResultCounts",
+      "type": "object"
+    },
+    "FoundryEvaluationRunStatus": {
+      "description": "Terminal and nonterminal statuses returned by Foundry evaluations.",
+      "enum": [
+        "queued",
+        "in_progress",
+        "completed",
+        "failed",
+        "canceled"
+      ],
+      "title": "FoundryEvaluationRunStatus",
+      "type": "string"
+    },
+    "FoundryEvaluationTargetMode": {
+      "description": "Supported native Foundry evaluation data sources.",
+      "enum": [
+        "direct_target",
+        "trace_replay"
+      ],
+      "title": "FoundryEvaluationTargetMode",
+      "type": "string"
+    },
+    "FoundryEvaluationTooling": {
+      "additionalProperties": false,
+      "description": "Version provenance for SDK and azd evaluation tooling.",
+      "properties": {
+        "azd": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Azd",
+          "type": "string"
+        },
+        "azureAiAgentsExtension": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Azureaiagentsextension",
+          "type": "string"
+        },
+        "azureAiProjects": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Azureaiprojects",
+          "type": "string"
+        },
+        "microsoftFoundryExtension": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Microsoftfoundryextension",
+          "type": "string"
+        },
+        "openai": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Openai",
+          "type": "string"
+        }
+      },
+      "required": [
+        "azureAiProjects",
+        "openai",
+        "azd",
+        "microsoftFoundryExtension",
+        "azureAiAgentsExtension"
+      ],
+      "title": "FoundryEvaluationTooling",
+      "type": "object"
+    },
+    "FoundryInteractionPattern": {
+      "description": "Execution patterns that determine direct-target eligibility.",
+      "enum": [
+        "synchronous_non_streaming",
+        "streaming",
+        "durable"
+      ],
+      "title": "FoundryInteractionPattern",
+      "type": "string"
+    },
+    "FoundryModelPricingStatus": {
+      "description": "Cost treatment for one model-usage row.",
+      "enum": [
+        "priced",
+        "service_managed_unpriced",
+        "unknown"
+      ],
+      "title": "FoundryModelPricingStatus",
+      "type": "string"
+    },
+    "FoundryModelUsage": {
+      "additionalProperties": false,
+      "description": "De-duplicated model usage from a native Foundry evaluation run.",
+      "properties": {
+        "cachedInputTokens": {
+          "minimum": 0,
+          "title": "Cachedinputtokens",
+          "type": "integer"
+        },
+        "estimatedCostUsd": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Estimatedcostusd"
+        },
+        "inputTokens": {
+          "minimum": 0,
+          "title": "Inputtokens",
+          "type": "integer"
+        },
+        "invocations": {
+          "minimum": 0,
+          "title": "Invocations",
+          "type": "integer"
+        },
+        "model": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Model",
+          "type": "string"
+        },
+        "outputTokens": {
+          "minimum": 0,
+          "title": "Outputtokens",
+          "type": "integer"
+        },
+        "pricingStatus": {
+          "$ref": "#/$defs/FoundryModelPricingStatus"
+        },
+        "totalTokens": {
+          "minimum": 0,
+          "title": "Totaltokens",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "model",
+        "invocations",
+        "inputTokens",
+        "cachedInputTokens",
+        "outputTokens",
+        "totalTokens",
+        "pricingStatus"
+      ],
+      "title": "FoundryModelUsage",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/foundry-evaluation-certificate.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Content-safe release evidence for a native Foundry evaluation run.",
+  "properties": {
+    "allowServiceManagedUnpricedUsage": {
+      "title": "Allowservicemanagedunpricedusage",
+      "type": "boolean"
+    },
+    "certificateId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Certificateid",
+      "type": "string"
+    },
+    "comparisons": {
+      "items": {
+        "$ref": "#/$defs/FoundryCriterionComparison"
+      },
+      "title": "Comparisons",
+      "type": "array"
+    },
+    "criteria": {
+      "items": {
+        "$ref": "#/$defs/FoundryCriterionScore"
+      },
+      "title": "Criteria",
+      "type": "array"
+    },
+    "durationMs": {
+      "minimum": 0,
+      "title": "Durationms",
+      "type": "integer"
+    },
+    "estimatedPricedModelCostUsd": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Estimatedpricedmodelcostusd"
+    },
+    "evaluationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Evaluationid",
+      "type": "string"
+    },
+    "generatedAt": {
+      "format": "date-time",
+      "title": "Generatedat",
+      "type": "string"
+    },
+    "interactionPattern": {
+      "$ref": "#/$defs/FoundryInteractionPattern"
+    },
+    "judgeModel": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Judgemodel",
+      "type": "string"
+    },
+    "maxDurationMs": {
+      "exclusiveMinimum": 0,
+      "title": "Maxdurationms",
+      "type": "integer"
+    },
+    "maxEstimatedPricedModelCostUsd": {
+      "anyOf": [
+        {
+          "minimum": 0,
+          "type": "number"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Maxestimatedpricedmodelcostusd"
+    },
+    "maxSamples": {
+      "exclusiveMinimum": 0,
+      "title": "Maxsamples",
+      "type": "integer"
+    },
+    "maxTotalTokens": {
+      "exclusiveMinimum": 0,
+      "title": "Maxtotaltokens",
+      "type": "integer"
+    },
+    "modelUsage": {
+      "items": {
+        "$ref": "#/$defs/FoundryModelUsage"
+      },
+      "title": "Modelusage",
+      "type": "array"
+    },
+    "passes": {
+      "title": "Passes",
+      "type": "boolean"
+    },
+    "pricedModelCostComplete": {
+      "title": "Pricedmodelcostcomplete",
+      "type": "boolean"
+    },
+    "protocol": {
+      "$ref": "#/$defs/FoundryEvaluationProtocol"
+    },
+    "reportUrl": {
+      "anyOf": [
+        {
+          "format": "uri",
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Reporturl"
+    },
+    "resultCounts": {
+      "$ref": "#/$defs/FoundryEvaluationResultCounts"
+    },
+    "runId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Runid",
+      "type": "string"
+    },
+    "runStatus": {
+      "$ref": "#/$defs/FoundryEvaluationRunStatus"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "suiteId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Suiteid",
+      "type": "string"
+    },
+    "suiteSha256": {
+      "pattern": "^sha256:[0-9a-f]{64}$",
+      "title": "Suitesha256",
+      "type": "string"
+    },
+    "suiteVersion": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Suiteversion",
+      "type": "string"
+    },
+    "targetAgentName": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Targetagentname",
+      "type": "string"
+    },
+    "targetAgentVersion": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Targetagentversion",
+      "type": "string"
+    },
+    "targetMode": {
+      "$ref": "#/$defs/FoundryEvaluationTargetMode"
+    },
+    "tooling": {
+      "$ref": "#/$defs/FoundryEvaluationTooling"
+    },
+    "totalTokens": {
+      "minimum": 0,
+      "title": "Totaltokens",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "certificateId",
+    "generatedAt",
+    "suiteId",
+    "suiteVersion",
+    "suiteSha256",
+    "targetMode",
+    "protocol",
+    "interactionPattern",
+    "targetAgentName",
+    "targetAgentVersion",
+    "judgeModel",
+    "evaluationId",
+    "runId",
+    "runStatus",
+    "tooling",
+    "resultCounts",
+    "criteria",
+    "comparisons",
+    "modelUsage",
+    "durationMs",
+    "maxSamples",
+    "maxDurationMs",
+    "totalTokens",
+    "maxTotalTokens",
+    "pricedModelCostComplete",
+    "allowServiceManagedUnpricedUsage",
+    "passes"
+  ],
+  "title": "FoundryNativeEvaluationCertificate",
+  "type": "object"
+}

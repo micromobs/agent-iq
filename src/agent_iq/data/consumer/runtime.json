@@ -1,0 +1,625 @@
+{
+  "agents": [
+    {
+      "agentId": "consumer-brand-marketing",
+      "knowledgeBindingId": "consumer-market-brand-consumer-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-brand-to-brand-compare",
+      "knowledgeBindingId": "consumer-product-innovation-kb",
+      "promptAddendum": "You specialise in TWO-brand, side-by-side comparisons. Retrieve each brand independently before comparing them. Then present a concise side-by-side across shared dimensions and preserve every citation. If grounded evidence is missing for either brand, say so for that side.",
+      "tools": [
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-product-innovation-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve a grounded profile for one brand before making a comparison.",
+            "name": "Retrieve brand profile",
+            "parameters": [
+              {
+                "description": "Brand or product name.",
+                "parameterId": "brand"
+              },
+              {
+                "description": "Market or region for the profile.",
+                "parameterId": "market"
+              }
+            ],
+            "toolId": "retrieve_brand_profile"
+          },
+          "queryTemplate": "Grounded brand profile for {brand} in {market}"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-product-innovation-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Compare one explicit product dimension across two brands.",
+            "name": "Compare brand dimension",
+            "parameters": [
+              {
+                "description": "First brand or product.",
+                "parameterId": "brand_a"
+              },
+              {
+                "description": "Second brand or product.",
+                "parameterId": "brand_b"
+              },
+              {
+                "description": "Shared comparison dimension.",
+                "parameterId": "dimension"
+              }
+            ],
+            "toolId": "compare_brand_dimension"
+          },
+          "queryTemplate": "Compare {brand_a} versus {brand_b} only on {dimension}"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-product-innovation-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve the governed method and dimensions for a category comparison.",
+            "name": "Retrieve comparison method",
+            "parameters": [
+              {
+                "description": "Product category to compare.",
+                "parameterId": "category"
+              }
+            ],
+            "toolId": "retrieve_comparison_method"
+          },
+          "queryTemplate": "Brand-to-brand comparison method for {category}"
+        }
+      ]
+    },
+    {
+      "agentId": "consumer-connect-develop",
+      "knowledgeBindingId": "consumer-product-innovation-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-consumer-care",
+      "knowledgeBindingId": "consumer-consumer-care-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-consumer-insights",
+      "knowledgeBindingId": "consumer-market-brand-consumer-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-demand-forecasting",
+      "artifactOutputKinds": [
+        "demand_scenario"
+      ],
+      "knowledgeBindingId": "consumer-supply-manufacturing-kb",
+      "promptAddendum": "Call retrieve_forecast_drivers for every request to obtain grounded method context, and preserve every [ref_id:n] marker it returns, including in an honest gap response. When the request includes product ID, market and date range, also call retrieve_demand_history and retrieve_open_sales_orders before answering. Operational SAP outputs may be deterministic fixtures. Preserve the sourceMode, object IDs, deep links, retrieval time, authorization scope and visible fixture label exactly; never present fixture records as live SAP.",
+      "tools": [
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "sap:s4:demand:read"
+            ],
+            "backend": "sap",
+            "description": "Read demand history for one product and market without changing SAP.",
+            "name": "Retrieve demand history",
+            "parameters": [
+              {
+                "description": "Canonical product identifier.",
+                "parameterId": "product_id"
+              },
+              {
+                "description": "Demand market.",
+                "parameterId": "market"
+              },
+              {
+                "description": "Inclusive requested range start.",
+                "parameterId": "start_date",
+                "valueType": "date"
+              },
+              {
+                "description": "Inclusive requested range end.",
+                "parameterId": "end_date",
+                "valueType": "date"
+              }
+            ],
+            "toolId": "retrieve_demand_history"
+          },
+          "sapResource": "demand_fact"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "sap:s4:sales-orders:read"
+            ],
+            "backend": "sap",
+            "description": "Read open sales orders for one product and market without changing SAP.",
+            "name": "Retrieve open sales orders",
+            "parameters": [
+              {
+                "description": "Canonical product identifier.",
+                "parameterId": "product_id"
+              },
+              {
+                "description": "Sales-order market.",
+                "parameterId": "market"
+              },
+              {
+                "description": "Inclusive requested-date range start.",
+                "parameterId": "start_date",
+                "valueType": "date"
+              },
+              {
+                "description": "Inclusive requested-date range end.",
+                "parameterId": "end_date",
+                "valueType": "date"
+              }
+            ],
+            "toolId": "retrieve_open_sales_orders"
+          },
+          "sapResource": "sales_order"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "sap:s4:inventory:read"
+            ],
+            "backend": "sap",
+            "description": "Read available and allocated inventory for one product and location.",
+            "name": "Retrieve inventory position",
+            "parameters": [
+              {
+                "description": "Canonical product identifier.",
+                "parameterId": "product_id"
+              },
+              {
+                "description": "SAP location identifier.",
+                "parameterId": "location_id"
+              }
+            ],
+            "toolId": "retrieve_inventory_position"
+          },
+          "sapResource": "inventory_position"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-supply-manufacturing-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve grounded demand drivers and forecasting guidance.",
+            "name": "Retrieve forecast drivers",
+            "parameters": [
+              {
+                "description": "Product or portfolio.",
+                "parameterId": "product"
+              },
+              {
+                "description": "Demand market.",
+                "parameterId": "market"
+              },
+              {
+                "description": "Forecast horizon.",
+                "parameterId": "horizon"
+              }
+            ],
+            "toolId": "retrieve_forecast_drivers"
+          },
+          "queryTemplate": "Demand forecast drivers for {product} in {market} over {horizon}"
+        }
+      ]
+    },
+    {
+      "agentId": "consumer-ecommerce-retail-media",
+      "knowledgeBindingId": "consumer-market-brand-consumer-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-formulation-rd",
+      "knowledgeBindingId": "consumer-product-innovation-kb",
+      "promptAddendum": "For a request about one named product, use only single-product tools. Use compare_active_systems only when the request explicitly asks to compare two named products. In a two-product comparison, retrieve and cite both named product sources, keep a distinct [ref_id:n] marker for each product, and omit comparison-method evidence unless the answer actually relies on it. Never broaden a single-product answer with competitor, brand-comparison, or comparison-method context.",
+      "tools": [
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-product-innovation-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve grounded formula components for a specific performance goal.",
+            "name": "Retrieve formula components",
+            "parameters": [
+              {
+                "description": "Product or formula name.",
+                "parameterId": "product"
+              },
+              {
+                "description": "Requested performance goal.",
+                "parameterId": "performance_goal"
+              }
+            ],
+            "toolId": "retrieve_formula_components"
+          },
+          "queryTemplate": "For {product} only, what formula components directly support {performance_goal}? Retrieve the smallest sufficient source set directly about {product}. Exclude competitor products, brand comparisons, and comparison-method documents. Include exact source titles and [ref_id:n] citation markers."
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-product-innovation-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve grounded enzyme stability evidence under stated conditions.",
+            "name": "Assess enzyme stability",
+            "parameters": [
+              {
+                "description": "Product or formula name.",
+                "parameterId": "product"
+              },
+              {
+                "description": "Temperature, storage or wash conditions.",
+                "parameterId": "conditions"
+              }
+            ],
+            "toolId": "assess_enzyme_stability"
+          },
+          "queryTemplate": "Enzyme stability for {product} under {conditions}"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-product-innovation-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Compare active systems across two products on one explicit dimension.",
+            "name": "Compare active systems",
+            "parameters": [
+              {
+                "description": "First product.",
+                "parameterId": "product_a"
+              },
+              {
+                "description": "Second product.",
+                "parameterId": "product_b"
+              },
+              {
+                "description": "Formula comparison dimension.",
+                "parameterId": "dimension"
+              }
+            ],
+            "toolId": "compare_active_systems"
+          },
+          "queryTemplate": "Compare active systems in {product_a} versus {product_b} for {dimension}"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-product-innovation-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve product evidence supporting one proposed performance claim.",
+            "name": "Retrieve claim support",
+            "parameters": [
+              {
+                "description": "Product or formula name.",
+                "parameterId": "product"
+              },
+              {
+                "description": "Claim requiring support.",
+                "parameterId": "claim"
+              }
+            ],
+            "toolId": "retrieve_claim_support"
+          },
+          "queryTemplate": "Evidence supporting the claim {claim} for {product}"
+        }
+      ]
+    },
+    {
+      "agentId": "consumer-fragrance-sensory",
+      "knowledgeBindingId": "consumer-product-innovation-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-logistics-distribution",
+      "knowledgeBindingId": "consumer-supply-manufacturing-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-manufacturing-operations",
+      "knowledgeBindingId": "consumer-supply-manufacturing-kb",
+      "promptAddendum": "Call retrieve_manufacturing_guidance for every request to obtain grounded method context, and preserve every [ref_id:n] marker it returns, including in an honest gap response. When the request includes plant ID, line ID and date range, also call retrieve_plant_capacity and retrieve_operational_status before answering. Operational SAP outputs may be deterministic fixtures. Preserve the sourceMode, object IDs, deep links, retrieval time, authorization scope and visible fixture label exactly; never present fixture records as live SAP.",
+      "tools": [
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "sap:s4:materials:read"
+            ],
+            "backend": "sap",
+            "description": "Read governed material facts for one material and plant.",
+            "name": "Retrieve material facts",
+            "parameters": [
+              {
+                "description": "SAP material identifier.",
+                "parameterId": "material_id"
+              },
+              {
+                "description": "SAP plant identifier.",
+                "parameterId": "plant_id"
+              }
+            ],
+            "toolId": "retrieve_material_facts"
+          },
+          "sapResource": "material_fact"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "sap:s4:production-orders:read"
+            ],
+            "backend": "sap",
+            "description": "Read production orders for one product and plant.",
+            "name": "Retrieve production orders",
+            "parameters": [
+              {
+                "description": "Canonical product identifier.",
+                "parameterId": "product_id"
+              },
+              {
+                "description": "SAP plant identifier.",
+                "parameterId": "plant_id"
+              },
+              {
+                "description": "Inclusive scheduled range start.",
+                "parameterId": "start_date",
+                "valueType": "date"
+              },
+              {
+                "description": "Inclusive scheduled range end.",
+                "parameterId": "end_date",
+                "valueType": "date"
+              }
+            ],
+            "toolId": "retrieve_production_orders"
+          },
+          "sapResource": "production_order"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "sap:s4:plant-capacity:read"
+            ],
+            "backend": "sap",
+            "description": "Read available and committed plant capacity for a horizon.",
+            "name": "Retrieve plant capacity",
+            "parameters": [
+              {
+                "description": "SAP plant identifier.",
+                "parameterId": "plant_id"
+              },
+              {
+                "description": "Inclusive capacity range start.",
+                "parameterId": "start_date",
+                "valueType": "date"
+              },
+              {
+                "description": "Inclusive capacity range end.",
+                "parameterId": "end_date",
+                "valueType": "date"
+              }
+            ],
+            "toolId": "retrieve_plant_capacity"
+          },
+          "sapResource": "plant_capacity"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "sap:s4:operations:read"
+            ],
+            "backend": "sap",
+            "description": "Read line-level operational status and OEE facts.",
+            "name": "Retrieve operational status",
+            "parameters": [
+              {
+                "description": "SAP plant identifier.",
+                "parameterId": "plant_id"
+              },
+              {
+                "description": "Production line identifier.",
+                "parameterId": "line_id"
+              }
+            ],
+            "toolId": "retrieve_operational_status"
+          },
+          "sapResource": "operational_status"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-supply-manufacturing-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve grounded manufacturing guidance for one plant metric.",
+            "name": "Retrieve manufacturing guidance",
+            "parameters": [
+              {
+                "description": "Plant or line context.",
+                "parameterId": "plant"
+              },
+              {
+                "description": "Manufacturing metric or issue.",
+                "parameterId": "metric"
+              }
+            ],
+            "toolId": "retrieve_manufacturing_guidance"
+          },
+          "queryTemplate": "Manufacturing guidance for {metric} at {plant}"
+        }
+      ]
+    },
+    {
+      "agentId": "consumer-manufacturing-sustainability",
+      "knowledgeBindingId": "consumer-supply-manufacturing-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-microbiological-safety",
+      "knowledgeBindingId": "consumer-safety-regulatory-quality-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-packaging-sustainability",
+      "knowledgeBindingId": "consumer-product-innovation-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-pricing-revenue-growth",
+      "knowledgeBindingId": "consumer-market-brand-consumer-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-procurement-sourcing",
+      "knowledgeBindingId": "consumer-supply-manufacturing-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-product-safety-toxicology",
+      "knowledgeBindingId": "consumer-safety-regulatory-quality-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-quality-capa",
+      "knowledgeBindingId": "consumer-safety-regulatory-quality-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "consumer-regulatory-affairs",
+      "artifactOutputKinds": [
+        "regulatory_decision"
+      ],
+      "knowledgeBindingId": "consumer-safety-regulatory-quality-kb",
+      "promptAddendum": "",
+      "tools": [
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-safety-regulatory-quality-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve grounded market registration requirements by product type.",
+            "name": "Retrieve market requirements",
+            "parameters": [
+              {
+                "description": "Requested country or market.",
+                "parameterId": "market"
+              },
+              {
+                "description": "Regulated product type.",
+                "parameterId": "product_type"
+              }
+            ],
+            "toolId": "retrieve_market_requirements"
+          },
+          "queryTemplate": "Registration requirements in {market} for {product_type}"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-safety-regulatory-quality-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve legal and evidence requirements for one proposed claim.",
+            "name": "Review claim requirements",
+            "parameters": [
+              {
+                "description": "Requested country or market.",
+                "parameterId": "market"
+              },
+              {
+                "description": "Proposed product claim.",
+                "parameterId": "claim"
+              }
+            ],
+            "toolId": "review_claim_requirements"
+          },
+          "queryTemplate": "Regulatory requirements in {market} for the claim {claim}"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-safety-regulatory-quality-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve grounded restrictions for one ingredient in a market.",
+            "name": "Retrieve ingredient restrictions",
+            "parameters": [
+              {
+                "description": "Requested country or market.",
+                "parameterId": "market"
+              },
+              {
+                "description": "Ingredient or substance.",
+                "parameterId": "ingredient"
+              }
+            ],
+            "toolId": "retrieve_ingredient_restrictions"
+          },
+          "queryTemplate": "Restrictions in {market} for ingredient {ingredient}"
+        },
+        {
+          "descriptor": {
+            "authorizationScopes": [
+              "foundry-iq:consumer-safety-regulatory-quality-kb:read"
+            ],
+            "backend": "foundry_iq",
+            "description": "Retrieve registration evidence expected for a product in one market.",
+            "name": "Retrieve registration evidence",
+            "parameters": [
+              {
+                "description": "Requested country or market.",
+                "parameterId": "market"
+              },
+              {
+                "description": "Product or formula.",
+                "parameterId": "product"
+              }
+            ],
+            "toolId": "retrieve_registration_evidence"
+          },
+          "queryTemplate": "Registration evidence for {product} in {market}"
+        }
+      ]
+    },
+    {
+      "agentId": "consumer-trade-promotion",
+      "knowledgeBindingId": "consumer-market-brand-consumer-kb",
+      "promptAddendum": ""
+    },
+    {
+      "agentId": "employee-vacation-leave",
+      "knowledgeBindingId": "employee-vacation-leave-kb",
+      "promptAddendum": "For every vacation-balance request, retrieve the single source titled 'Synthetic 2026 vacation balance'. State prominently that the employee identity and all leave data are synthetic. Give a concise human-readable answer, then copy the source's VACATION_BALANCE_JSON_START marker, the complete JSON object, and the VACATION_BALANCE_JSON_END marker exactly and without alteration. The marked object is a machine-validated projection: never omit it, wrap it in another object, add citation text inside it, or invent missing fields."
+    },
+    {
+      "agentId": "employee-it-helpdesk",
+      "knowledgeBindingId": "employee-it-helpdesk-kb",
+      "promptAddendum": "For a plain VPN or remote-access request, retrieve the single source titled 'VPN recovery guidance snapshot'. State that the result is aggregate guidance, not a device diagnosis, and recommend only the safest first read-only step. Do not claim that any device action, network repair, or remote operation was executed. Then copy the source's VPN_RECOVERY_JSON_START marker, complete JSON object, and VPN_RECOVERY_JSON_END marker exactly and without alteration. Never omit the marked object, change its fields, or add citation text inside it."
+    },
+    {
+      "agentId": "employee-identity-security",
+      "knowledgeBindingId": "employee-identity-security-kb",
+      "promptAddendum": "For MFA, suspicious sign-in, account-compromise, or identity-policy requests, retrieve the smallest sufficient approved source set. Give containment guidance only. Never claim that MFA was reset, an account was disabled, or a device was wiped unless a separate authorized write is explicitly completed."
+    },
+    {
+      "agentId": "employee-expense",
+      "knowledgeBindingId": "employee-expense-kb",
+      "promptAddendum": ""
+    }
+  ],
+  "schemaVersion": "1.0"
+}

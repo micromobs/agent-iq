@@ -1,0 +1,110 @@
+[project]
+name = "agent-iq"
+version = "0.1.0"
+description = "Discover, govern, and orchestrate the right agents for each intent."
+readme = "README.md"
+authors = [
+    { name = "Agent IQ contributors" }
+]
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["a2a", "agents", "orchestration", "mcp", "microsoft-foundry"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+requires-python = ">=3.11"
+dependencies = [
+    "a2a-sdk>=1.1,<2",
+    "aiohttp>=3.11,<4",
+    "azure-identity>=1.19,<2",
+    "azure-monitor-opentelemetry>=1.8,<2",
+    "azure-search-documents==12.1.0b1",
+    "fastapi>=0.115,<1",
+    "httpx>=0.28,<1",
+    "mcp>=1.26,<2",
+    "opentelemetry-api>=1.31,<2",
+    "pyjwt[crypto]>=2.10,<3",
+    "pydantic>=2.10,<3",
+    "pydantic-settings>=2.7,<3",
+    "uvicorn>=0.34,<1",
+]
+
+[project.urls]
+Homepage = "https://github.com/micromobs/agent-iq"
+Documentation = "https://github.com/micromobs/agent-iq#readme"
+Repository = "https://github.com/micromobs/agent-iq"
+Issues = "https://github.com/micromobs/agent-iq/issues"
+
+[build-system]
+requires = ["uv_build>=0.11.22,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "detect-secrets>=1.5,<2",
+    "mypy>=1.15,<2",
+    "pillow>=12.3,<13",
+    "pytest>=9.0.3,<10",
+    "pytest-cov>=6,<7",
+    "ruff>=0.11,<1",
+    "types-protobuf>=6.30,<7",
+    "types-pyyaml>=6.0.12,<7",
+]
+foundry = [
+    "azure-ai-projects>=2.3,<3",
+    "azure-storage-blob>=12.30,<13",
+    "langchain>=1.2,<2",
+    "langchain-azure-ai[hosting]>=1.2.4,<2",
+    "langchain-mcp-adapters>=0.2,<1",
+    "langgraph>=1.0,<2",
+    "pydantic-ai-slim[openai]==2.9.0",
+    "pyyaml>=6,<7",
+]
+
+[tool.pytest.ini_options]
+addopts = [
+    "-ra",
+    "--strict-config",
+    "--strict-markers",
+]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["agent_iq"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests", "scripts"]
+
+[tool.ruff.lint]
+select = [
+    "B",
+    "E",
+    "F",
+    "I",
+    "RUF",
+    "SIM",
+    "UP",
+]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+exclude = [
+    "^build/",
+    "^dist/",
+]

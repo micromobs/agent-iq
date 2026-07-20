@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "AgentCandidatePresentation": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "displayName": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Displayname",
+          "type": "string"
+        },
+        "eligible": {
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "matchedFields": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedfields",
+          "type": "array"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "reason": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agentId",
+        "displayName",
+        "rank",
+        "eligible",
+        "reason"
+      ],
+      "title": "AgentCandidatePresentation",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/search-presentation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Bounded recommendation preview safe for routine MCP model context.",
+  "properties": {
+    "candidates": {
+      "items": {
+        "$ref": "#/$defs/AgentCandidatePresentation"
+      },
+      "maxItems": 5,
+      "title": "Candidates",
+      "type": "array"
+    },
+    "requestId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Requestid",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "totalCandidates": {
+      "minimum": 0,
+      "title": "Totalcandidates",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "requestId",
+    "totalCandidates",
+    "candidates"
+  ],
+  "title": "AgentSearchPresentation",
+  "type": "object"
+}

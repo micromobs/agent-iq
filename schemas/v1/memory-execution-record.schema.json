@@ -1,0 +1,458 @@
+{
+  "$defs": {
+    "ExecutionMemoryCandidate": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "baseRank": {
+          "maximum": 10,
+          "minimum": 1,
+          "title": "Baserank",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agentId",
+        "baseRank"
+      ],
+      "title": "ExecutionMemoryCandidate",
+      "type": "object"
+    },
+    "ExecutionMemoryIntent": {
+      "additionalProperties": false,
+      "properties": {
+        "intentClass": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Intentclass",
+          "type": "string"
+        },
+        "neighborhoodId": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Neighborhoodid"
+        },
+        "textHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Texthash",
+          "type": "string"
+        }
+      },
+      "required": [
+        "textHash",
+        "intentClass"
+      ],
+      "title": "ExecutionMemoryIntent",
+      "type": "object"
+    },
+    "ExecutionMemorySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "evidenceCount": {
+          "minimum": 0,
+          "title": "Evidencecount",
+          "type": "integer"
+        },
+        "latencyMs": {
+          "minimum": 0,
+          "title": "Latencyms",
+          "type": "integer"
+        },
+        "status": {
+          "$ref": "#/$defs/MemoryOutcomeStatus"
+        }
+      },
+      "required": [
+        "status",
+        "latencyMs",
+        "evidenceCount"
+      ],
+      "title": "ExecutionMemorySummary",
+      "type": "object"
+    },
+    "FeedbackMemorySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "feedbackId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Feedbackid",
+          "type": "string"
+        },
+        "rating": {
+          "$ref": "#/$defs/FeedbackSignal"
+        }
+      },
+      "required": [
+        "feedbackId",
+        "rating"
+      ],
+      "title": "FeedbackMemorySummary",
+      "type": "object"
+    },
+    "FeedbackSignal": {
+      "enum": [
+        "helpful",
+        "not_helpful"
+      ],
+      "title": "FeedbackSignal",
+      "type": "string"
+    },
+    "IqSourceModes": {
+      "additionalProperties": false,
+      "properties": {
+        "fabricIq": {
+          "$ref": "#/$defs/SourceMode"
+        },
+        "foundryIq": {
+          "$ref": "#/$defs/SourceMode"
+        },
+        "webIq": {
+          "$ref": "#/$defs/SourceMode"
+        },
+        "workIq": {
+          "$ref": "#/$defs/SourceMode"
+        }
+      },
+      "required": [
+        "foundryIq",
+        "workIq",
+        "fabricIq",
+        "webIq"
+      ],
+      "title": "IqSourceModes",
+      "type": "object"
+    },
+    "MemoryOutcomeStatus": {
+      "enum": [
+        "success",
+        "partial",
+        "declined",
+        "failure",
+        "cancelled"
+      ],
+      "title": "MemoryOutcomeStatus",
+      "type": "string"
+    },
+    "OutcomeMemorySummary": {
+      "additionalProperties": false,
+      "properties": {
+        "businessSignal": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Businesssignal"
+        },
+        "status": {
+          "$ref": "#/$defs/MemoryOutcomeStatus"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "title": "OutcomeMemorySummary",
+      "type": "object"
+    },
+    "SourceMode": {
+      "enum": [
+        "live",
+        "seeded",
+        "replay",
+        "degraded"
+      ],
+      "title": "SourceMode",
+      "type": "string"
+    },
+    "SquadOverride": {
+      "additionalProperties": false,
+      "properties": {
+        "actorSubjectId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Actorsubjectid",
+          "type": "string"
+        },
+        "authorizedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Authorizedagentids",
+          "type": "array"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "title": "Createdat",
+          "type": "string"
+        },
+        "executionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Executionid",
+          "type": "string"
+        },
+        "overrideId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Overrideid",
+          "type": "string"
+        },
+        "projectId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Projectid",
+          "type": "string"
+        },
+        "proposedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Proposedagentids",
+          "type": "array"
+        },
+        "reasonCode": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Reasoncode",
+          "type": "string"
+        },
+        "reasonHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Reasonhash",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "tenantId": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Tenantid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "overrideId",
+        "requestId",
+        "executionId",
+        "tenantId",
+        "actorSubjectId",
+        "projectId",
+        "proposedAgentIds",
+        "authorizedAgentIds",
+        "reasonCode",
+        "reasonHash",
+        "createdAt"
+      ],
+      "title": "SquadOverride",
+      "type": "object"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/memory-execution-record.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "correlationId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Correlationid",
+      "type": "string"
+    },
+    "eligibleCandidates": {
+      "items": {
+        "$ref": "#/$defs/ExecutionMemoryCandidate"
+      },
+      "minItems": 1,
+      "title": "Eligiblecandidates",
+      "type": "array"
+    },
+    "executedSquad": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Executedsquad",
+      "type": "array"
+    },
+    "execution": {
+      "$ref": "#/$defs/ExecutionMemorySummary"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "feedback": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FeedbackMemorySummary"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "idempotencyKey": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Idempotencykey",
+      "type": "string"
+    },
+    "intent": {
+      "$ref": "#/$defs/ExecutionMemoryIntent"
+    },
+    "outcome": {
+      "$ref": "#/$defs/OutcomeMemorySummary"
+    },
+    "override": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SquadOverride"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "policyVersion": {
+      "maxLength": 64,
+      "minLength": 1,
+      "title": "Policyversion",
+      "type": "string"
+    },
+    "projectId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Projectid",
+      "type": "string"
+    },
+    "proposedSquad": {
+      "items": {
+        "maxLength": 128,
+        "minLength": 1,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Proposedsquad",
+      "type": "array"
+    },
+    "recordType": {
+      "const": "execution",
+      "default": "execution",
+      "title": "Recordtype",
+      "type": "string"
+    },
+    "recordedAt": {
+      "format": "date-time",
+      "title": "Recordedat",
+      "type": "string"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "sourceModes": {
+      "$ref": "#/$defs/IqSourceModes"
+    },
+    "subjectId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Subjectid",
+      "type": "string"
+    },
+    "tenantId": {
+      "maxLength": 512,
+      "minLength": 1,
+      "title": "Tenantid",
+      "type": "string"
+    },
+    "traceId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Traceid",
+      "type": "string"
+    }
+  },
+  "required": [
+    "idempotencyKey",
+    "executionId",
+    "traceId",
+    "correlationId",
+    "tenantId",
+    "subjectId",
+    "projectId",
+    "intent",
+    "eligibleCandidates",
+    "proposedSquad",
+    "executedSquad",
+    "execution",
+    "outcome",
+    "sourceModes",
+    "policyVersion",
+    "recordedAt"
+  ],
+  "title": "ExecutionMemoryRecord",
+  "type": "object"
+}

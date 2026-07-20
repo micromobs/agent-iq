@@ -1,0 +1,1416 @@
+{
+  "$defs": {
+    "AgentIqError": {
+      "additionalProperties": false,
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/ErrorCode"
+        },
+        "correlationId": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Correlationid"
+        },
+        "details": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ErrorDetail"
+          },
+          "title": "Details",
+          "type": "array"
+        },
+        "errorId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Errorid",
+          "type": "string"
+        },
+        "message": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Message",
+          "type": "string"
+        },
+        "retryAfterSeconds": {
+          "anyOf": [
+            {
+              "maximum": 86400,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retryafterseconds"
+        },
+        "retryable": {
+          "default": false,
+          "title": "Retryable",
+          "type": "boolean"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        }
+      },
+      "required": [
+        "errorId",
+        "code",
+        "message"
+      ],
+      "title": "AgentIqError",
+      "type": "object"
+    },
+    "AgentsSelectedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "decision": {
+          "$ref": "#/$defs/SelectionDecision"
+        },
+        "type": {
+          "const": "agents.selected",
+          "default": "agents.selected",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision"
+      ],
+      "title": "AgentsSelectedPayload",
+      "type": "object"
+    },
+    "ApprovalRequestedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "approvalId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Approvalid",
+          "type": "string"
+        },
+        "reason": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Reason",
+          "type": "string"
+        },
+        "stepIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Stepids",
+          "type": "array"
+        },
+        "type": {
+          "const": "approval.requested",
+          "default": "approval.requested",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approvalId",
+        "stepIds",
+        "reason"
+      ],
+      "title": "ApprovalRequestedPayload",
+      "type": "object"
+    },
+    "ApprovalResolvedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "approvalId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Approvalid",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "approved",
+            "declined",
+            "expired",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "type": {
+          "const": "approval.resolved",
+          "default": "approval.resolved",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "approvalId",
+        "status"
+      ],
+      "title": "ApprovalResolvedPayload",
+      "type": "object"
+    },
+    "CallbackMode": {
+      "enum": [
+        "poll",
+        "webhook",
+        "push",
+        "teams",
+        "email"
+      ],
+      "title": "CallbackMode",
+      "type": "string"
+    },
+    "CandidateScore": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "catalogVersion": {
+          "maxLength": 64,
+          "minLength": 1,
+          "title": "Catalogversion",
+          "type": "string"
+        },
+        "components": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ScoreComponent"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "eligibility": {
+          "$ref": "#/$defs/EligibilityDecision"
+        },
+        "explanation": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Explanation",
+          "type": "string"
+        },
+        "fusedScore": {
+          "minimum": 0,
+          "title": "Fusedscore",
+          "type": "number"
+        },
+        "matchedFields": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedfields",
+          "type": "array"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "agentId",
+        "rank",
+        "fusedScore",
+        "eligibility",
+        "explanation",
+        "catalogVersion"
+      ],
+      "title": "CandidateScore",
+      "type": "object"
+    },
+    "CandidatesRankedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/CandidateScore"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "type": {
+          "const": "candidates.ranked",
+          "default": "candidates.ranked",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "candidates"
+      ],
+      "title": "CandidatesRankedPayload",
+      "type": "object"
+    },
+    "CatalogSearchedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "candidateCount": {
+          "minimum": 0,
+          "title": "Candidatecount",
+          "type": "integer"
+        },
+        "catalogVersion": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Catalogversion",
+          "type": "string"
+        },
+        "query": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Query",
+          "type": "string"
+        },
+        "type": {
+          "const": "catalog.searched",
+          "default": "catalog.searched",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "query",
+        "candidateCount",
+        "catalogVersion"
+      ],
+      "title": "CatalogSearchedPayload",
+      "type": "object"
+    },
+    "ContextKind": {
+      "enum": [
+        "work_iq",
+        "foundry_iq",
+        "fabric_iq",
+        "web_iq",
+        "attachment",
+        "prior_step"
+      ],
+      "title": "ContextKind",
+      "type": "string"
+    },
+    "EligibilityDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "blockedReasons": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Blockedreasons",
+          "type": "array"
+        },
+        "eligible": {
+          "title": "Eligible",
+          "type": "boolean"
+        },
+        "policyFacts": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Policyfacts",
+          "type": "array"
+        },
+        "policyVersion": {
+          "anyOf": [
+            {
+              "maxLength": 64,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Policyversion"
+        }
+      },
+      "required": [
+        "eligible"
+      ],
+      "title": "EligibilityDecision",
+      "type": "object"
+    },
+    "ErrorCode": {
+      "enum": [
+        "invalid_request",
+        "contract_version_unsupported",
+        "catalog_unavailable",
+        "agent_not_found",
+        "agent_ineligible",
+        "authentication_required",
+        "authorization_denied",
+        "policy_blocked",
+        "card_invalid",
+        "protocol_unsupported",
+        "dependency_failed",
+        "invocation_timeout",
+        "invocation_failed",
+        "evidence_unavailable",
+        "artifact_unavailable",
+        "artifact_conflict",
+        "synthesis_failed",
+        "cancelled",
+        "internal"
+      ],
+      "title": "ErrorCode",
+      "type": "string"
+    },
+    "ErrorDetail": {
+      "additionalProperties": false,
+      "properties": {
+        "field": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Field"
+        },
+        "issue": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Issue",
+          "type": "string"
+        }
+      },
+      "required": [
+        "issue"
+      ],
+      "title": "ErrorDetail",
+      "type": "object"
+    },
+    "EvidenceReceivedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "evidenceIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Evidenceids",
+          "type": "array"
+        },
+        "invocationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Invocationid",
+          "type": "string"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        },
+        "type": {
+          "const": "evidence.received",
+          "default": "evidence.received",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invocationId",
+        "stepId",
+        "evidenceIds"
+      ],
+      "title": "EvidenceReceivedPayload",
+      "type": "object"
+    },
+    "ExecutionCompletedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "durationMs": {
+          "minimum": 0,
+          "title": "Durationms",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "partial",
+            "declined",
+            "failed",
+            "cancelled"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "type": {
+          "const": "execution.completed",
+          "default": "execution.completed",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "durationMs"
+      ],
+      "title": "ExecutionCompletedPayload",
+      "type": "object"
+    },
+    "InteractionMode": {
+      "enum": [
+        "sync",
+        "async"
+      ],
+      "title": "InteractionMode",
+      "type": "string"
+    },
+    "InvocationCompletedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "durationMs": {
+          "minimum": 0,
+          "title": "Durationms",
+          "type": "integer"
+        },
+        "invocationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Invocationid",
+          "type": "string"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        },
+        "type": {
+          "const": "invocation.completed",
+          "default": "invocation.completed",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invocationId",
+        "stepId",
+        "durationMs"
+      ],
+      "title": "InvocationCompletedPayload",
+      "type": "object"
+    },
+    "InvocationDeltaPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "invocationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Invocationid",
+          "type": "string"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        },
+        "text": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Text",
+          "type": "string"
+        },
+        "type": {
+          "const": "invocation.delta",
+          "default": "invocation.delta",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invocationId",
+        "stepId",
+        "text"
+      ],
+      "title": "InvocationDeltaPayload",
+      "type": "object"
+    },
+    "InvocationFailedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "error": {
+          "$ref": "#/$defs/AgentIqError"
+        },
+        "invocationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Invocationid",
+          "type": "string"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        },
+        "type": {
+          "const": "invocation.failed",
+          "default": "invocation.failed",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invocationId",
+        "stepId",
+        "error"
+      ],
+      "title": "InvocationFailedPayload",
+      "type": "object"
+    },
+    "InvocationStartedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "invocationId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Invocationid",
+          "type": "string"
+        },
+        "protocolVersion": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Protocolversion",
+          "type": "string"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        },
+        "transport": {
+          "$ref": "#/$defs/TransportProtocol"
+        },
+        "type": {
+          "const": "invocation.started",
+          "default": "invocation.started",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "invocationId",
+        "stepId",
+        "agentId",
+        "transport",
+        "protocolVersion"
+      ],
+      "title": "InvocationStartedPayload",
+      "type": "object"
+    },
+    "PlanPreparedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "maxConcurrency": {
+          "maximum": 20,
+          "minimum": 1,
+          "title": "Maxconcurrency",
+          "type": "integer"
+        },
+        "planId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Planid",
+          "type": "string"
+        },
+        "steps": {
+          "items": {
+            "$ref": "#/$defs/PreparedPlanStep"
+          },
+          "minItems": 1,
+          "title": "Steps",
+          "type": "array"
+        },
+        "type": {
+          "const": "plan.prepared",
+          "default": "plan.prepared",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "planId",
+        "steps",
+        "maxConcurrency"
+      ],
+      "title": "PlanPreparedPayload",
+      "type": "object"
+    },
+    "PreparedPlanStep": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "approvalRequired": {
+          "title": "Approvalrequired",
+          "type": "boolean"
+        },
+        "contextKinds": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ContextKind"
+          },
+          "title": "Contextkinds",
+          "type": "array"
+        },
+        "dependsOn": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Dependson",
+          "type": "array"
+        },
+        "expectedOutputCount": {
+          "minimum": 1,
+          "title": "Expectedoutputcount",
+          "type": "integer"
+        },
+        "invocationMode": {
+          "$ref": "#/$defs/InteractionMode"
+        },
+        "stepId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Stepid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "stepId",
+        "agentId",
+        "expectedOutputCount",
+        "invocationMode",
+        "approvalRequired"
+      ],
+      "title": "PreparedPlanStep",
+      "type": "object"
+    },
+    "RequestAcceptedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "intentSummary": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Intentsummary",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "type": {
+          "const": "request.accepted",
+          "default": "request.accepted",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestId",
+        "intentSummary"
+      ],
+      "title": "RequestAcceptedPayload",
+      "type": "object"
+    },
+    "ScoreComponent": {
+      "additionalProperties": false,
+      "properties": {
+        "matchedFields": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedfields",
+          "type": "array"
+        },
+        "name": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Name",
+          "type": "string"
+        },
+        "rank": {
+          "minimum": 1,
+          "title": "Rank",
+          "type": "integer"
+        },
+        "score": {
+          "minimum": 0,
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "rank",
+        "score"
+      ],
+      "title": "ScoreComponent",
+      "type": "object"
+    },
+    "SelectionDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "candidates": {
+          "items": {
+            "$ref": "#/$defs/CandidateScore"
+          },
+          "title": "Candidates",
+          "type": "array"
+        },
+        "createdAt": {
+          "format": "date-time",
+          "title": "Createdat",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "schemaVersion": {
+          "const": "1.0",
+          "default": "1.0",
+          "title": "Schemaversion",
+          "type": "string"
+        },
+        "selected": {
+          "items": {
+            "$ref": "#/$defs/SelectionReason"
+          },
+          "title": "Selected",
+          "type": "array"
+        },
+        "selector": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Selector",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestId",
+        "candidates",
+        "selected",
+        "selector",
+        "createdAt"
+      ],
+      "title": "SelectionDecision",
+      "type": "object"
+    },
+    "SelectionReason": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "fusedScore": {
+          "minimum": 0,
+          "title": "Fusedscore",
+          "type": "number"
+        },
+        "matchedSkills": {
+          "default": [],
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "title": "Matchedskills",
+          "type": "array"
+        },
+        "matchedTags": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Matchedtags",
+          "type": "array"
+        },
+        "policyFacts": {
+          "default": [],
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Policyfacts",
+          "type": "array"
+        },
+        "summary": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        },
+        "workItem": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Workitem",
+          "type": "string"
+        },
+        "workItemId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Workitemid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "agentId",
+        "workItemId",
+        "workItem",
+        "summary",
+        "fusedScore"
+      ],
+      "title": "SelectionReason",
+      "type": "object"
+    },
+    "SquadAuthorizedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "agentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Agentids",
+          "type": "array"
+        },
+        "decisionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "overrideId": {
+          "anyOf": [
+            {
+              "maxLength": 128,
+              "minLength": 1,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Overrideid"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "type": {
+          "const": "squad.authorized",
+          "default": "squad.authorized",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestId",
+        "decisionId",
+        "agentIds"
+      ],
+      "title": "SquadAuthorizedPayload",
+      "type": "object"
+    },
+    "SquadOverriddenPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "authorizedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Authorizedagentids",
+          "type": "array"
+        },
+        "decisionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "overrideId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Overrideid",
+          "type": "string"
+        },
+        "proposedAgentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Proposedagentids",
+          "type": "array"
+        },
+        "reasonCode": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Reasoncode",
+          "type": "string"
+        },
+        "reasonHash": {
+          "pattern": "^sha256:[0-9a-f]{64}$",
+          "title": "Reasonhash",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "type": {
+          "const": "squad.overridden",
+          "default": "squad.overridden",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestId",
+        "decisionId",
+        "overrideId",
+        "proposedAgentIds",
+        "authorizedAgentIds",
+        "reasonCode",
+        "reasonHash"
+      ],
+      "title": "SquadOverriddenPayload",
+      "type": "object"
+    },
+    "SquadProposedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "agentIds": {
+          "items": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Agentids",
+          "type": "array"
+        },
+        "decisionId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Decisionid",
+          "type": "string"
+        },
+        "requestId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Requestid",
+          "type": "string"
+        },
+        "selector": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Selector",
+          "type": "string"
+        },
+        "type": {
+          "const": "squad.proposed",
+          "default": "squad.proposed",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "requestId",
+        "decisionId",
+        "agentIds",
+        "selector"
+      ],
+      "title": "SquadProposedPayload",
+      "type": "object"
+    },
+    "SynthesisCompletedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "answer": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Answer",
+          "type": "string"
+        },
+        "citationNumbers": {
+          "default": [],
+          "items": {
+            "type": "integer"
+          },
+          "title": "Citationnumbers",
+          "type": "array"
+        },
+        "type": {
+          "const": "synthesis.completed",
+          "default": "synthesis.completed",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "answer"
+      ],
+      "title": "SynthesisCompletedPayload",
+      "type": "object"
+    },
+    "TaskCompletedPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "$ref": "#/$defs/TaskStatus"
+        },
+        "summary": {
+          "maxLength": 16384,
+          "minLength": 1,
+          "title": "Summary",
+          "type": "string"
+        },
+        "taskId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Taskid",
+          "type": "string"
+        },
+        "type": {
+          "const": "task.completed",
+          "default": "task.completed",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "taskId",
+        "status",
+        "summary"
+      ],
+      "title": "TaskCompletedPayload",
+      "type": "object"
+    },
+    "TaskHandedOffPayload": {
+      "additionalProperties": false,
+      "properties": {
+        "agentId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Agentid",
+          "type": "string"
+        },
+        "callbackModes": {
+          "items": {
+            "$ref": "#/$defs/CallbackMode"
+          },
+          "title": "Callbackmodes",
+          "type": "array"
+        },
+        "taskId": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+          "title": "Taskid",
+          "type": "string"
+        },
+        "type": {
+          "const": "task.handed_off",
+          "default": "task.handed_off",
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "taskId",
+        "agentId",
+        "callbackModes"
+      ],
+      "title": "TaskHandedOffPayload",
+      "type": "object"
+    },
+    "TaskStatus": {
+      "enum": [
+        "pending",
+        "running",
+        "waiting_approval",
+        "completed",
+        "failed",
+        "cancelled"
+      ],
+      "title": "TaskStatus",
+      "type": "string"
+    },
+    "TransportProtocol": {
+      "enum": [
+        "a2a",
+        "work_iq",
+        "mcp"
+      ],
+      "title": "TransportProtocol",
+      "type": "string"
+    }
+  },
+  "$id": "https://schemas.agent-iq.dev/v1/event-envelope.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "eventId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Eventid",
+      "type": "string"
+    },
+    "executionId": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$",
+      "title": "Executionid",
+      "type": "string"
+    },
+    "occurredAt": {
+      "format": "date-time",
+      "title": "Occurredat",
+      "type": "string"
+    },
+    "payload": {
+      "discriminator": {
+        "mapping": {
+          "agents.selected": "#/$defs/AgentsSelectedPayload",
+          "approval.requested": "#/$defs/ApprovalRequestedPayload",
+          "approval.resolved": "#/$defs/ApprovalResolvedPayload",
+          "candidates.ranked": "#/$defs/CandidatesRankedPayload",
+          "catalog.searched": "#/$defs/CatalogSearchedPayload",
+          "evidence.received": "#/$defs/EvidenceReceivedPayload",
+          "execution.completed": "#/$defs/ExecutionCompletedPayload",
+          "invocation.completed": "#/$defs/InvocationCompletedPayload",
+          "invocation.delta": "#/$defs/InvocationDeltaPayload",
+          "invocation.failed": "#/$defs/InvocationFailedPayload",
+          "invocation.started": "#/$defs/InvocationStartedPayload",
+          "plan.prepared": "#/$defs/PlanPreparedPayload",
+          "request.accepted": "#/$defs/RequestAcceptedPayload",
+          "squad.authorized": "#/$defs/SquadAuthorizedPayload",
+          "squad.overridden": "#/$defs/SquadOverriddenPayload",
+          "squad.proposed": "#/$defs/SquadProposedPayload",
+          "synthesis.completed": "#/$defs/SynthesisCompletedPayload",
+          "task.completed": "#/$defs/TaskCompletedPayload",
+          "task.handed_off": "#/$defs/TaskHandedOffPayload"
+        },
+        "propertyName": "type"
+      },
+      "oneOf": [
+        {
+          "$ref": "#/$defs/RequestAcceptedPayload"
+        },
+        {
+          "$ref": "#/$defs/CatalogSearchedPayload"
+        },
+        {
+          "$ref": "#/$defs/CandidatesRankedPayload"
+        },
+        {
+          "$ref": "#/$defs/AgentsSelectedPayload"
+        },
+        {
+          "$ref": "#/$defs/SquadProposedPayload"
+        },
+        {
+          "$ref": "#/$defs/SquadOverriddenPayload"
+        },
+        {
+          "$ref": "#/$defs/SquadAuthorizedPayload"
+        },
+        {
+          "$ref": "#/$defs/PlanPreparedPayload"
+        },
+        {
+          "$ref": "#/$defs/ApprovalRequestedPayload"
+        },
+        {
+          "$ref": "#/$defs/ApprovalResolvedPayload"
+        },
+        {
+          "$ref": "#/$defs/InvocationStartedPayload"
+        },
+        {
+          "$ref": "#/$defs/InvocationDeltaPayload"
+        },
+        {
+          "$ref": "#/$defs/EvidenceReceivedPayload"
+        },
+        {
+          "$ref": "#/$defs/InvocationCompletedPayload"
+        },
+        {
+          "$ref": "#/$defs/InvocationFailedPayload"
+        },
+        {
+          "$ref": "#/$defs/SynthesisCompletedPayload"
+        },
+        {
+          "$ref": "#/$defs/TaskHandedOffPayload"
+        },
+        {
+          "$ref": "#/$defs/TaskCompletedPayload"
+        },
+        {
+          "$ref": "#/$defs/ExecutionCompletedPayload"
+        }
+      ],
+      "title": "Payload"
+    },
+    "schemaVersion": {
+      "const": "1.0",
+      "default": "1.0",
+      "title": "Schemaversion",
+      "type": "string"
+    },
+    "sequence": {
+      "minimum": 0,
+      "title": "Sequence",
+      "type": "integer"
+    },
+    "traceId": {
+      "anyOf": [
+        {
+          "maxLength": 512,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Traceid"
+    }
+  },
+  "required": [
+    "eventId",
+    "executionId",
+    "sequence",
+    "occurredAt",
+    "payload"
+  ],
+  "title": "EventEnvelope",
+  "type": "object"
+}

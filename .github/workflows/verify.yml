@@ -1,0 +1,54 @@
+name: verify
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: apps/canvas/package-lock.json
+      - uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        with:
+          enable-cache: true
+      - name: Install osv-scanner (pinned release, checksum-verified)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          # Pinned to google/osv-scanner v2.4.0. windows-latest runners are amd64-only.
+          # SHA-256 below is the official digest published in osv-scanner_SHA256SUMS
+          # for this release and independently confirmed via the GitHub Releases API
+          # asset "digest" field for osv-scanner_windows_amd64.exe.
+          $version = "v2.4.0"
+          $assetName = "osv-scanner_windows_amd64.exe"
+          $expectedSha256 = "0cdd113610126d5dfd5e12ad0e0b4f3e879291ff19bb43b0c52ed2f2c2df1a37"
+          $installDir = Join-Path $env:RUNNER_TEMP "osv-scanner"
+          New-Item -ItemType Directory -Force -Path $installDir | Out-Null
+          $exePath = Join-Path $installDir "osv-scanner.exe"
+          $url = "https://github.com/google/osv-scanner/releases/download/$version/$assetName"
+
+          Invoke-WebRequest -Uri $url -OutFile $exePath -UseBasicParsing
+
+          $actualSha256 = (Get-FileHash -Path $exePath -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actualSha256 -ne $expectedSha256) {
+            throw "BLOCKED: osv-scanner checksum mismatch for $assetName. expected=$expectedSha256 actual=$actualSha256"
+          }
+
+          Add-Content -Path $env:GITHUB_PATH -Value $installDir
+      - name: Verify
+        shell: pwsh
+        run: .\scripts\verify.ps1

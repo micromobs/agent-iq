@@ -1,0 +1,1854 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Agent IQ Employee Operations</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f7fb;
+      --surface: rgba(255,255,255,.92);
+      --surface-strong: #fff;
+      --surface-muted: #eef3fb;
+      --text: #172033;
+      --muted: #5b6578;
+      --line: rgba(23,32,51,.13);
+      --brand: #0f6cbd;
+      --brand-2: #635bff;
+      --teal: #008b8b;
+      --success: #107c10;
+      --warning: #b65d00;
+      --danger: #c4314b;
+      --shadow: 0 18px 54px rgba(25,42,70,.14);
+      --radius: 18px;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d111a;
+        --surface: rgba(23,29,42,.94);
+        --surface-strong: #171d2a;
+        --surface-muted: #20283a;
+        --text: #f5f7fb;
+        --muted: #b5bfd1;
+        --line: rgba(255,255,255,.14);
+        --brand: #62abf5;
+        --brand-2: #a49cff;
+        --teal: #49c8c5;
+        --success: #54b054;
+        --warning: #f0a04b;
+        --danger: #f06a83;
+        --shadow: 0 22px 70px rgba(0,0,0,.38);
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-width: 0; overflow: hidden; background: transparent; }
+    body { padding: 10px; }
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible,
+    textarea:focus-visible, summary:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--brand) 72%, white);
+      outline-offset: 2px;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+    #app {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background:
+        radial-gradient(circle at 92% 0%, color-mix(in srgb, var(--brand-2) 15%, transparent), transparent 33%),
+        radial-gradient(circle at 0% 18%, color-mix(in srgb, var(--teal) 12%, transparent), transparent 34%),
+        var(--surface);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    #app.fullscreen { max-width: none; min-height: calc(100vh - 20px); }
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface-strong) 84%, transparent);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(16px);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; min-width: 0; }
+    .brand-mark {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      color: white;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      background: linear-gradient(135deg, #0f6cbd, #635bff 58%, #008b8b);
+      box-shadow: 0 8px 22px rgba(15,108,189,.28);
+      flex: 0 0 auto;
+    }
+    .brand-copy { min-width: 0; }
+    .brand-title { font-weight: 760; line-height: 1.15; }
+    .brand-subtitle {
+      color: var(--muted);
+      font-size: 12px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .top-actions, .action-row, .chip-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .button {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      min-height: 34px;
+      padding: 7px 12px;
+      color: var(--text);
+      background: var(--surface-strong);
+      cursor: pointer;
+      font-weight: 650;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+    }
+    .button:hover { transform: translateY(-1px); border-color: var(--brand); }
+    .button.primary {
+      color: white;
+      border-color: transparent;
+      background: linear-gradient(135deg, #0f6cbd, #635bff);
+    }
+    .button.subtle { background: transparent; }
+    .button.danger { color: var(--danger); }
+    .button:disabled { opacity: .52; cursor: not-allowed; transform: none; }
+    .icon-button { width: 36px; padding: 0; display: grid; place-items: center; }
+    .badge, .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      max-width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      background: color-mix(in srgb, var(--surface-strong) 75%, transparent);
+      font-size: 12px;
+      font-weight: 650;
+      line-height: 1.25;
+    }
+    .badge.success { color: var(--success); border-color: color-mix(in srgb, var(--success) 45%, transparent); }
+    .badge.warning { color: var(--warning); border-color: color-mix(in srgb, var(--warning) 45%, transparent); }
+    .badge.danger { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 45%, transparent); }
+    .badge.brand { color: var(--brand); border-color: color-mix(in srgb, var(--brand) 45%, transparent); }
+    .content { padding: 18px; display: grid; gap: 16px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      padding: 22px;
+      color: white;
+      background:
+        radial-gradient(circle at 88% 20%, rgba(255,255,255,.20), transparent 25%),
+        linear-gradient(125deg, #073f78 0%, #4450a8 52%, #087d7b 100%);
+      box-shadow: 0 16px 40px rgba(25,71,130,.22);
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      border: 34px solid rgba(255,255,255,.08);
+      border-radius: 50%;
+      right: -95px;
+      bottom: -135px;
+    }
+    .hero-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .hero .badge { color: white; border-color: rgba(255,255,255,.32); background: rgba(255,255,255,.12); }
+    .hero h1 { margin: 0; max-width: 780px; font-size: clamp(24px, 5vw, 42px); line-height: 1.05; }
+    .hero p { margin: 10px 0 0; max-width: 780px; color: rgba(255,255,255,.84); font-size: 15px; }
+    .hero-stats { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; position: relative; z-index: 1; }
+    .hero-stat {
+      min-width: 120px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 12px;
+      background: rgba(255,255,255,.10);
+      backdrop-filter: blur(6px);
+    }
+    .hero-stat strong { display: block; font-size: 21px; }
+    .hero-stat span { color: rgba(255,255,255,.75); font-size: 11px; }
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: color-mix(in srgb, var(--surface-strong) 90%, transparent);
+      padding: 16px;
+      min-width: 0;
+    }
+    .panel-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .panel h2, .panel h3 { margin: 0; }
+    .panel h2 { font-size: 18px; }
+    .panel h3 { font-size: 15px; }
+    .panel-subtitle, .muted { color: var(--muted); font-size: 12px; }
+    .metrics, .scenario-grid, .section-grid, .agent-grid, .tile-grid, .people-grid, .gallery-grid {
+      display: grid;
+      gap: 12px;
+    }
+    .metrics { grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); }
+    .metric {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-strong);
+    }
+    .metric-label { color: var(--muted); font-size: 12px; }
+    .metric-value { margin-top: 4px; font-size: 23px; font-weight: 760; line-height: 1.05; }
+    .metric-helper { margin-top: 6px; color: var(--muted); font-size: 11px; }
+    .trend { margin-left: 5px; font-size: 11px; }
+    .trend.up { color: var(--success); }
+    .trend.down { color: var(--brand); }
+    .stage-rail {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 8px;
+    }
+    .stage {
+      position: relative;
+      min-height: 106px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-strong);
+    }
+    .stage::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 12px;
+      right: 12px;
+      height: 3px;
+      border-radius: 0 0 4px 4px;
+      background: var(--line);
+    }
+    .stage.completed::before { background: var(--success); }
+    .stage.in_progress::before { background: var(--brand); }
+    .stage.needs_approval::before { background: var(--warning); }
+    .stage.blocked::before { background: var(--danger); }
+    .stage-title { margin-top: 4px; font-weight: 700; font-size: 13px; }
+    .stage-output { margin-top: 7px; color: var(--muted); font-size: 11px; line-height: 1.35; }
+    .stage-deps { margin-top: 7px; color: var(--muted); font-size: 10px; }
+    details.work { padding: 0; }
+    details.work > summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 15px 16px;
+      font-weight: 720;
+    }
+    details.work > summary::-webkit-details-marker { display: none; }
+    details.work > summary::after { content: "+"; float: right; color: var(--brand); }
+    details.work[open] > summary::after { content: "-"; }
+    .work-body { padding: 0 16px 16px; display: grid; gap: 12px; }
+    .agent-grid { grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); }
+    .agent-card {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-strong);
+    }
+    .agent-glyph {
+      width: 42px;
+      height: 42px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 11px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    }
+    .agent-name { font-weight: 700; font-size: 13px; }
+    .agent-reason { color: var(--muted); font-size: 11px; line-height: 1.35; margin-top: 3px; }
+    .section-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+    .experience-section { grid-column: span 6; }
+    .experience-section.wide { grid-column: 1 / -1; }
+    .tile-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+    .tile, .person, .gallery-card, .finding, .approval, .doc-card, .tree-node {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: var(--surface-strong);
+      padding: 12px;
+      min-width: 0;
+    }
+    .tile strong { display: block; font-size: 18px; }
+    .tile span { color: var(--muted); font-size: 11px; }
+    .radial-goal {
+      display: grid;
+      grid-template-columns: minmax(220px, 300px) 1fr;
+      align-items: center;
+      gap: 24px;
+      padding: 8px 4px 4px;
+    }
+    .goal-ring-shell {
+      position: relative;
+      width: min(100%, 280px);
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+    .goal-ring {
+      display: block;
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 12px 28px color-mix(in srgb, var(--brand) 18%, transparent));
+    }
+    .goal-track, .goal-segment {
+      fill: none;
+      stroke-width: 18;
+    }
+    .goal-track { stroke: color-mix(in srgb, var(--line) 72%, transparent); }
+    .goal-segment { transform-origin: 90px 90px; transform: rotate(-90deg); }
+    .goal-segment.taken { stroke: #e95d78; }
+    .goal-segment.booked { stroke: #f0aa3c; }
+    .goal-segment.remaining { stroke: #27a98b; }
+    .goal-center {
+      position: absolute;
+      inset: 26%;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--surface-strong) 88%, transparent);
+      box-shadow: inset 0 0 0 1px var(--line);
+    }
+    .goal-center strong { font-size: clamp(28px, 6vw, 44px); line-height: .95; }
+    .goal-center span { margin-top: 6px; color: var(--muted); font-size: 11px; }
+    .goal-copy { display: grid; gap: 14px; }
+    .goal-callout {
+      padding: 15px;
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--brand) 9%, var(--surface-strong));
+      border: 1px solid color-mix(in srgb, var(--brand) 24%, var(--line));
+    }
+    .goal-callout strong { display: block; font-size: 18px; }
+    .goal-callout span { color: var(--muted); font-size: 12px; }
+    .goal-legend { display: grid; gap: 8px; }
+    .goal-legend-row {
+      display: grid;
+      grid-template-columns: 12px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: var(--surface-strong);
+      font-size: 12px;
+    }
+    .goal-swatch { width: 10px; height: 10px; border-radius: 50%; }
+    .goal-swatch.taken { background: #e95d78; }
+    .goal-swatch.booked { background: #f0aa3c; }
+    .goal-swatch.remaining { background: #27a98b; }
+    .goal-legend-row strong { font-size: 13px; }
+    .timeline { display: grid; gap: 0; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      min-height: 56px;
+    }
+    .timeline-marker { position: relative; }
+    .timeline-marker::before {
+      content: "";
+      display: block;
+      width: 10px;
+      height: 10px;
+      margin: 4px auto 0;
+      border-radius: 50%;
+      background: var(--brand);
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 16%, transparent);
+    }
+    .timeline-item:not(:last-child) .timeline-marker::after {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 18px;
+      bottom: 0;
+      width: 1px;
+      background: var(--line);
+    }
+    .timeline-label { font-weight: 680; font-size: 13px; }
+    .timeline-desc { color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .field { display: grid; gap: 5px; }
+    .field label { font-size: 11px; color: var(--muted); font-weight: 650; }
+    .field input {
+      width: 100%;
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      padding: 8px 10px;
+      background: var(--surface-strong);
+      color: var(--text);
+    }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+    table { width: 100%; border-collapse: collapse; min-width: 460px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); font-size: 12px; }
+    th { color: var(--muted); background: var(--surface-muted); }
+    tr:last-child td { border-bottom: 0; }
+    .checklist { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .check-item { display: grid; grid-template-columns: 24px 1fr auto; align-items: center; gap: 8px; }
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--muted);
+      border: 1px solid var(--line);
+    }
+    .check-item.done .check-icon { color: white; background: var(--success); border-color: var(--success); }
+    .check-item.blocked .check-icon { color: white; background: var(--danger); border-color: var(--danger); }
+    .bar-chart { display: grid; gap: 10px; }
+    .bar-row { display: grid; grid-template-columns: minmax(90px, .8fr) minmax(120px, 2fr) 44px; gap: 9px; align-items: center; }
+    .bar-label { font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .bar-track { height: 11px; border-radius: 999px; background: var(--surface-muted); overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--brand), var(--brand-2), var(--teal)); }
+    .bar-value { font-size: 11px; text-align: right; color: var(--muted); }
+    .people-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    .person-head { display: flex; align-items: center; gap: 8px; }
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--brand-2), var(--teal));
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .person-name { font-weight: 700; font-size: 12px; }
+    .person-role, .person-desc { color: var(--muted); font-size: 11px; margin-top: 5px; }
+    .org-chart { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; align-items: center; }
+    .org-node { min-width: 150px; text-align: center; padding: 12px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface-strong); }
+    .org-arrow { color: var(--muted); font-weight: 800; }
+    .map-shell {
+      position: relative;
+      min-height: 250px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background:
+        linear-gradient(90deg, transparent 48%, color-mix(in srgb, var(--line) 70%, transparent) 49%, transparent 51%),
+        linear-gradient(0deg, transparent 48%, color-mix(in srgb, var(--line) 70%, transparent) 49%, transparent 51%),
+        linear-gradient(135deg, color-mix(in srgb, var(--brand) 7%, var(--surface-muted)), var(--surface-muted));
+      background-size: 52px 52px, 52px 52px, auto;
+    }
+    .map-building {
+      position: absolute;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+      max-width: 150px;
+      background: var(--surface-strong);
+      box-shadow: 0 8px 20px rgba(0,0,0,.12);
+      font-size: 11px;
+    }
+    .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+    .gallery-visual {
+      height: 86px;
+      display: grid;
+      place-items: center;
+      margin: -12px -12px 10px;
+      border-radius: 12px 12px 0 0;
+      color: white;
+      font-size: 24px;
+      font-weight: 800;
+      background:
+        radial-gradient(circle at 72% 22%, rgba(255,255,255,.32), transparent 20%),
+        linear-gradient(135deg, #0f6cbd, #635bff 55%, #008b8b);
+    }
+    .gallery-title { font-weight: 700; font-size: 12px; }
+    .gallery-desc { color: var(--muted); font-size: 11px; margin-top: 4px; }
+    .doc-card { border-left: 4px solid var(--brand); }
+    .doc-card a, .source-link { color: var(--brand); text-decoration: none; font-weight: 650; }
+    .doc-card a:hover, .source-link:hover { text-decoration: underline; }
+    .decision-tree { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+    .tree-state { text-transform: uppercase; color: var(--brand); font-size: 10px; font-weight: 800; letter-spacing: .06em; }
+    .approval { border-left: 4px solid var(--warning); }
+    .finding { border-left: 4px solid var(--warning); }
+    .finding.critical { border-left-color: var(--danger); }
+    .finding.resolved { border-left-color: var(--success); }
+    .finding-title, .approval-title { font-weight: 720; font-size: 13px; }
+    .finding-desc, .approval-desc { color: var(--muted); font-size: 11px; margin-top: 5px; line-height: 1.42; }
+    .source-list { display: grid; gap: 9px; }
+    .source-row {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr) auto;
+      gap: 9px;
+      align-items: start;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-strong);
+    }
+    .source-number { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; background: var(--surface-muted); font-size: 11px; font-weight: 800; }
+    .source-title { font-weight: 700; font-size: 12px; }
+    .source-summary { color: var(--muted); font-size: 11px; margin-top: 2px; }
+    .footnote {
+      margin-top: 10px;
+      padding-top: 9px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 10px;
+    }
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      padding: 13px 15px;
+      border: 1px solid color-mix(in srgb, var(--brand) 28%, var(--line));
+      border-radius: 14px;
+      background: color-mix(in srgb, var(--brand) 7%, var(--surface-strong));
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .trust-strip strong { display: block; color: var(--text); margin-bottom: 2px; }
+    .action-dock {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      position: sticky;
+      bottom: 0;
+      z-index: 15;
+      padding: 13px 16px;
+      border-top: 1px solid var(--line);
+      background: color-mix(in srgb, var(--surface-strong) 91%, transparent);
+      backdrop-filter: blur(18px);
+    }
+    .action-copy { min-width: 150px; }
+    .action-title { font-weight: 720; font-size: 13px; }
+    .action-note { color: var(--muted); font-size: 10px; }
+    .search-row { display: grid; grid-template-columns: minmax(180px, 1fr) auto; gap: 10px; }
+    .search {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      padding: 9px 12px;
+      color: var(--text);
+      background: var(--surface-strong);
+    }
+    .scenario-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .scenario-card {
+      display: grid;
+      gap: 10px;
+      min-height: 194px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: var(--surface-strong);
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+    .scenario-card:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--brand) 55%, var(--line)); box-shadow: 0 12px 30px rgba(25,42,70,.12); }
+    .scenario-category { color: var(--brand); text-transform: uppercase; font-weight: 800; font-size: 10px; letter-spacing: .08em; }
+    .scenario-title { font-size: 16px; font-weight: 750; }
+    .scenario-desc { color: var(--muted); font-size: 12px; line-height: 1.4; }
+    .scenario-agents { color: var(--muted); font-size: 10px; }
+    .scenario-card .button { align-self: end; justify-self: start; }
+    .empty {
+      padding: 32px 16px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+    }
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      background: rgba(5,10,20,.58);
+      backdrop-filter: blur(8px);
+    }
+    .modal {
+      width: min(620px, 100%);
+      max-height: min(760px, 90vh);
+      overflow-y: auto;
+      padding: 20px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--surface-strong);
+      color: var(--text);
+      box-shadow: 0 30px 100px rgba(0,0,0,.38);
+    }
+    .modal h2 { margin: 0; font-size: 21px; }
+    .modal p { color: var(--muted); line-height: 1.5; }
+    .receipt-state {
+      margin: 14px 0;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface-muted);
+    }
+    .receipt-state strong { display: block; color: var(--brand); text-transform: uppercase; font-size: 11px; letter-spacing: .08em; margin-bottom: 5px; }
+    .receipt-values, .next-steps { margin: 10px 0; padding-left: 20px; color: var(--muted); font-size: 12px; }
+    .error-card {
+      margin: 18px;
+      padding: 18px;
+      border: 1px solid color-mix(in srgb, var(--danger) 45%, var(--line));
+      border-radius: 16px;
+      background: color-mix(in srgb, var(--danger) 8%, var(--surface-strong));
+    }
+    .error-card h1 { margin: 0 0 7px; font-size: 19px; }
+    .error-card p { margin: 0; color: var(--muted); }
+    @media (max-width: 760px) {
+      body { padding: 0; }
+      #app { border-radius: 0; border-left: 0; border-right: 0; }
+      .topbar { position: relative; padding: 12px; }
+      .content { padding: 12px; }
+      .hero { padding: 18px; }
+      .experience-section { grid-column: 1 / -1; }
+      .form-grid, .trust-strip { grid-template-columns: 1fr; }
+      .action-dock { align-items: flex-start; flex-direction: column; }
+      .search-row { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 82px minmax(100px, 1fr) 38px; }
+      .radial-goal { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 420px) {
+      .brand-subtitle, .topbar .badge { display: none; }
+      .hero h1 { font-size: 25px; }
+      .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .stage-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .scenario-grid, .agent-grid, .people-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .action-row { width: 100%; }
+      .action-row .button { flex: 1 1 auto; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main id="app" aria-busy="true">
+    <section class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">IQ</div>
+        <div class="brand-copy">
+          <div class="brand-title">Agent IQ Employee Operations</div>
+          <div class="brand-subtitle">Intent to governed action across employee services</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <span class="badge brand">Read-only</span>
+      </div>
+    </section>
+    <section class="content">
+      <div class="hero">
+        <div class="hero-meta"><span class="badge">Loading experience</span></div>
+        <h1>Assembling the employee operations command center</h1>
+        <p>Matching the intent to the right specialists, public work stages, and approved sample sources.</p>
+      </div>
+    </section>
+  </main>
+  <div id="announcer" class="sr-only" aria-live="polite"></div>
+  <script>
+  (() => {
+    "use strict";
+
+    const app = document.getElementById("app");
+    const announcer = document.getElementById("announcer");
+    const pending = new Map();
+    const state = {
+      requestId: 1,
+      bridgeReady: false,
+      hostContext: {},
+      hostCapabilities: {},
+      payload: null,
+      catalogQuery: "",
+      modal: null,
+      hasPayload: false,
+      restoredOutput: null
+    };
+    let sizeFrame = null;
+    let lastHeight = 0;
+    let restorePoll = null;
+    let restoreDeadline = null;
+
+    const value = (object, camel, snake) => object && (object[camel] ?? object[snake]);
+    const list = (object, camel, snake) => {
+      const candidate = value(object, camel, snake);
+      return Array.isArray(candidate) ? candidate : [];
+    };
+    const text = (candidate, fallback = "") =>
+      candidate === undefined || candidate === null ? fallback : String(candidate);
+
+    function node(tag, className, content) {
+      const element = document.createElement(tag);
+      if (className) element.className = className;
+      if (content !== undefined && content !== null) element.textContent = String(content);
+      return element;
+    }
+
+    function announce(message) {
+      announcer.textContent = "";
+      requestAnimationFrame(() => { announcer.textContent = message; });
+    }
+
+    function normalized(payload) {
+      if (!payload || typeof payload !== "object") return {};
+      return payload.structuredContent || payload.structured_content || payload;
+    }
+
+    function stopRestoreMonitor() {
+      if (restorePoll !== null) window.clearInterval(restorePoll);
+      if (restoreDeadline !== null) window.clearTimeout(restoreDeadline);
+      restorePoll = null;
+      restoreDeadline = null;
+    }
+
+    function restoreOpenAiOutput() {
+      const output = window.openai && window.openai.toolOutput;
+      if (output === undefined || output === null || output === state.restoredOutput) return false;
+      state.restoredOutput = output;
+      renderPayload(output);
+      return true;
+    }
+
+    function startRestoreMonitor() {
+      if (restoreOpenAiOutput()) return;
+      restorePoll = window.setInterval(() => {
+        if (restoreOpenAiOutput()) stopRestoreMonitor();
+      }, 250);
+      restoreDeadline = window.setTimeout(() => {
+        stopRestoreMonitor();
+        if (!state.hasPayload && !state.bridgeReady) {
+          renderFailure(
+            "The saved employee result could not be restored. Start a new conversation to run it again."
+          );
+        }
+      }, 15000);
+    }
+
+    function requestKey(id) { return String(id); }
+
+    function notify(method, params) {
+      const message = { jsonrpc: "2.0", method };
+      if (params !== undefined) message.params = params;
+      window.parent.postMessage(message, "*");
+    }
+
+    function rpc(method, params, timeout = 15000) {
+      const id = state.requestId++;
+      return new Promise((resolve, reject) => {
+        const timer = window.setTimeout(() => {
+          pending.delete(requestKey(id));
+          reject(new Error(`${method} timed out`));
+        }, timeout);
+        pending.set(requestKey(id), { resolve, reject, timer });
+        window.parent.postMessage({ jsonrpc: "2.0", id, method, params }, "*");
+      });
+    }
+
+    function scheduleSize() {
+      if (!state.bridgeReady || sizeFrame !== null) return;
+      sizeFrame = requestAnimationFrame(() => {
+        sizeFrame = null;
+        const height = Math.max(260, Math.ceil(app.getBoundingClientRect().height));
+        if (height !== lastHeight) {
+          lastHeight = height;
+          notify("ui/notifications/size-changed", { height });
+        }
+      });
+    }
+
+    function safeUrl(raw) {
+      if (typeof raw !== "string") return null;
+      try {
+        const parsed = new URL(raw);
+        return parsed.protocol === "https:" || parsed.protocol === "http:" ? parsed.href : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    async function openExternal(raw) {
+      const url = safeUrl(raw);
+      if (!url) {
+        announce("This source does not have a safe link.");
+        return;
+      }
+      try {
+        if (state.bridgeReady && state.hostCapabilities.openLinks) {
+          await rpc("ui/open-link", { url });
+        } else if (window.openai && typeof window.openai.openExternal === "function") {
+          await window.openai.openExternal({ href: url });
+        } else {
+          announce("This host cannot open links from the app.");
+          return;
+        }
+        announce("Source opened.");
+      } catch (error) {
+        announce("The host did not open the source.");
+      }
+    }
+
+    async function hostMessage(message) {
+      try {
+        if (state.bridgeReady && state.hostCapabilities.message) {
+          await rpc("ui/message", {
+            role: "user",
+            content: [{ type: "text", text: message }]
+          });
+        } else if (window.openai && typeof window.openai.sendFollowUpMessage === "function") {
+          await window.openai.sendFollowUpMessage({ prompt: message });
+        } else {
+          announce("Continue in the conversation; this host does not accept app messages.");
+          return;
+        }
+        announce("Follow-up sent to the conversation.");
+      } catch (error) {
+        announce("The host did not accept the follow-up.");
+      }
+    }
+
+    function canCallTools() {
+      return Boolean(state.bridgeReady && state.hostCapabilities.serverTools)
+        || Boolean(window.openai && typeof window.openai.callTool === "function");
+    }
+
+    async function callTool(name, args) {
+      if (window.openai && typeof window.openai.callTool === "function") {
+        return normalized(await window.openai.callTool(name, args));
+      }
+      if (!canCallTools()) throw new Error("This host does not expose server tools.");
+      return normalized(await rpc("tools/call", { name, arguments: args }, 30000));
+    }
+
+    async function requestDisplayMode() {
+      if (!state.bridgeReady) return;
+      const current = state.hostContext.displayMode || "inline";
+      const target = current === "fullscreen" ? "inline" : "fullscreen";
+      const available = Array.isArray(state.hostContext.availableDisplayModes)
+        ? state.hostContext.availableDisplayModes : [];
+      if (!available.includes(target)) return;
+      try {
+        const result = await rpc("ui/request-display-mode", { mode: target });
+        applyHostContext({ displayMode: result && result.mode || target });
+        announce(target === "fullscreen" ? "Experience expanded." : "Experience returned inline.");
+      } catch (error) {
+        announce("The host did not change display mode.");
+      }
+    }
+
+    function applyHostContext(context) {
+      state.hostContext = { ...state.hostContext, ...context };
+      const theme = state.hostContext.theme;
+      if (theme === "light" || theme === "dark") {
+        document.documentElement.style.colorScheme = theme;
+      }
+      const variables = state.hostContext.styles && state.hostContext.styles.variables;
+      if (variables && typeof variables === "object") {
+        Object.entries(variables).forEach(([name, cssValue]) => {
+          if (name.startsWith("--") && typeof cssValue === "string") {
+            document.documentElement.style.setProperty(name, cssValue);
+          }
+        });
+      }
+      const fullscreen = state.hostContext.displayMode === "fullscreen";
+      app.classList.toggle("fullscreen", fullscreen);
+      const toggle = app.querySelector("[data-mode-toggle]");
+      if (toggle) toggle.textContent = fullscreen ? "Return inline" : "Expand";
+      scheduleSize();
+    }
+
+    function makeButton(label, className, handler) {
+      const button = node("button", `button ${className || ""}`, label);
+      button.type = "button";
+      button.addEventListener("click", handler);
+      return button;
+    }
+
+    function badge(label, tone) {
+      return node("span", `badge ${tone || ""}`, label);
+    }
+
+    function topbar(subtitle) {
+      const bar = node("section", "topbar");
+      const brand = node("div", "brand");
+      brand.appendChild(node("div", "brand-mark", "IQ"));
+      brand.lastChild.setAttribute("aria-hidden", "true");
+      const copy = node("div", "brand-copy");
+      copy.appendChild(node("div", "brand-title", "Agent IQ Employee Operations"));
+      copy.appendChild(node("div", "brand-subtitle", subtitle));
+      brand.appendChild(copy);
+      const actions = node("div", "top-actions");
+      actions.appendChild(badge("Read-only", "brand"));
+      const modes = Array.isArray(state.hostContext.availableDisplayModes)
+        ? state.hostContext.availableDisplayModes : [];
+      if (modes.includes("fullscreen")) {
+        const toggle = makeButton(
+          state.hostContext.displayMode === "fullscreen" ? "Return inline" : "Expand",
+          "subtle",
+          requestDisplayMode
+        );
+        toggle.dataset.modeToggle = "true";
+        actions.appendChild(toggle);
+      }
+      bar.append(brand, actions);
+      return bar;
+    }
+
+    function statusTone(status) {
+      if (status === "completed") return "success";
+      if (status === "blocked") return "danger";
+      if (status === "needs_approval") return "warning";
+      return "brand";
+    }
+
+    function categoryLabel(raw) {
+      return text(raw).replaceAll("_", " ").replace(/\b\w/g, (character) => character.toUpperCase());
+    }
+
+    function renderCatalog(data) {
+      state.payload = data;
+      app.replaceChildren();
+      app.appendChild(topbar("30 scenarios across employee services, corporate services, and governance"));
+      const content = node("section", "content");
+      const hero = node("section", "hero");
+      const meta = node("div", "hero-meta");
+      meta.append(
+        badge(`${value(data, "totalAgents", "total_agents") || 0} sample agents`),
+        badge(`${value(data, "totalKnowledgeSources", "total_knowledge_sources") || 0} knowledge sources`)
+      );
+      hero.append(meta, node("h1", "", "One intent. The right employee-services squad. Rich action-ready UX."));
+      hero.appendChild(node(
+        "p",
+        "",
+        "Explore complex workflows across HR, IT, Payroll, Finance, Expense, workplace services, corporate communications, and Microsoft 365 governance."
+      ));
+      const summaries = list(data, "groupSummaries", "group_summaries");
+      const stats = node("div", "hero-stats");
+      summaries.forEach((summary) => {
+        const stat = node("div", "hero-stat");
+        stat.append(
+          node("strong", "", value(summary, "agentCount", "agent_count")),
+          node("span", "", categoryLabel(summary.group))
+        );
+        stats.appendChild(stat);
+      });
+      hero.appendChild(stats);
+      content.appendChild(hero);
+
+      const panel = node("section", "panel");
+      const header = node("div", "panel-header");
+      const headerCopy = node("div");
+      headerCopy.append(node("h2", "", "Choose a scenario"));
+      headerCopy.appendChild(node("div", "panel-subtitle", value(data, "dataScope", "data_scope")));
+      header.appendChild(headerCopy);
+      panel.appendChild(header);
+
+      const searchRow = node("div", "search-row");
+      const search = node("input", "search");
+      search.type = "search";
+      search.placeholder = "Search HR, VPN, payslip, expense, news, blocked access...";
+      search.setAttribute("aria-label", "Search employee operations scenarios");
+      search.value = state.catalogQuery;
+      const clear = makeButton("Clear", "subtle", () => {
+        search.value = "";
+        state.catalogQuery = "";
+        paintCards();
+        search.focus();
+      });
+      searchRow.append(search, clear);
+      panel.appendChild(searchRow);
+
+      const cards = node("div", "scenario-grid");
+      cards.style.marginTop = "14px";
+      panel.appendChild(cards);
+      const scenarios = list(data, "scenarios", "scenarios");
+
+      function paintCards() {
+        cards.replaceChildren();
+        const query = state.catalogQuery.trim().toLowerCase();
+        const visible = scenarios.filter((scenario) => {
+          const haystack = [
+            value(scenario, "scenarioId", "scenario_id"),
+            scenario.title,
+            scenario.subtitle,
+            scenario.category,
+            ...list(scenario, "tags", "tags")
+          ].join(" ").toLowerCase();
+          return !query || haystack.includes(query);
+        });
+        if (!visible.length) {
+          cards.appendChild(node("div", "empty", "No scenarios match this search."));
+          return;
+        }
+        visible.forEach((scenario) => {
+          const card = node("article", "scenario-card");
+          card.appendChild(node("div", "scenario-category", categoryLabel(scenario.category)));
+          card.appendChild(node("div", "scenario-title", scenario.title));
+          card.appendChild(node("div", "scenario-desc", scenario.subtitle));
+          const chips = node("div", "chip-row");
+          list(scenario, "tags", "tags").slice(0, 3).forEach((tag) => chips.appendChild(node("span", "chip", tag)));
+          card.appendChild(chips);
+          card.appendChild(node(
+            "div",
+            "scenario-agents",
+            `${list(scenario, "agentIds", "agent_ids").length} specialists`
+          ));
+          const launch = makeButton("Open experience", "primary", async () => {
+            launch.disabled = true;
+            launch.textContent = "Opening...";
+            try {
+              if (canCallTools()) {
+                renderPayload(await callTool("open_employee_experience", {
+                  scenario_id: value(scenario, "scenarioId", "scenario_id")
+                }));
+              } else {
+                await hostMessage(`Open the ${scenario.title} Employee Operations experience.`);
+              }
+            } catch (error) {
+              announce("The scenario could not be opened.");
+              launch.disabled = false;
+              launch.textContent = "Open experience";
+            }
+          });
+          card.appendChild(launch);
+          cards.appendChild(card);
+        });
+      }
+
+      search.addEventListener("input", () => {
+        state.catalogQuery = search.value;
+        paintCards();
+      });
+      paintCards();
+      content.appendChild(panel);
+
+      const trust = node("div", "trust-strip");
+      const scope = node("div");
+      scope.append(node("strong", "", "Data scope"));
+      scope.appendChild(node("span", "", value(data, "dataScope", "data_scope")));
+      const readonly = node("div");
+      readonly.append(node("strong", "", "Governed actions"));
+      readonly.appendChild(node("span", "", value(data, "readOnlyDisclosure", "read_only_disclosure")));
+      trust.append(scope, readonly);
+      content.appendChild(trust);
+      app.appendChild(content);
+      app.setAttribute("aria-busy", "false");
+      scheduleSize();
+      announce("Employee Operations scenario gallery ready.");
+    }
+
+    function renderMetrics(metrics) {
+      const grid = node("div", "metrics");
+      metrics.forEach((metric) => {
+        const card = node("div", "metric");
+        card.appendChild(node("div", "metric-label", metric.label));
+        const valueRow = node("div", "metric-value", metric.value);
+        if (metric.trend) {
+          const trend = node(
+            "span",
+            `trend ${metric.trend}`,
+            metric.trend === "up" ? "UP" : metric.trend === "down" ? "DOWN" : "FLAT"
+          );
+          valueRow.appendChild(trend);
+        }
+        card.appendChild(valueRow);
+        if (value(metric, "helperText", "helper_text")) {
+          card.appendChild(node("div", "metric-helper", value(metric, "helperText", "helper_text")));
+        }
+        grid.appendChild(card);
+      });
+      return grid;
+    }
+
+    function renderStageRail(phases, agentsById) {
+      const rail = node("ol", "stage-rail");
+      rail.setAttribute("aria-label", "Observable multi-agent work stages");
+      phases.forEach((phase) => {
+        const item = node("li", `stage ${phase.status || ""}`);
+        const row = node("div", "chip-row");
+        const agent = agentsById.get(value(phase, "agentId", "agent_id"));
+        row.appendChild(badge(agent ? agent.glyph : "AI", statusTone(phase.status)));
+        row.appendChild(badge(value(phase, "statusLabel", "status_label"), statusTone(phase.status)));
+        item.appendChild(row);
+        item.appendChild(node("div", "stage-title", phase.title));
+        item.appendChild(node("div", "stage-output", value(phase, "outputLabel", "output_label")));
+        const dependencies = list(phase, "dependsOn", "depends_on");
+        if (dependencies.length) {
+          item.appendChild(node("div", "stage-deps", `After: ${dependencies.join(", ")}`));
+        }
+        rail.appendChild(item);
+      });
+      return rail;
+    }
+
+    function renderAgents(agents) {
+      const grid = node("div", "agent-grid");
+      agents.forEach((agent) => {
+        const card = node("article", "agent-card");
+        card.appendChild(node("div", "agent-glyph", agent.glyph));
+        const copy = node("div");
+        copy.appendChild(node("div", "agent-name", value(agent, "displayName", "display_name")));
+        copy.appendChild(node("div", "agent-reason", agent.reason));
+        copy.appendChild(badge(categoryLabel(agent.group), "brand"));
+        card.appendChild(copy);
+        grid.appendChild(card);
+      });
+      return grid;
+    }
+
+    function initials(label) {
+      return text(label).split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join("").toUpperCase() || "AI";
+    }
+
+    function renderDashboard(section) {
+      const grid = node("div", "tile-grid");
+      section.items.forEach((item) => {
+        const tile = node("div", "tile");
+        tile.append(node("strong", "", item.value), node("span", "", item.label));
+        if (item.description) tile.appendChild(node("div", "metric-helper", item.description));
+        grid.appendChild(tile);
+      });
+      return grid;
+    }
+
+    function renderTimeline(section) {
+      const timeline = node("div", "timeline");
+      section.items.forEach((item) => {
+        const row = node("div", "timeline-item");
+        row.appendChild(node("div", "timeline-marker"));
+        const copy = node("div");
+        const title = node("div", "timeline-label", item.label);
+        if (item.state) title.appendChild(badge(categoryLabel(item.state), statusTone(item.state)));
+        copy.appendChild(title);
+        if (item.description) copy.appendChild(node("div", "timeline-desc", item.description));
+        row.appendChild(copy);
+        timeline.appendChild(row);
+      });
+      return timeline;
+    }
+
+    function renderForm(section) {
+      const form = node("div", "form-grid");
+      section.items.forEach((item) => {
+        const field = node("div", "field");
+        const label = node("label", "", item.label);
+        label.htmlFor = `field-${item.itemId}`;
+        const input = node("input");
+        input.id = `field-${item.itemId}`;
+        input.value = item.value || "";
+        input.dataset.formField = item.itemId;
+        input.setAttribute("aria-label", item.label);
+        field.append(label, input);
+        form.appendChild(field);
+      });
+      return form;
+    }
+
+    function renderComparison(section) {
+      const wrap = node("div", "table-wrap");
+      wrap.tabIndex = 0;
+      wrap.setAttribute("role", "region");
+      wrap.setAttribute("aria-label", `${section.title} comparison table`);
+      const table = node("table");
+      const head = node("thead");
+      const headerRow = node("tr");
+      headerRow.appendChild(node("th", "", "Criteria"));
+      list(section, "columns", "columns").forEach((column) => headerRow.appendChild(node("th", "", column)));
+      head.appendChild(headerRow);
+      const body = node("tbody");
+      section.items.forEach((item) => {
+        const row = node("tr");
+        row.appendChild(node("td", "", item.label));
+        list(item, "values", "values").forEach((entry) => row.appendChild(node("td", "", entry)));
+        body.appendChild(row);
+      });
+      table.append(head, body);
+      wrap.appendChild(table);
+      return wrap;
+    }
+
+    function renderChecklist(section) {
+      const checklist = node("ul", "checklist");
+      section.items.forEach((item) => {
+        const row = node("li", `check-item ${item.state || ""}`);
+        row.appendChild(node("span", "check-icon", item.state === "done" ? "OK" : item.state === "blocked" ? "!" : ""));
+        row.appendChild(node("span", "", item.label));
+        row.appendChild(badge(categoryLabel(item.state || "pending"), statusTone(item.state)));
+        checklist.appendChild(row);
+      });
+      return checklist;
+    }
+
+    function renderChart(section) {
+      const chart = node("div", "bar-chart");
+      const maximum = Math.max(...section.items.map((item) => Number(value(item, "metricValue", "metric_value")) || 0), 1);
+      section.items.forEach((item) => {
+        const row = node("div", "bar-row");
+        row.appendChild(node("div", "bar-label", item.label));
+        const track = node("div", "bar-track");
+        const fill = node("div", "bar-fill");
+        const metric = Number(value(item, "metricValue", "metric_value")) || 0;
+        fill.style.width = `${Math.max(2, Math.min(100, metric / maximum * 100))}%`;
+        track.appendChild(fill);
+        row.append(track, node("div", "bar-value", item.value || metric));
+        chart.appendChild(row);
+      });
+      return chart;
+    }
+
+    function renderRadialGoal(section) {
+      const metrics = new Map(section.items.map((item) => [
+        text(item.label).trim().toLowerCase(),
+        Number(value(item, "metricValue", "metric_value")) || 0
+      ]));
+      const entitlement = metrics.get("entitlement") || 0;
+      const taken = metrics.get("taken") || 0;
+      const booked = metrics.get("booked") || 0;
+      const remaining = metrics.get("remaining") || 0;
+      const total = Math.max(entitlement, taken + booked + remaining, 1);
+      const circumference = 2 * Math.PI * 66;
+      const layout = node("div", "radial-goal");
+      const shell = node("div", "goal-ring-shell");
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.classList.add("goal-ring");
+      svg.setAttribute("viewBox", "0 0 180 180");
+      svg.setAttribute("role", "img");
+      svg.setAttribute(
+        "aria-label",
+        `Vacation allowance: ${entitlement} days entitled; ${taken} taken; ${booked} booked; ${remaining} remaining.`
+      );
+      svg.dataset.vacationGoalRing = "true";
+      const track = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+      track.setAttribute("class", "goal-track");
+      track.setAttribute("cx", "90");
+      track.setAttribute("cy", "90");
+      track.setAttribute("r", "66");
+      svg.appendChild(track);
+      let offset = 0;
+      [
+        ["taken", taken],
+        ["booked", booked],
+        ["remaining", remaining]
+      ].forEach(([name, metric]) => {
+        const segment = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        const length = Math.max(0, Number(metric) / total * circumference);
+        segment.setAttribute("class", `goal-segment ${name}`);
+        segment.setAttribute("cx", "90");
+        segment.setAttribute("cy", "90");
+        segment.setAttribute("r", "66");
+        segment.setAttribute("stroke-dasharray", `${length} ${circumference - length}`);
+        segment.setAttribute("stroke-dashoffset", String(-offset));
+        segment.setAttribute("aria-hidden", "true");
+        offset += length;
+        svg.appendChild(segment);
+      });
+      const center = node("div", "goal-center");
+      center.appendChild(node("strong", "", remaining));
+      center.appendChild(node("span", "", `days left of ${entitlement}`));
+      shell.append(svg, center);
+
+      const copy = node("div", "goal-copy");
+      const callout = node("div", "goal-callout");
+      callout.appendChild(node("strong", "", `${remaining} vacation days remaining`));
+      callout.appendChild(node("span", "", section.subtitle || "Current leave balance"));
+      copy.appendChild(callout);
+      const legend = node("div", "goal-legend");
+      [
+        ["taken", "Taken", taken],
+        ["booked", "Booked", booked],
+        ["remaining", "Remaining", remaining]
+      ].forEach(([name, label, metric]) => {
+        const row = node("div", "goal-legend-row");
+        row.appendChild(node("span", `goal-swatch ${name}`));
+        row.appendChild(node("span", "", label));
+        row.appendChild(node("strong", "", `${metric} days`));
+        legend.appendChild(row);
+      });
+      copy.appendChild(legend);
+      layout.append(shell, copy);
+      return layout;
+    }
+
+    function renderPeople(section) {
+      const grid = node("div", "people-grid");
+      section.items.forEach((item) => {
+        const person = node("div", "person");
+        const head = node("div", "person-head");
+        head.appendChild(node("div", "avatar", initials(item.label)));
+        const copy = node("div");
+        copy.appendChild(node("div", "person-name", item.label));
+        if (item.value) copy.appendChild(node("div", "person-role", item.value));
+        head.appendChild(copy);
+        person.appendChild(head);
+        if (item.description) person.appendChild(node("div", "person-desc", item.description));
+        grid.appendChild(person);
+      });
+      return grid;
+    }
+
+    function renderOrgChart(section) {
+      const chart = node("div", "org-chart");
+      section.items.forEach((item, index) => {
+        if (index) chart.appendChild(node("div", "org-arrow", ">"));
+        const card = node("div", "org-node");
+        card.appendChild(node("div", "avatar", initials(item.label)));
+        card.firstChild.style.margin = "0 auto 8px";
+        card.append(node("div", "person-name", item.label), node("div", "person-role", item.value || ""));
+        chart.appendChild(card);
+      });
+      return chart;
+    }
+
+    function renderMap(section) {
+      const map = node("div", "map-shell");
+      const positions = [
+        ["8%", "12%"], ["54%", "9%"], ["28%", "58%"], ["67%", "61%"],
+        ["13%", "74%"], ["74%", "28%"]
+      ];
+      section.items.forEach((item, index) => {
+        const building = node("div", "map-building");
+        building.style.left = positions[index % positions.length][0];
+        building.style.top = positions[index % positions.length][1];
+        building.appendChild(node("div", "person-name", item.label));
+        building.appendChild(node("div", "person-desc", item.description || item.value || ""));
+        map.appendChild(building);
+      });
+      return map;
+    }
+
+    function renderGallery(section) {
+      const grid = node("div", "gallery-grid");
+      section.items.forEach((item) => {
+        const card = node("article", "gallery-card");
+        card.appendChild(node("div", "gallery-visual", initials(item.label)));
+        card.appendChild(node("div", "gallery-title", item.label));
+        if (item.value) card.appendChild(badge(item.value, "brand"));
+        if (item.description) card.appendChild(node("div", "gallery-desc", item.description));
+        grid.appendChild(card);
+      });
+      return grid;
+    }
+
+    function renderDocuments(section) {
+      const listNode = node("div", "source-list");
+      section.items.forEach((item, index) => {
+        const card = node("div", "doc-card");
+        card.appendChild(node("div", "scenario-category", `Evidence ${index + 1}`));
+        card.appendChild(node("div", "finding-title", item.label));
+        card.appendChild(node("div", "finding-desc", item.description || ""));
+        if (item.href) {
+          const link = node("a", "", "Open source");
+          link.href = "#";
+          link.addEventListener("click", (event) => {
+            event.preventDefault();
+            openExternal(item.href);
+          });
+          card.appendChild(link);
+        }
+        listNode.appendChild(card);
+      });
+      return listNode;
+    }
+
+    function renderDecisionTree(section) {
+      const tree = node("div", "decision-tree");
+      section.items.forEach((item) => {
+        const card = node("div", "tree-node");
+        card.appendChild(node("div", "tree-state", item.state));
+        card.appendChild(node("div", "finding-title", item.label));
+        card.appendChild(node("div", "finding-desc", item.description));
+        tree.appendChild(card);
+      });
+      return tree;
+    }
+
+    function renderApprovals(section) {
+      const approvals = node("div", "source-list");
+      section.items.forEach((item) => {
+        const card = node("div", "approval");
+        card.appendChild(badge(categoryLabel(item.state), statusTone(item.state)));
+        card.appendChild(node("div", "approval-title", item.label));
+        card.appendChild(node("div", "approval-desc", item.description));
+        approvals.appendChild(card);
+      });
+      return approvals;
+    }
+
+    function renderPolicyFindings(section) {
+      const findings = node("div", "source-list");
+      section.items.forEach((item) => {
+        const card = node("div", `finding ${item.state || ""}`);
+        card.appendChild(badge(categoryLabel(item.state), statusTone(item.state)));
+        card.appendChild(node("div", "finding-title", item.label));
+        card.appendChild(node("div", "finding-desc", item.description));
+        if (item.value) card.appendChild(node("div", "footnote", item.value));
+        findings.appendChild(card);
+      });
+      return findings;
+    }
+
+    function renderSources(items) {
+      const sources = node("div", "source-list");
+      sources.dataset.sources = "true";
+      items.forEach((item, index) => {
+        const row = node("div", "source-row");
+        row.appendChild(node("div", "source-number", index + 1));
+        const copy = node("div");
+        copy.appendChild(node("div", "source-title", item.label || item.title));
+        copy.appendChild(node("div", "source-summary", item.description || item.summary || ""));
+        row.appendChild(copy);
+        if (item.href || item.url) {
+          const link = makeButton("Open", "subtle", () => openExternal(item.href || item.url));
+          row.appendChild(link);
+        }
+        sources.appendChild(row);
+      });
+      return sources;
+    }
+
+    function renderFollowUps(section) {
+      const row = node("div", "chip-row");
+      section.items.forEach((item) => {
+        row.appendChild(makeButton(item.label, "subtle", () => hostMessage(item.label)));
+      });
+      return row;
+    }
+
+    function sectionRenderer(section) {
+      const kind = section.kind;
+      if (kind === "dashboard") return renderDashboard(section);
+      if (kind === "timeline") return renderTimeline(section);
+      if (kind === "form") return renderForm(section);
+      if (kind === "comparison_table") return renderComparison(section);
+      if (kind === "checklist") return renderChecklist(section);
+      if (kind === "chart") return renderChart(section);
+      if (kind === "radial_goal") return renderRadialGoal(section);
+      if (kind === "people_cards") return renderPeople(section);
+      if (kind === "org_chart") return renderOrgChart(section);
+      if (kind === "map") return renderMap(section);
+      if (kind === "gallery") return renderGallery(section);
+      if (kind === "document_callouts") return renderDocuments(section);
+      if (kind === "decision_tree") return renderDecisionTree(section);
+      if (kind === "approvals") return renderApprovals(section);
+      if (kind === "policy_findings") return renderPolicyFindings(section);
+      if (kind === "source_drawer") return renderSources(section.items);
+      if (kind === "follow_ups") return renderFollowUps(section);
+      return node("div", "empty", `Unsupported section: ${kind}`);
+    }
+
+    function renderSection(section) {
+      const wideKinds = new Set(["comparison_table", "map", "org_chart", "policy_findings", "radial_goal", "source_drawer"]);
+      const panel = node("section", `panel experience-section ${wideKinds.has(section.kind) ? "wide" : ""}`);
+      panel.dataset.sectionKind = section.kind;
+      const header = node("div", "panel-header");
+      const copy = node("div");
+      copy.appendChild(node("h2", "", section.title));
+      if (section.subtitle) copy.appendChild(node("div", "panel-subtitle", section.subtitle));
+      header.appendChild(copy);
+      header.appendChild(badge(categoryLabel(section.kind), "brand"));
+      panel.append(header, sectionRenderer(section));
+      if (section.footnote) panel.appendChild(node("div", "footnote", section.footnote));
+      return panel;
+    }
+
+    function gatherFormValues() {
+      const values = {};
+      app.querySelectorAll("[data-form-field]").forEach((input) => {
+        values[input.dataset.formField] = input.value;
+      });
+      return values;
+    }
+
+    function closeModal() {
+      if (!state.modal) return;
+      const trigger = state.modal.trigger;
+      state.modal.element.remove();
+      state.modal = null;
+      if (trigger) trigger.focus();
+      scheduleSize();
+    }
+
+    function showReceipt(receipt, trigger) {
+      if (state.modal) closeModal();
+      const backdrop = node("div", "modal-backdrop");
+      const modal = node("section", "modal");
+      modal.setAttribute("role", "dialog");
+      modal.setAttribute("aria-modal", "true");
+      modal.setAttribute("aria-labelledby", "receipt-title");
+      const heading = node("h2", "", value(receipt, "label", "label") || "Action receipt");
+      heading.id = "receipt-title";
+      modal.appendChild(heading);
+      const receiptState = node("div", "receipt-state");
+      receiptState.appendChild(node("strong", "", categoryLabel(receipt.state)));
+      receiptState.appendChild(node("div", "", receipt.summary));
+      modal.appendChild(receiptState);
+      if (value(receipt, "requiredApprover", "required_approver")) {
+        const approver = node("p");
+        approver.appendChild(node("strong", "", "Required approver: "));
+        approver.appendChild(document.createTextNode(value(receipt, "requiredApprover", "required_approver")));
+        modal.appendChild(approver);
+      }
+      const submitted = list(receipt, "submittedValues", "submitted_values");
+      if (submitted.length) {
+        modal.appendChild(node("h3", "", "Prepared fields"));
+        const values = node("ul", "receipt-values");
+        submitted.forEach((item) => {
+          values.appendChild(node("li", "", `${value(item, "fieldId", "field_id")}: ${item.value}`));
+        });
+        modal.appendChild(values);
+      }
+      modal.appendChild(node("h3", "", "Next steps"));
+      const steps = node("ol", "next-steps");
+      list(receipt, "nextSteps", "next_steps").forEach((step) => steps.appendChild(node("li", "", step)));
+      modal.appendChild(steps);
+      const warning = node(
+        "p",
+        "",
+        receipt.executed === false
+          ? "No enterprise action was executed."
+          : "Execution state was not supplied; do not assume success."
+      );
+      modal.appendChild(warning);
+      const actions = node("div", "action-row");
+      const close = makeButton("Close", "subtle", closeModal);
+      actions.appendChild(close);
+      if (receipt.state === "prepared") {
+        const confirm = makeButton("Confirm and request review", "primary", async () => {
+          confirm.disabled = true;
+          confirm.textContent = "Preparing review...";
+          try {
+            const reviewed = await callTool("prepare_employee_action", {
+              request: {
+                scenario_id: value(receipt, "scenarioId", "scenario_id"),
+                action_id: value(receipt, "actionId", "action_id"),
+                form_values: gatherFormValues(),
+                confirmed: true
+              }
+            });
+            closeModal();
+            showReceipt(reviewed, trigger);
+          } catch (error) {
+            confirm.disabled = false;
+            confirm.textContent = "Confirm and request review";
+            announce("The review request could not be prepared.");
+          }
+        });
+        actions.prepend(confirm);
+      }
+      modal.appendChild(actions);
+      backdrop.appendChild(modal);
+      backdrop.addEventListener("click", (event) => {
+        if (event.target === backdrop) closeModal();
+      });
+      document.body.appendChild(backdrop);
+      state.modal = { element: backdrop, trigger };
+      close.focus();
+      announce(`Action state: ${categoryLabel(receipt.state)}. No enterprise action was executed.`);
+    }
+
+    async function handleScenarioAction(action, experience, trigger) {
+      const kind = action.kind;
+      if (kind === "view_source") {
+        const sourceSection = app.querySelector("[data-section-kind='source_drawer'], [data-sources]");
+        if (sourceSection) {
+          sourceSection.scrollIntoView({ behavior: "smooth", block: "start" });
+          announce("Sources are in view.");
+        }
+        return;
+      }
+      if (kind === "ask_follow_up") {
+        await hostMessage(list(experience, "suggestedPrompts", "suggested_prompts")[0] || action.description);
+        return;
+      }
+      if (kind === "export_summary") {
+        showReceipt({
+          label: action.label,
+          state: "not_executed",
+          summary: "The summary remains visible in this experience. File download is not used in this host.",
+          executed: false,
+          requiresApproval: false,
+          nextSteps: ["Use the conversation to request a copyable summary."]
+        }, trigger);
+        return;
+      }
+      if (!canCallTools()) {
+        await hostMessage(`${action.label}: ${action.description}`);
+        return;
+      }
+      trigger.disabled = true;
+      const original = trigger.textContent;
+      trigger.textContent = "Preparing...";
+      try {
+        const receipt = await callTool("prepare_employee_action", {
+          request: {
+            scenario_id: value(experience, "scenarioId", "scenario_id"),
+            action_id: value(action, "actionId", "action_id"),
+            form_values: gatherFormValues(),
+            confirmed: false
+          }
+        });
+        showReceipt(receipt, trigger);
+      } catch (error) {
+        announce("The action draft could not be prepared.");
+      } finally {
+        trigger.disabled = false;
+        trigger.textContent = original;
+      }
+    }
+
+    function renderExperience(data) {
+      state.payload = data;
+      app.replaceChildren();
+      app.appendChild(topbar(`${list(data, "selectedAgents", "selected_agents").length} specialists selected for ${data.title}`));
+      const content = node("section", "content");
+      const hero = node("section", "hero");
+      const meta = node("div", "hero-meta");
+      meta.append(
+        badge(categoryLabel(data.category)),
+        badge(value(data, "statusLabel", "status_label")),
+        badge(`${list(data, "sources", "sources").length} cited sources`)
+      );
+      hero.append(meta, node("h1", "", data.title), node("p", "", data.subtitle));
+      hero.appendChild(renderMetrics(list(data, "metrics", "metrics")));
+      content.appendChild(hero);
+
+      const phases = list(data, "phases", "phases");
+      const agents = list(data, "selectedAgents", "selected_agents");
+      const agentsById = new Map(agents.map((agent) => [value(agent, "agentId", "agent_id"), agent]));
+      const workPanel = node("section", "panel");
+      const workHeader = node("div", "panel-header");
+      const workCopy = node("div");
+      workCopy.appendChild(node("h2", "", "Observable work"));
+      workCopy.appendChild(node(
+        "div",
+        "panel-subtitle",
+        "Public specialist selection and execution stages. No private chain-of-thought."
+      ));
+      workHeader.append(workCopy, badge(`${phases.length} stages`, "brand"));
+      workPanel.append(workHeader, renderStageRail(phases, agentsById));
+      content.appendChild(workPanel);
+
+      const details = node("details", "panel work");
+      const summary = node("summary", "", `Show selected squad (${agents.length})`);
+      details.appendChild(summary);
+      const workBody = node("div", "work-body");
+      workBody.appendChild(renderAgents(agents));
+      details.appendChild(workBody);
+      content.appendChild(details);
+
+      const grid = node("div", "section-grid");
+      list(data, "sections", "sections").forEach((section) => grid.appendChild(renderSection(section)));
+      content.appendChild(grid);
+
+      if (!list(data, "sections", "sections").some((section) => section.kind === "source_drawer")) {
+        const sources = node("section", "panel");
+        sources.dataset.sectionKind = "source_drawer";
+        sources.append(node("h2", "", "Sources"), renderSources(list(data, "sources", "sources")));
+        content.appendChild(sources);
+      }
+
+      const trust = node("div", "trust-strip");
+      const scope = node("div");
+      scope.append(node("strong", "", "Evidence scope"));
+      scope.appendChild(node("span", "", value(data, "dataScope", "data_scope")));
+      const boundary = node("div");
+      boundary.append(node("strong", "", "Action boundary"));
+      boundary.appendChild(node("span", "", value(data, "trustBoundary", "trust_boundary")));
+      trust.append(scope, boundary);
+      content.appendChild(trust);
+      app.appendChild(content);
+
+      const dock = node("section", "action-dock");
+      dock.setAttribute("aria-label", "Scenario actions");
+      const actionCopy = node("div", "action-copy");
+      actionCopy.appendChild(node("div", "action-title", "Take the next safe step"));
+      actionCopy.appendChild(node("div", "action-note", "Write-like actions prepare a draft and name the approver. They never execute here."));
+      const actions = node("div", "action-row");
+      list(data, "actions", "actions").forEach((action, index) => {
+        const button = makeButton(
+          action.label,
+          index === list(data, "actions", "actions").length - 1 ? "primary" : "subtle",
+          (event) => handleScenarioAction(action, data, event.currentTarget)
+        );
+        button.title = action.description;
+        actions.appendChild(button);
+      });
+      const galleryButton = makeButton("All scenarios", "subtle", async () => {
+        galleryButton.disabled = true;
+        try {
+          if (canCallTools()) renderPayload(await callTool("list_employee_scenarios", {}));
+          else await hostMessage("Show the Agent IQ Employee Operations scenario gallery.");
+        } catch (error) {
+          announce("The scenario gallery could not be loaded.");
+          galleryButton.disabled = false;
+        }
+      });
+      actions.prepend(galleryButton);
+      dock.append(actionCopy, actions);
+      app.appendChild(dock);
+      app.setAttribute("aria-busy", "false");
+      scheduleSize();
+      announce(`${data.title} experience ready with ${agents.length} selected specialists.`);
+    }
+
+    function renderReceipt(data) {
+      if (state.payload && value(state.payload, "scenarioId", "scenario_id")) {
+        renderExperience(state.payload);
+        showReceipt(data, null);
+      } else {
+        app.replaceChildren(topbar("Safe employee action receipt"));
+        const content = node("section", "content");
+        const panel = node("section", "panel");
+        panel.appendChild(node("h1", "", data.label || "Action receipt"));
+        panel.appendChild(node("p", "muted", data.summary));
+        content.appendChild(panel);
+        app.appendChild(content);
+        showReceipt(data, null);
+      }
+    }
+
+    function renderFailure(message) {
+      app.replaceChildren(topbar("Employee Operations unavailable"));
+      const error = node("section", "error-card");
+      error.setAttribute("role", "alert");
+      error.appendChild(node("h1", "", "The experience could not be rendered"));
+      error.appendChild(node("p", "", message));
+      app.appendChild(error);
+      app.setAttribute("aria-busy", "false");
+      scheduleSize();
+      announce(message);
+    }
+
+    function renderPayload(payload) {
+      state.hasPayload = true;
+      stopRestoreMonitor();
+      if (payload && payload.isError === true) {
+        renderFailure("The tool returned an error. No successful employee action is being claimed.");
+        return;
+      }
+      const data = normalized(payload);
+      if (Array.isArray(data.scenarios)) {
+        renderCatalog(data);
+      } else if (value(data, "scenarioId", "scenario_id") && Array.isArray(value(data, "sections", "sections"))) {
+        renderExperience(data);
+      } else if (value(data, "receiptId", "receipt_id") || data.executed === false) {
+        renderReceipt(data);
+      } else {
+        renderFailure("The host returned no recognized Employee Operations data.");
+      }
+    }
+
+    window.addEventListener("message", (event) => {
+      if (event.source !== window.parent || !event.data || typeof event.data !== "object") return;
+      const message = event.data;
+      const key = requestKey(message.id);
+      if (message.id !== undefined && pending.has(key)) {
+        const task = pending.get(key);
+        pending.delete(key);
+        window.clearTimeout(task.timer);
+        if (message.error) task.reject(new Error(message.error.message || "Host request failed"));
+        else task.resolve(message.result);
+        return;
+      }
+      if (message.method === "ui/resource-teardown" && message.id !== undefined) {
+        stopRestoreMonitor();
+        if (sizeFrame !== null) cancelAnimationFrame(sizeFrame);
+        pending.forEach((task) => window.clearTimeout(task.timer));
+        pending.clear();
+        window.parent.postMessage({ jsonrpc: "2.0", id: message.id, result: {} }, "*");
+        return;
+      }
+      if (message.method === "ui/notifications/tool-input-partial"
+        || message.method === "ui/notifications/tool-input") {
+        app.setAttribute("aria-busy", "true");
+      } else if (message.method === "ui/notifications/tool-result") {
+        renderPayload(message.params);
+      } else if (message.method === "ui/notifications/tool-cancelled") {
+        renderFailure("The host cancelled this operation before an experience was available.");
+      } else if (message.method === "ui/notifications/host-context-changed") {
+        applyHostContext(message.params || {});
+      }
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        if (state.modal) closeModal();
+        else if (state.hostContext.displayMode === "fullscreen") requestDisplayMode();
+      }
+    });
+
+    window.addEventListener("openai:set_globals", () => {
+      restoreOpenAiOutput();
+    });
+
+    async function initialize() {
+      try {
+        const result = await rpc("ui/initialize", {
+          protocolVersion: "2026-01-26",
+          appCapabilities: { availableDisplayModes: ["inline", "fullscreen"] },
+          appInfo: { name: "agent-iq-employee-operations", version: "1.0.0" }
+        }, 5000);
+        state.hostCapabilities = result && result.hostCapabilities || {};
+        applyHostContext(result && result.hostContext || {});
+        notify("ui/notifications/initialized");
+        state.bridgeReady = true;
+        scheduleSize();
+      } catch (error) {
+        state.bridgeReady = false;
+        console.error("Agent IQ Employee Operations initialization failed", error);
+      }
+      restoreOpenAiOutput();
+    }
+
+    startRestoreMonitor();
+    initialize();
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+{
+  "bindings": [
+    {
+      "corpusIds": [
+        "consumer-market-brand-consumer-kb",
+        "consumer-safety-regulatory-quality-kb"
+      ],
+      "knowledgeBindingId": "consumer-consumer-care-kb"
+    },
+    {
+      "corpusIds": [
+        "consumer-market-brand-consumer-kb"
+      ],
+      "knowledgeBindingId": "consumer-market-brand-consumer-kb"
+    },
+    {
+      "corpusIds": [
+        "consumer-product-innovation-kb"
+      ],
+      "knowledgeBindingId": "consumer-product-innovation-kb"
+    },
+    {
+      "corpusIds": [
+        "consumer-safety-regulatory-quality-kb"
+      ],
+      "knowledgeBindingId": "consumer-safety-regulatory-quality-kb"
+    },
+    {
+      "corpusIds": [
+        "consumer-supply-manufacturing-kb"
+      ],
+      "knowledgeBindingId": "consumer-supply-manufacturing-kb"
+    },
+    {
+      "corpusIds": [
+        "employee-vacation-leave-kb"
+      ],
+      "knowledgeBindingId": "employee-vacation-leave-kb"
+    },
+    {
+      "corpusIds": [
+        "employee-it-helpdesk-kb"
+      ],
+      "knowledgeBindingId": "employee-it-helpdesk-kb"
+    },
+    {
+      "corpusIds": [
+        "employee-expense-kb"
+      ],
+      "knowledgeBindingId": "employee-expense-kb"
+    },
+    {
+      "corpusIds": [
+        "employee-identity-security-kb"
+      ],
+      "knowledgeBindingId": "employee-identity-security-kb"
+    }
+  ],
+  "schemaVersion": "1.0"
+}
