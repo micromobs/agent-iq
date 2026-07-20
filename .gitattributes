@@ -8,3 +8,7 @@
 *.html text eol=lf
 *.zip binary
 *.ps1 text eol=crlf
+
+# Deterministic canvas build output must stay LF to match vite output on all
+# platforms (Windows CI checks out with autocrlf; check-build.mjs compares bytes).
+.github/extensions/agent-iq-canvas/web/** text eol=lf
