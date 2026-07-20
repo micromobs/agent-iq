@@ -1,6 +1,6 @@
 # Agent IQ Repository Guide
 
-This generated index covers all **467** files in the release tree. Regenerate it with:
+This generated index covers all **469** files in the release tree. Regenerate it with:
 
 ```powershell
 uv run python .\scripts\generate_repository_guide.py
@@ -16,7 +16,7 @@ For task-oriented setup, start with the [README](../README.md), [Azure deploymen
 | `.github` | 15 |
 | `apps` | 21 |
 | `deployments` | 9 |
-| `docs` | 34 |
+| `docs` | 36 |
 | `evals` | 6 |
 | `packages` | 58 |
 | `schemas` | 37 |
@@ -97,6 +97,8 @@ For task-oriented setup, start with the [README](../README.md), [Azure deploymen
 | `docs/decisions/0003-canary-promotion.md` | Documentation: ADR 0003: Parallel canary and explicit promotion. |
 | `docs/decisions/0004-structured-evidence.md` | Documentation: ADR 0004: Structured evidence is the citation authority. |
 | `docs/decisions/0005-microsoft-boundaries.md` | Documentation: ADR 0005: Build on Microsoft systems of record. |
+| `docs/demo/agent-iq-demo.gif` | Image asset. |
+| `docs/demo/agent-iq-demo.mp4` | Repository asset for agent iq demo. |
 | `docs/DEMO_RUNBOOK.md` | Documentation: Demo runbook. |
 | `docs/DEPLOY_TO_AZURE.md` | Documentation: Deploy Agent IQ to Azure. |
 | `docs/EMPLOYEE_OPERATIONS_DEMO.md` | Documentation: Agent IQ Employee Operations demo. |

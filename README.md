@@ -10,6 +10,15 @@ replayable execution record.
 [![Python 3.11+](https://img.shields.io/badge/Python-3.11%2B-3776AB)](https://www.python.org/)
 [![A2A](https://img.shields.io/badge/A2A-1.0-5B5FC7)](https://a2a-protocol.org/)
 
+<p align="center">
+  <a href="docs/demo/agent-iq-demo.mp4">
+    <img src="docs/demo/agent-iq-demo.gif" width="820"
+         alt="Agent IQ 30-second demo: a vacation-balance question in Microsoft 365 Copilot Cowork, Agent IQ intercepting the intent and discovering the right agent, and the result returned in an Apple-style activity ring." />
+  </a>
+</p>
+
+<p align="center"><em>30-second demo &mdash; <a href="docs/demo/agent-iq-demo.mp4">watch the MP4</a> &middot; synthetic, offline data only</em></p>
+
 Agent IQ is an early preview. The local experience is credential-free and
 deterministic. Azure deployment creates billable resources and currently uses
 an anonymous Cowork connector suitable only for personal/demo environments.
