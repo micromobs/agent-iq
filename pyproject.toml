@@ -26,7 +26,7 @@ dependencies = [
     "azure-search-documents==12.1.0b1",
     "fastapi>=0.115,<1",
     "httpx>=0.28,<1",
-    "mcp>=1.26,<2",
+    "mcp>=1.26,<3",
     "opentelemetry-api>=1.31,<2",
     "pyjwt[crypto]>=2.10,<3",
     "pydantic>=2.10,<3",
@@ -41,18 +41,18 @@ Repository = "https://github.com/micromobs/agent-iq"
 Issues = "https://github.com/micromobs/agent-iq/issues"
 
 [build-system]
-requires = ["uv_build>=0.11.22,<0.12.0"]
+requires = ["uv_build>=0.11.22,<0.13.0"]
 build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
     "detect-secrets>=1.5,<2",
-    "mypy>=1.15,<2",
+    "mypy>=1.15,<3",
     "pillow>=12.3,<13",
     "pytest>=9.0.3,<10",
-    "pytest-cov>=6,<7",
+    "pytest-cov>=6,<8",
     "ruff>=0.11,<1",
-    "types-protobuf>=6.30,<7",
+    "types-protobuf>=6.30,<8",
     "types-pyyaml>=6.0.12,<7",
 ]
 foundry = [
@@ -62,7 +62,7 @@ foundry = [
     "langchain-azure-ai[hosting]>=1.2.4,<2",
     "langchain-mcp-adapters>=0.2,<1",
     "langgraph>=1.0,<2",
-    "pydantic-ai-slim[openai]==2.9.0",
+    "pydantic-ai-slim[openai]==2.21.0",
     "pyyaml>=6,<7",
 ]
 
