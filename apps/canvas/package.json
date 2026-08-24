@@ -15,21 +15,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.12.1",
-    "@playwright/test": "1.61.1",
-    "@testing-library/jest-dom": "6.6.4",
-    "@testing-library/react": "16.3.0",
-    "@types/node": "24.3.0",
-    "@types/react": "19.1.10",
-    "@types/react-dom": "19.1.7",
-    "@vitejs/plugin-react": "6.0.3",
-    "jsdom": "26.1.0",
-    "typescript": "5.9.2",
-    "vite": "8.1.2",
-    "vitest": "4.1.9"
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.62.1",
+    "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.2",
+    "@types/node": "26.2.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
+    "jsdom": "30.0.1",
+    "typescript": "7.0.2",
+    "vite": "8.2.1",
+    "vitest": "4.1.10"
   }
 }
